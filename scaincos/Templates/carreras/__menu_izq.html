@@ -1,0 +1,46 @@
+<nav class="sidebar (light)">
+    <ul>
+        <li class="title">Opciones</li>
+        <li class="divider"></li>
+        <li class="stick bg-violet">
+            <a href="{% url 'carrera.views.index_carrera' %}">Listado de Carreras</a>
+        </li>
+        <li class="stick bg-blue">
+            <a href="{% url 'carrera.views.new_carrera' %}">Nueva Carrera</a>
+        </li>
+        <li class="stick bg-pink">
+            <a href="{% url 'carrera.views.list_detail_carrera' %}">Detalle Carrera</a>
+        </li>
+        <li class="stick bg-yellow">
+            <a href="{% url 'carrera.views.change_carrera' %}">Modificar Carrera</a>
+        </li>
+        <li class="stick bg-emerald">
+            <a href="{% url 'carrera.views.list_carrera_plan' %}">Plan Curricular</a>
+        </li>
+        <li class="divider"></li>
+        <li class="title">
+            Grupos
+        </li>
+        <li class="stick bg-teal">
+            <a href="{% url 'carrera.views.index_grupos' %}">Listado de Grupos</a>
+        </li>
+        <li class="stick bg-olive">
+            <a href="{% url 'carrera.views.new_grupo' %}">Crear Grupo</a>
+        </li>
+        <li class="title">
+            Materias
+        </li>
+        <li class="stick bg-lightGreen">
+            <a href="{% url 'carrera.views.index_materia' %}">Listado de Materias</a>
+        </li>
+        <li class="stick bg-amber">
+            <a href="{% url 'carrera.views.new_materia' %}">Nueva Materia</a>
+        </li>
+        <li class="stick bg-violet">
+            <a href="{% url 'carrera.views.list_materias_update' %}">Modificar Materia</a>
+        </li>
+        <li class="stick bg-orange">
+            <a href="{% url 'carrera.views.list_materias_requisitos' %}">Agregar Requisitos</a>
+        </li>
+    </ul>
+</nav>

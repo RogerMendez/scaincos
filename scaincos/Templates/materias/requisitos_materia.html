@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}
+Requisitos Carreras
+{% endblock %}
+{% block menu_izq %}
+{% include 'carreras/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="span11">
+        <div class="row">
+            <div class="row">
+                <div class="span6">
+                    <p class="readable-text">
+                        <strong>Carrera: </strong>{{ carrera.nombre }}
+                    </p>
+                </div>
+                <div class="span5">
+                    <p class="readable-text">
+                        <strong>Cantidad de Materias: </strong>{{ carrera.materia_set.select_related.count }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <p class="readable-text">
+                        <strong>Materia: </strong>{{ materia.nombre }}
+                    </p>
+                </div>
+                <div class="span5">
+                    <p class="readable-text">
+                        <strong>Nivel de Materia: </strong>{{ materia.nivel }}
+                    </p>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="span5 text-center">
+                    <h4>Requisitos Asignados</h4>
+                    <hr/>
+                    <table class="table border">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Sigla</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for asignado in asignados %}
+                            <tr>
+                                <td>{{ asignado.to_materia }}</td>
+                                <td>{{ asignado.to_materia.sigla }}</td>
+                                <td>
+                                    <a href="{% url 'carrera.views.remove_requisito' asignado.id %}">
+                                        <i class="fa fa-remove"></i> Quitar
+                                    </a>
+                                </td>
+                            </tr>                        
+                        {% endfor %}
+                        
+                        </tbody>
+                    </table>
+                </div>
+                <div class="span1">
+                </div>
+                <div class="span5 text-center">
+                    <h4>Materias Sin Asignar</h4>
+                    <hr/>
+                    <table class="table border">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Sigla</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for s_a in s_asignar %}
+                            <tr>
+                                <td>{{ s_a }}</td>
+                                <td>{{ s_a.sigla }}</td>
+                                <td>
+                                    <a href="{% url 'carrera.views.add_requisito' materia.id s_a.id %}">
+                                        <i class="fa fa-plus-circle"></i> Agregar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

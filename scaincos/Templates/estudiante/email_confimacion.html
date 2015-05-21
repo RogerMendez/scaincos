@@ -1,0 +1,10 @@
+{% extends 'email.html' %}
+{% block cuerpo %}
+    <h2>Cuenta Creada Correctamente</h2>
+    <p style="font-family: Arial; font-size: 14px;">
+        <strong>Nombre de Usuario: </strong> {{ username }}
+    </p>
+    <p style="font-family: Arial; font-size: 14px;">
+        <strong>Contraseña: </strong>{{ password }}
+    </p>
+{% endblock %}

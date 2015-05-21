@@ -1,0 +1,35 @@
+{% extends 'base_reporte.html' %}
+{% block cuerpo %}
+    <h1>Listado de Administrativos</h1>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th width="50px">#</th>
+                <th width="200px">Nombre Materia</th>
+                <th width="70px">Sigla</th>
+                <th width="70px">Nivel</th>
+                <th>Requisitos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for materia in materias %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ materia.nombre }}</td>
+                    <td>{{ materia.sigla|upper }}</td>
+                    <td>{{ materia.nivel }}</td>
+                    <td>
+                        {% for r in materia.requ %}
+                            - {{ r.to_materia.sigla|upper }}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div id="footerContent">
+        Pagina <pdf:pagenumber>
+    </div>
+{% endblock %}

@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %}
+Docentes
+{% endblock %}
+{% block menu_izq %}
+{% include 'gestion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="span11">
+        <h2>Aula  --  <strong>{{ aula.nro|upper }}</strong></h2>
+    </div>
+</div>
+<hr/>
+<div class="row">
+    <div class="span11">
+        <table class="table hovered bordered">
+            <thead>
+            <tr>
+                <th width="50px">Hr.</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miercoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Sabado</th>
+                <th>Domingo</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% load helper_gestion %}
+                {% for h in horas %}
+                    <tr>
+                        <td class="hora">{{ h }}</td>
+                        <td class="">
+                            {% if h|verificar_horario:'Lunes'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                {% for a in h|verificar_horario:'Lunes'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                    <a href="{% url 'gestion.views.remove_materia_horario' a.id %}" title="Quitar" class="fg-red">
+                                        <i class="fa fa-close"></i>
+                                    </a>{{ a.asignaciondocente.materia.sigla }}/{{ a.asignaciondocente.grupo.abreviacion }}
+                                {% endfor %}
+                            {% else %}
+                                <a href="#" class="createFlatWindow" title="Lunes">
+                                    <i class="fa fa-plus-circle"></i> Agregar
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if h|verificar_horario:'Martes'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                {% for a in h|verificar_horario:'Martes'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                    <a href="{% url 'gestion.views.remove_materia_horario' a.id %}" title="Quitar" class="fg-red">
+                                        <i class="fa fa-close"></i>
+                                    </a>{{ a.asignaciondocente.materia.sigla }}/{{ a.asignaciondocente.grupo.abreviacion }}
+                                {% endfor %}
+                            {% else %}
+                                <a href="#" class="createFlatWindow" title="Martes">
+                                    <i class="fa fa-plus-circle"></i> Agregar
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if h|verificar_horario:'Miercoles'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                {% for a in h|verificar_horario:'Miercoles'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                    <a href="{% url 'gestion.views.remove_materia_horario' a.id %}" title="Quitar" class="fg-red">
+                                        <i class="fa fa-close"></i>
+                                    </a>{{ a.asignaciondocente.materia.sigla }}/{{ a.asignaciondocente.grupo.abreviacion }}
+                                {% endfor %}
+                            {% else %}
+                                <a href="#" class="createFlatWindow" title="Miercoles">
+                                    <i class="fa fa-plus-circle"></i> Agregar
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if h|verificar_horario:'Jueves'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                {% for a in h|verificar_horario:'Jueves'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                    <a href="{% url 'gestion.views.remove_materia_horario' a.id %}" title="Quitar" class="fg-red">
+                                        <i class="fa fa-close"></i>
+                                    </a>{{ a.asignaciondocente.materia.sigla }}/{{ a.asignaciondocente.grupo.abreviacion }}
+                                {% endfor %}
+                            {% else %}
+                                <a href="#" class="createFlatWindow" title="Jueves">
+                                    <i class="fa fa-plus-circle"></i> Agregar
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if h|verificar_horario:'Viernes'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                {% for a in h|verificar_horario:'Viernes'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                    <a href="{% url 'gestion.views.remove_materia_horario' a.id %}" title="Quitar" class="fg-red">
+                                        <i class="fa fa-close"></i>
+                                    </a>{{ a.asignaciondocente.materia.sigla }}/{{ a.asignaciondocente.grupo.abreviacion }}
+                                {% endfor %}
+                            {% else %}
+                                <a href="#" class="createFlatWindow" title="Viernes">
+                                    <i class="fa fa-plus-circle"></i> Agregar
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if h|verificar_horario:'Sabado'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                {% for a in h|verificar_horario:'Sabado'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                    <a href="{% url 'gestion.views.remove_materia_horario' a.id %}" title="Quitar" class="fg-red">
+                                        <i class="fa fa-close"></i>
+                                    </a>{{ a.asignaciondocente.materia.sigla }}/{{ a.asignaciondocente.grupo.abreviacion }}
+                                {% endfor %}
+                            {% else %}
+                                <a href="#" class="createFlatWindow" title="Sabado">
+                                    <i class="fa fa-plus-circle"></i> Agregar
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if h|verificar_horario:'Domingo'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                {% for a in h|verificar_horario:'Domingo'|verificar_aula:aula.id|verificar_gestion:request.session.gestion %}
+                                    <a href="{% url 'gestion.views.remove_materia_horario' a.id %}" title="Quitar" class="fg-red">
+                                        <i class="fa fa-close"></i>
+                                    </a>{{ a.asignaciondocente.materia.sigla }}/{{ a.asignaciondocente.grupo.abreviacion }}
+                                {% endfor %}
+                            {% else %}
+                                <a href="#" class="createFlatWindow" title="Domingo">
+                                    <i class="fa fa-plus-circle"></i> Agregar
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    $("a.createFlatWindow").on('click', function(){
+        var content = "";
+        var gestion = {{ request.session.gestion }};
+        var dia = $(this).attr('title');
+        var tr = $(this).parent().parent();
+        var hora = tr.find("td.hora").html();
+        $.ajax({
+            data:{'gestion': gestion, 'aula':"{{ aula.id }}", 'dia':dia, 'hora':hora},
+            url:"{% url 'gestion.views.ajax_materia_horario' %}",
+            type:'GET',
+            success: function(data){
+                content = data;
+                $.Dialog({
+                    overlay: true,
+                    shadow: true,
+                    flat: true,
+                    icon: '<img src="/static/images/excel2013icon.png">',
+                    title: 'Flat window',
+                    content: '',
+                    width: 500,
+                    padding: 10,
+                    onShow: function(_dialog){
+                        $.Dialog.title("Listado de Materias");
+                        $.Dialog.content(content);
+                        $.Metro.initInputs();
+                    }
+                });
+            },
+            failure: function(data){
+                console.log('error')
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

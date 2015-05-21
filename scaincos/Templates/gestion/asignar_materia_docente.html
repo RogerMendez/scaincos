@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}
+Gestiones
+{% endblock %}
+{% block menu_izq %}
+{% include 'gestion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="span8">
+        <h2><i class="fa fa-users"></i> <strong>Informacion de Docente</strong></h2>
+        <p class="">
+            <strong>Nombre Completo: </strong>{{ docente.persona.paterno }} {{ docente.persona.materno }}, {{ docente.persona.nombre }}
+        </p>
+        <p>
+            <strong>Cedula de Identidad: </strong> {{ docente.persona.ci }}
+        </p>
+        <p>
+            <strong>Nro. Docente: </strong>{{ docente.nro_docente }}
+        </p>
+    </div>
+    <div class="span2">
+        <img src="/media/{{ docente.persona.avatar }}" alt=""/>
+    </div>
+</div>
+<div class="row">
+    <div class="span2">
+        <h3 class="text-center">Carreras</h3>
+        <nav class="sidebar light">
+            <ul>
+                {% for a in asignados %}
+                    <li class="carreras">
+                        <a href="#" class="ncarrera" id="{{ a.carrera.id }}">{{ a.carrera.nombre }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+    <div class="span5" id="materiascarrera">
+        <h3 class="text-center">Materias</h3>
+    </div>
+    <div class="span4" id="materiasasignadas">
+        <h3 class="text-center">Materias Asignadas</h3>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    materias_asignadas();
+    $('a.ncarrera').click(function(){
+        $('.carreras').removeClass('active');
+        id = $(this).attr('id');
+        var li = $(this).parent();
+        li.addClass('active');
+        $.ajax({
+            data:{'carrera_id': id, 'docente_id':"{{ docente.id }}"},
+            url:"{% url 'gestion.views.ajax_materias_carrera' %}",
+            type:'GET',
+            success: function(data){
+                $('#materiascarrera').html(data);
+                //materias_asignadas();
+            },
+            failure: function(data){
+                console.log('error')
+            }
+        });
+    });
+    function materias_asignadas(){
+        $.ajax({
+            data:{'docente_id': "{{ docente.id}}"},
+            url:"{% url 'gestion.views.ajax_materias_asignadas_docente' %}",
+            type:'GET',
+            success: function(data){
+                $('#materiasasignadas').html(data);
+            },
+            failure: function(data){
+                console.log('error')
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

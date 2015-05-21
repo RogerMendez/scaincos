@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ user.username|upper }}
+{% endblock %}
+{% block menu_izq %}
+{% include 'usuarios/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+Bienvenido {{ user.username }}
+    <p>hello</p>
+    <p>{{ request.session.type }}</p>
+    <p>{{ request.session.gestion }}</p>
+{% endblock %}

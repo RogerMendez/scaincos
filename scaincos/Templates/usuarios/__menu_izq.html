@@ -1,0 +1,14 @@
+<nav class="sidebar (light)">
+    <ul>
+        <li class="title">Opciones</li>
+        <li class="divider"></li>
+        <li class="stick bg-yellow">
+            <a href="{% url 'usuarios.views.change_password' %}">Cambiar Contraseña</a>
+        </li>
+        <li class="stick bg-red">
+            <a href="{% url 'usuarios.views.logout_user' %}" class="bd-white fg-yellow">
+                <span class="fg-white icon-cancel"></span> SALIR
+            </a>
+        </li>
+    </ul>
+</nav>

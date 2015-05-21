@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+Docentes
+{% endblock %}
+{% block menu_izq %}
+{% include 'gestion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Aulas</h2>
+    <div class="span11">
+        <table class="table striped hovered">
+            <thead>
+            <tr>
+                <th width="50px">#</th>
+                <th>Nro. De Aula</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for aula in aulas %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ aula.nro }}</td>
+                        <td>
+                            <a href="{% url 'gestion.views.aula_view_horario' aula.id %}" class="button success">
+                                <i class="fa fa-plus-circle"></i> Seleccionar
+                            </a>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

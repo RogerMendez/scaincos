@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+Administrativos
+{% endblock %}
+{% block menu_izq %}
+{% include 'administrativos/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Administrativos</h2>
+    <div class="span11">
+        {% if administrativos %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Cedula de Identidad</th>
+                        <th>Nro. de Item</th>
+                        <th>Nombre Completo</th>
+                        <th>Dirección</th>
+                        <th>Cargo Ocupado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for adm in administrativos %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ adm.persona.ci }}</td>
+                            <td>{{ adm.nro_item }}</td>
+                            <td>{{ adm.persona.paterno }} {{ adm.persona.materno }}, {{ adm.persona.nombre }}</td>
+                            <td>{{ adm.persona.direccion }}</td>
+                            <td>{{ adm.cargo }}</td>
+                            <td>
+                                <a href="{% url 'personal.views.update_administrativo' adm.persona.id %}" class="button warning">
+                                    <i class="fa fa-pencil-square-o"></i> Modificar
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <a href="{% url 'personal.views.new_administrativo' %}" class="button warning">Registrar Administrativo</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

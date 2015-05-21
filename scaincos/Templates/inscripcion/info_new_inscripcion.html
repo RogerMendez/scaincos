@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}
+Gestiones
+{% endblock %}
+{% block menu_izq %}
+{% include 'inscripcion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="row">
+        <div class="span6">
+            <h4>Informacion de Estudiante</h4>
+            <blockquote>
+                <strong>Cedula de Identidad: </strong>{{ estudiante.persona.ci }}
+            </blockquote>
+            <blockquote>
+                <strong>Nombre Completo: </strong>{{ estudiante.persona.paterno }} {{ estudiante.persona.materno }}, {{ estudiante.persona.nombre }}
+            </blockquote>
+            <blockquote>
+                <strong>Nro. Estudiante: </strong>{{ estudiante.nro_estudiante }}
+            </blockquote>
+            <blockquote>
+                <strong>Telfono: </strong> {{ estudiante.persona.telefono }}
+            </blockquote>
+            <blockquote>
+                <strong>Fecha Nacimiento: </strong>{{ estudiante.persona.fecha_nac }}
+            </blockquote>
+        </div>
+        <div class="span5">
+            <h4>Informacion de Inscripcion</h4>
+            <blockquote class="">
+                <strong>Carrera: </strong> {{ carrera.nombre }}
+            </blockquote>
+            <blockquote>
+                <strong>Costo Inscripcion: </strong>{{ ges_ca.c_inscripcion }} Bs.
+            </blockquote>
+            <blockquote>
+                <strong>Costo Matricula Gestion {{ request.session.gestion }}: </strong>{{ ges_ca.c_matricula }} Bs.
+            </blockquote>
+        </div>
+    </div>
+<div class="row">
+    <div class="span3">
+        <a href="{% url 'inscripcion.views.confirm_new_inscripcion' carrera.id estudiante.id %}" class="button large success">
+            <i class="fa fa-check-square"></i> Confirmar Inscripcion
+        </a>
+    </div>
+    <div class="span3">
+        <a href="{% url 'inscripcion.views.select_carrera_inscripcion' %}" class="button large danger">
+            <i class="fa fa-close"></i> Cancelar Inscripcion
+        </a>
+    </div>
+    <div class="span5"></div>
+</div>
+</div>
+{% endblock %}

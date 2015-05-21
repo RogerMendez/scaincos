@@ -1,0 +1,10 @@
+[
+{
+    "fields": {
+        "gestion": 2015,
+        "usuario": 1
+    },
+    "model": "gestion.gestion",
+    "pk": 1
+}
+]

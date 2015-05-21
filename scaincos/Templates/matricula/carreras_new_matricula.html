@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}
+Gestiones
+{% endblock %}
+{% block menu_izq %}
+{% include 'matricula/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+    {% load helper_inscripciones %}
+<div class="row">
+    <h2>Seleccionar Carrera</h2>
+    {% for carrera in carreras %}
+        <div class="accordion" data-role="accordion">
+            <div class="accordion-frame ">
+                <a class="heading {% cycle 'bg-amber' 'bg-lightTeal' 'bg-green' 'bg-cyan' %}" href="#">
+                    <strong>{{ forloop.counter }} - {{ carrera.nombre|upper }}</strong>
+                </a>
+                <div class="content">
+                    <div class="row">
+                        <div class="accordion span8" data-role="accordion">
+                            <div class="accordion-frame">
+                                <a href="#" class="heading bg-yellow">
+                                    <strong>Estudiantes sin Matricula</strong>
+                                </a>
+                                <div class="content">
+                                    <table class="table hovered bordered striped">
+                                        <thead>
+                                        <tr>
+                                            <th width="50px">#</th>
+                                            <th>Cedula Identidad</th>
+                                            <th>Nro. Estudiante</th>
+                                            <th>Nombre Completo</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for estu in carrera.id|estu_sin_matricula:request.session.gestion %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ estu.persona.ci }}</td>
+                                                <td>{{ estu.nro_estudiante }}</td>
+                                                <td>{{ estu.persona.nombre }} {{ estu.persona.paterno }} {{ estu.persona.materno }}</td>
+                                                <td>
+                                                    <a href="{% url 'inscripcion.views.info_new_matricula' carrera.id estu.id %}" class="button info">
+                                                        Seleccionar
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span2">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

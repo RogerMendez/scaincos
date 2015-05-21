@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+Carreras
+{% endblock %}
+{% block menu_izq %}
+{% include 'carreras/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Carreras</h2>
+    <div class="span11">
+        {% if carreras %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <tr>
+                        <th width="30px">#</th>
+                        <th>Nombre Carrera</th>
+                        <th>Tiempo De Estudios</th>
+                        <th>Fecha de Creacion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ca in carreras %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ ca.nombre }}</td>
+                            <td>{{ ca.tiempo }} Año(s)</td>
+                            <td>{{ ca.fecha_creacion }}</td>
+                            <td>
+                                <a href="{% url 'carrera.views.detail_carrera' ca.id %}" class="button warning">
+                                    <i class="fa fa-info-circle"></i> Detalle
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <a href="{% url 'carrera.views.new_carrera' %}" class="button warning">Registrar Carrera</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

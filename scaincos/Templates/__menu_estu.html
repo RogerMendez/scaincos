@@ -1,0 +1,36 @@
+<div class="navigation-bar dark">
+    <div class="navigation-bar-content container">
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'usuarios.views.info_usuario' %}" class="element"><span class="icon-grid-view"></span> {{ user.username|upper }}</a>
+            <span class="element-divider"></span>
+        {% else %}
+            <a href="/" class="element"><span class="icon-grid-view"></span> INCOS <sup>1.0</sup></a>
+            <span class="element-divider"></span>
+        {% endif %}
+        <a class="element1 pull-menu" href="#"></a>
+        <ul class="element-menu">
+            <li>
+                {% if user.is_authenticated %}
+                    <a class="dropdown-toggle" href="#">Usuario</a>
+                    <ul class="dropdown-menu" data-role="dropdown">
+                        <li>
+                            <a title="Cerrar Sesion" href="{% url 'usuarios.views.logout_user' %}" class="  fg-red">
+                                <span class="icon-user"></span> Cerrar Sesion
+                            </a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <a title="Iniciar Sesion" href="{% url 'usuarios.views.login_user' %}" class="fg-yellow">
+                        <span class="icon-user"></span> Iniciar Sesion
+                    </a>
+                {% endif %}
+            </li>
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="">Notas</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ carrera.nombre|upper }} Detalle
+{% endblock %}
+{% block menu_izq %}
+{% include 'carreras/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2><i class="fa fa-users"></i> <strong>Informacion de Carrera</strong></h2>
+    <div class="row">
+        <div class="span6">
+            <p class="readable-text">
+                <strong>Nombre de Carrera: </strong>{{ carrera.nombre }}
+            </p>
+            <p class="tertiary-text">
+                <strong>Costo Mensual:</strong> {{ carrera.costo }} Bs.
+            </p>
+        </div>
+        <div class="span5">
+            <p class="tertiary-text">
+                <strong>Fecha De Creacion</strong> {{ carrera.fecha_creacion }}
+            </p>
+            <p class="tertiary-text">
+                <strong>Tiempo de Carrera: </strong>{{ carrera.tiempo }} Año(s)
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span11">
+            <p class="readable-text text-bold">
+                <strong>Reseña de Carrera:</strong>
+            </p>
+            <p>
+                {{ carrera.resenha }}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}
+Listados de Carreras
+{% endblock %}
+{% block menu_izq %}
+{% include 'gestion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Carreras Asignadas</h2>
+    <div class="span11">
+        {% if asignados %}
+            <table class="table hovered border">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Carrera</th>
+                        <th>Tiempo</th>
+                        <th>Costo Inscripcion</th>
+                        <th>Costo Matricula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in asignados %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ a.carrera.nombre }}</td>
+                            <td>{{ a.carrera.tiempo }} Año(s)</td>
+                            <td>{{ a.c_inscripcion }} Bs.</td>
+                            <td>{{ a.c_matricula }} Bs.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+    <hr/>
+<div class="row">
+<div class="span11">
+    <div class="panel" data-role="panel">
+        <div class="panel-header">
+            Carreras Sin Asignar
+        </div>
+        <div class="panel-content">
+            <table class="table hovered border">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Carrera</th>
+                    <th>Tiempo</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for s_a in S_asignar %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ s_a.nombre }}</td>
+                        <td>{{ s_a.tiempo }} Año(s)</td>
+                        <td>
+                            <a href="{% url 'gestion.views.add_carrera_gestion' s_a.id %}" class="button info">
+                                <i class="fa fa-plus-circle"></i> Asignar Carrera
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

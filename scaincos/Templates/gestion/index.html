@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}
+Gestiones
+{% endblock %}
+{% block menu_izq %}
+{% include 'gestion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Gestiones</h2>
+    <div class="span11">
+        {% if gestiones %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Gestion</th>
+                        <th>Carreras Asignadas</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for gestion in gestiones %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ gestion.gestion }}</td>
+                            <td>
+                                {% if gestion.gestion_carrera_set.select_related.count == 0 %}
+                                    Ninguna
+                                {% else %}
+                                    {{ gestion.gestion_carrera_set.select_related.count }} Carrera (s)
+                                {% endif %} 
+                            </td>
+                            <td>
+                                <a href="{% url 'gestion.views.change_gestion_session' gestion.id %}" class="button danger">
+                                    <i class="fa fa-yelp"></i> Seleccionar gestion
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        {% else %}
+            <a href="{% url 'personal.views.new_docente' %}" class="button warning">Registrar Gestion</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

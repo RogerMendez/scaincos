@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}
+Administrativos
+{% endblock %}
+{% block menu_izq %}
+{% include 'administrativos/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Administrativos</h2>
+    <p>
+        <a href="{% url 'personal.views.pdf_administrativos' %}" class="button success">VER PDF</a>
+    </p>
+    <div class="span11">
+        {% if administrativos %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Cedula de Identidad</th>
+                        <th>Nro. de Item</th>
+                        <th>Nombre Completo</th>
+                        <th>Dirección</th>
+                        <th>Cargo Ocupado</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for adm in administrativos %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ adm.persona.ci }}</td>
+                            <td>{{ adm.nro_item }}</td>
+                            <td>{{ adm.persona.paterno }} {{ adm.persona.materno }}, {{ adm.persona.nombre }}</td>
+                            <td>{{ adm.persona.direccion }}</td>
+                            <td>{{ adm.cargo }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <a href="{% url 'personal.views.new_administrativo' %}" class="button warning">Registrar Administrativo</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

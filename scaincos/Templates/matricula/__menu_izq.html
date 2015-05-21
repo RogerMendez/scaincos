@@ -1,0 +1,14 @@
+<nav class="sidebar (light)">
+    <ul>
+        <li class="title">Opciones</li>
+        <li class="divider"></li>
+        <li class="stick bg-yellow">
+            <a href="{% url 'inscripcion.views.index_matricula' %}">Matriculas</a>
+        </li>
+        <li class="stick bg-red">
+            <a href="{% url 'inscripcion.views.select_carrera_new_matricula' %}" class="bd-white">
+                Comprar Matricula
+            </a>
+        </li>
+    </ul>
+</nav>

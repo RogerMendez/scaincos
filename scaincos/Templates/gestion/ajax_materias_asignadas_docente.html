@@ -1,0 +1,25 @@
+<h3 class="text-center">Materias Asignadas</h3>
+<table class="table striped3n">
+    <thead>
+    <tr>
+        <th>Carrera</th>
+        <th>Materia</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for a in asignaciones %}
+        <tr>
+            <td>{{ a.materia.carrera.nombre }}</td>
+            <td>{{ a.materia.nombre }}</td>
+            <td>{{ a.grupo.grupo }}</td>
+            <td>
+                <a href="{% url 'gestion.views.remove_asignacion' a.id %}" class="button danger">
+                    Quitar
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

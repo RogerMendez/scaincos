@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}
+Matriculas
+{% endblock %}
+{% block menu_izq %}
+{% include 'matricula/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Estudiantes Matriculados en la Gestion {{ request.session.gestion }}</h2>
+    <div class="span11">
+        {% if matriculas %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Cedula Identidad</th>
+                        <th>Nro. Estudiante</th>
+                        <th>Nombre Completo</th>
+                        <th>Telefono</th>
+                        <th>Fecha de Inscripcion</th>
+                        <th>Carrera</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for matricula in matriculas %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ matricula.inscripcion.estudiante.persona.ci }}</td>
+                            <td>{{ matricula.inscripcion.estudiante.nro_estudiante }}</td>
+                            <td>{{ matricula.inscripcion.estudiante.persona.nombre }} {{ matricula.inscripcion.estudiante.persona.paterno }} {{ matricula.inscripcion.estudiante.persona.materno }}</td>
+                            <td>{{ matricula.inscripcion.estudiante.persona.telefono }}</td>
+                            <td>{{ matricula.fecha_registro|date:"M, d" }}</td>
+                            <td>{{ matricula.inscripcion.carrera.nombre }}</td>
+                        </tr>                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

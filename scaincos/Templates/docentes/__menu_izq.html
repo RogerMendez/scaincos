@@ -1,0 +1,18 @@
+<nav class="sidebar (light)">
+    <ul>
+        <li class="title">Opciones</li>
+        <li class="divider"></li>
+        <li class="stick bg-violet">
+            <a href="{% url 'personal.views.index_docente' %}">Listado de Docentes</a>
+        </li>
+        <li class="stick bg-blue">
+            <a href="{% url 'personal.views.new_docente' %}">Nuevo Docente</a>
+        </li>
+        <li class="stick bg-pink">
+            <a href="{% url 'personal.views.list_detail_docente' %}">Detalle Docente</a>
+        </li>
+        <li class="stick bg-yellow">
+            <a href="{% url 'personal.views.change_docente' %}">Modificar Docente</a>
+        </li>
+    </ul>
+</nav>

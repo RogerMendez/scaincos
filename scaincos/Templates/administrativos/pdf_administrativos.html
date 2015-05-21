@@ -1,0 +1,35 @@
+{% extends 'base_reporte.html' %}
+{% block cuerpo %}
+    <h1>Listado de Administrativos</h1>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+                <tr>
+                    <th width="30px">#</th>
+                    <th>Cedula de Identidad</th>
+                    <th>Nro. de Item</th>
+                    <th>Nombre Completo</th>
+                    <th>Dirección</th>
+                    <th>Cargo Ocupado</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for adm in administrativos %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ adm.persona.ci }}</td>
+                        <td>{{ adm.nro_item }}</td>
+                        <td>{{ adm.persona.paterno }} {{ adm.persona.materno }}, {{ adm.persona.nombre }}</td>
+                        <td>{{ adm.persona.direccion }}</td>
+                        <td>{{ adm.cargo }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+    </table>
+
+    <div id="footerContent">
+        Pagina <pdf:pagenumber>
+    </div>
+{% endblock %}

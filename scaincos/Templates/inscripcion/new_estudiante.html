@@ -1,0 +1,45 @@
+{% extends 'form_upload.html' %}
+{% block legend %}
+Nuevo Estudiante
+{% endblock %}
+{% block menu_izq %}
+{% include 'inscripcion/__menu_izq.html' %}
+{% endblock %}
+{% block title %}
+Nuevo Estudiante
+{% endblock %}
+{% block cuerpo_form %}
+    {% for field in perform %}
+        {{ field.label_tag }}
+        <div class="input-control text{% if field.errors %} error-state{% endif %}" data-role="input-control">
+            {{ field }}
+        </div>
+        {% if field.errors %}
+            <div class="balloon bottom bd-red bg-red">
+                {{ field.errors }}
+            </div>
+        {% endif %}
+        {% if field.help_text %}
+            <p class="fg-green">
+                <small><span class="icon-alert"></span> {{ field.help_text }}</small>
+            </p>
+        {% endif %}
+    {% endfor %}
+    {% for field in estform %}
+        {{ field.label_tag }}
+        <div class="input-control text{% if field.errors %} error-state{% endif %}" data-role="input-control">
+            {{ field }}
+        </div>
+        {% if field.errors %}
+            <div class="balloon bottom bd-red bg-red">
+                {{ field.errors }}
+            </div>
+        {% endif %}
+        {% if field.help_text %}
+            <p class="fg-green">
+                <small><span class="icon-alert"></span> {{ field.help_text }}</small>
+            </p>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

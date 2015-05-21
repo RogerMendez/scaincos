@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}
+Administrativos
+{% endblock %}
+{% block menu_izq %}
+{% include 'estudiante/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Estudiantes</h2>
+    <p>
+        {% if perms.usuarios.report_estudiante %}
+            <a href="" class="button success">VER PDF</a>
+        {% endif %}
+    </p>
+    <div class="span11">
+        {% if estudiantes %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Cedula de Identidad</th>
+                        <th>Nro. de Estudiante</th>
+                        <th>Nombre Completo</th>
+                        <th>Dirección</th>
+                        <th>Fecha de Ingreso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for est in estudiantes %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ est.persona.ci }}</td>
+                            <td>{{ est.nro_estudiante }}</td>
+                            <td>{{ est.persona.paterno }} {{ est.persona.materno }}, {{ est.persona.nombre }}</td>
+                            <td>{{ est.persona.direccion }}</td>
+                            <td>{{ est.fecha_ingreso|date:"j M Y" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            {% if perms.usuario.add_estudiante %}
+                <p class="fg-lightgreen">No existen Estudiantes registrados</p>
+                <a href="{% url 'personal.views.new_estudiante' %}" class="button warning">Registrar Estudiante</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+Docentes
+{% endblock %}
+{% block menu_izq %}
+{% include 'docentes/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Docentes</h2>
+    <div class="span11">
+        {% if docentes %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Cedula de Identidad</th>
+                        <th>Nro. de Docente</th>
+                        <th>Nombre Completo</th>
+                        <th>Dirección</th>
+                        <th>Fecha Ingreso</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doc in docentes %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ doc.persona.ci }}</td>
+                            <td>{{ doc.nro_docente }}</td>
+                            <td>{{ doc.persona.paterno }} {{ doc.persona.materno }}, {{ doc.persona.nombre }}</td>
+                            <td>{{ doc.persona.direccion }}</td>
+                            <td>{{ doc.fecha_ingreso }}</td>
+                            <td>
+                                <a href="{% url 'personal.views.update_docente' doc.id %}" class="button warning">
+                                    <i class="fa fa-pencil-square-o"></i> Modificar
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <a href="{% url 'personal.views.new_docente' %}" class="button warning">Registrar Docente</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

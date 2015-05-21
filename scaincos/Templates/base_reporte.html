@@ -1,0 +1,143 @@
+{# encoding=utf-8 #}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>Reporte</title>
+        <style>
+            @page {
+                size: {{ pagesize }};
+                margin-left: 2.5cm;
+                margin-top: 3cm;
+                margin-right: 1cm;
+                margin-bottom:1cm;
+                @frame header {
+                    -pdf-frame-content: headerContent;
+                    top:0.5cm;
+                    margin-left: 1cm;
+                    margin-right: 1cm;
+                    margin-bottom: 2cm;
+                    }
+                @frame footer {
+                    -pdf-frame-content: footerContent;
+                    bottom: 0cm;
+                    margin-left: 6cm;
+                    margin-right: 6cm;
+                    height: 1cm;
+                }
+            }
+            header h2{
+                color: #26AAAF;
+                display: block;
+                font-family: courier;
+                font-size: 25px;
+                vertical-align: bottom;
+                margin-bottom: 0px;
+                width: 320px;
+            }
+            .barra{
+                font-size: 2px;
+                background: #000000;
+                line-height: 1em;
+            }
+            h1{
+                font-family: Helvetica;
+                font-size: 20px;
+            }
+            .consulta{
+                border: solid red 1px;
+            }
+            table {
+                max-width: 100%;
+                background-color: transparent;
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+            .table th{
+                padding: 2px;
+                line-height: 20px;
+                text-align: center;
+                vertical-align: top;
+                border-top: 1px solid #000000;
+            }
+            .table td {
+                padding: 2px;
+                line-height: 20px;
+                vertical-align: top;
+                border-top: 1px solid #000000;
+            }
+            .table-bordered th, .table-bordered td {
+                border-left: 1px solid #FFFFFF;
+                border-right: 1px solid #FFFFFF;
+                border-bottom: 1px solid #FFFFFF;
+            }
+            .table th{
+                color: #ffffff;
+                padding: 3px;
+                font-size: 12px;
+                background: #00090e;
+            }
+            .table td{
+                font-size: 12px;
+                vertical-align: middle;
+            }
+            .table tbody tr.success td {
+                background-color: #dff0d8;
+                font-size: 15px;
+            }
+            .table-1 th, .table-1 td {
+                padding: 2px;
+                line-height: 20px;
+                text-align: left;
+                vertical-align: top;
+                font-size: 12px;
+            }
+            h2{
+                color: #26AAAF;
+                display: block;
+                font-family: courier;
+                font-size: 19px;
+                vertical-align: bottom;
+                margin-bottom: 0px;
+            }
+            .table td.datos{
+                text-align: left;
+            }
+            .lead{
+                font-size: 14px;
+            }
+        </style>
+        <style type="text/css">
+            .navbar-inner{
+                border: solid 1px #d4d4d4;
+                background: #fafafa;
+            }
+            p{
+                color: #000000;
+            }
+            #banner{
+                height: 100px;
+                width: auto;
+            }
+            .cabecera{
+                height: 350px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="headerContent">
+            <header>
+                <div class="cabecera">
+                    <img  src="{{ STATIC_URL }}images/banner_reporte.jpg" alt="banner" height="100px" width="1024px"/>
+                </div>
+            </header>
+            <div class="barra">s</div>
+        </div>
+        <section class="consulta">
+            {% block cuerpo %}
+                <h1>Hola Reporte!!!!</h1>
+            {% endblock %}
+        </section>
+   </body>
+</html>

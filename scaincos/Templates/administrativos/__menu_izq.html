@@ -1,0 +1,18 @@
+<nav class="sidebar (light)">
+    <ul>
+        <li class="title">Opciones</li>
+        <li class="divider"></li>
+        <li class="stick bg-violet">
+            <a href="{% url 'personal.views.index_administrativo' %}">Listado de Administrativos</a>
+        </li>
+        <li class="stick bg-blue">
+            <a href="{% url 'personal.views.new_administrativo' %}">Nuevo Administrativo</a>
+        </li>
+        <li class="stick bg-pink">
+            <a href="{% url 'personal.views.list_detail_administrativo' %}">Detalle Administrativo</a>
+        </li>
+        <li class="stick bg-yellow">
+            <a href="{% url 'personal.views.change_administrativo' %}">Modificar Administrativo</a>
+        </li>
+    </ul>
+</nav>

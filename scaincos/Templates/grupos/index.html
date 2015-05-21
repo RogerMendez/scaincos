@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}
+Grupos
+{% endblock %}
+{% block menu_izq %}
+{% include 'carreras/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Grupos</h2>
+    <div class="span11">
+        <table class="table hovered border myClass">
+            <thead>
+                <tr>
+                    <th width="30px">#</th>
+                    <th>Grupo</th>
+                    <th>Abreviacion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for grupo in grupos %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ grupo.grupo }}</td>
+                        <td>{{ grupo.abreviacion }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

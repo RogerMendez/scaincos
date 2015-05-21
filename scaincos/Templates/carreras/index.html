@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+Carreras
+{% endblock %}
+{% block menu_izq %}
+{% include 'carreras/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Carrera</h2>
+    {% if perms.carrera.report_docente %}
+        <p>
+            <a href="" class="button success">VER PDF</a>
+        </p>
+    {% endif %}
+    <div class="span11">
+        {% if carreras %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Nombre Carrera</th>
+                        <th>Tiempo De Estudios</th>
+                        <th>Fecha de Creacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ca in carreras %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ ca.nombre }}</td>
+                            <td>{{ ca.tiempo }} Año(s)</td>
+                            <td>{{ ca.fecha_creacion }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <a href="{% url 'carrera.views.new_carrera' %}" class="button warning">Registrar Carrera</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

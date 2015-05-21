@@ -1,0 +1,23 @@
+<nav class="sidebar (light)">
+    <ul>
+        <li class="title">Opciones</li>
+        <li class="divider"></li>
+        <li class="stick bg-violet">
+            <a href="{% url 'gestion.views.index_gestion' %}">Gestiones</a>
+        </li>
+        <li class="stick bg-blue">
+            <a href="{% url 'gestion.views.new_gestion' %}">Nueva Gestion </a>
+        </li>
+        <li class="stick bg-pink">
+            <a href="{%  url 'gestion.views.list_carreras_gestion' %}">Agregar Carreras </a>
+        </li>
+        <li class="stick bg-red">
+            <a href="{% url 'gestion.views.asignar_select_docente' %}">Docente Materia</a>
+        </li>
+        <li class="stick bg-olive">
+            <a href="{% url 'gestion.views.select_aula_horario' %}">
+                Crear Horario
+            </a>
+        </li>
+    </ul>
+</nav>
