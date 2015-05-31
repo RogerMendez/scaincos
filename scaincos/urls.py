@@ -105,4 +105,20 @@ urlpatterns = patterns('',
     url(r'^horario/remove/(?P<horario_id>\d+)/horario/$', 'gestion.views.remove_materia_horario'),
 
     url(r'^ajax/horario/materia/asignacion/$', 'gestion.views.ajax_materia_horario'),
+
+
+   #MODULO ESTUDIANTE
+   url(r'^estudiante/$', 'estudiante.views.index_estudiante'),
+   url(r'^estudiante/programacion/$', 'estudiante.views.programacion'),
+   url(r'^estudiante/programar/$', 'estudiante.views.programar'),
+   url(r'^estudiante/notas/$', 'estudiante.views.notas'),
+
+   #MODULO DOCENTE
+   url(r'^docente/$', 'docente.views.index_docente'),
+   url(r'^docente/mis/materias/$', 'docente.views.mis_materias'),
+   url(r'^docente/materia/(?P<asig_id>\d+)/estudiantes/$', 'docente.views.estudiantes_materia'),
+   url(r'^docente/materias/notas/$', 'docente.views.materias_docente_notas'),
+   url(r'^docente/materia/(?P<asig_id>\d+)/estudiantes/notas/$', 'docente.views.estudiantes_materia_notas'),
+   url(r'^docente/notas/(?P<pro_id>\d+)/(?P<asig_id>\d+)/estudiantes/subir/$', 'docente.views.subir_notas_pro'),
+
 )

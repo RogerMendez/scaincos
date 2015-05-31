@@ -6,3 +6,4 @@ from institucion.models import Aula
 class AulaForm(ModelForm):
     class Meta:
         model = Aula
+        fields =  '__all__'

@@ -1,0 +1,33 @@
+{% extends 'form.html' %}
+{% block title %}
+Subir Notas
+{% endblock %}
+{% block menu_izq %}
+{% include 'usuarios/__menu_izq.html' %}
+{% endblock %}
+{% block info_form %}
+<div class="row">
+    <div class="span6">
+        <h4>Informacion Estudiente</h4>
+        <blockquote>
+            <strong>Cedula de Identidad: </strong>{{ progra.inscripcion.estudiante.persona.ci }}
+        </blockquote>
+        <blockquote>
+            <strong>Nombre Completo: </strong>{{ progra.inscripcion.estudiante.persona.nombre }} {{ progra.inscripcion.estudiante.persona.paterno }} {{ progra.inscripcion.estudiante.persona.materno }}
+        </blockquote>
+    </div>
+    <div class="span5">
+        <h4>Informacion Materia</h4>
+        <blockquote>
+            <strong>Materia: </strong> {{ progra.materia.nombre }}
+        </blockquote>
+        <blockquote>
+            <strong>Gestion: </strong> {{ request.session.gestion }}
+        </blockquote>
+    </div>
+</div>
+{% endblock %}
+{% block legend %}
+Subir Notas
+{% endblock %}
+{% block submit %}Guardar{% endblock %}

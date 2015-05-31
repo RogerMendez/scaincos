@@ -3,7 +3,7 @@
     <thead>
     <tr>
         <th>Nombre</th>
-        <th>Sigla</th>
+        <th>Nivel</th>
         <th>Grupo</th>
         <th></th>
     </tr>
@@ -13,7 +13,7 @@
         {% for g in materia.grupo.all %}
             <tr>
             <td>{{ materia.nombre }}</td>
-            <td>{{ materia.sigla }}</td>
+            <td>{{ materia.nivel }}</td>
             <td>
                 {{ g }}
             </td>

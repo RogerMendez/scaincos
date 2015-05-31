@@ -12,6 +12,9 @@ from django.db.models import Max
 from usuarios.models import Persona
 from gestion.models import Gestion
 
+from estudiante.views import index_estudiante
+from docente.views import index_docente
+
 def index(request):
     return render(request, 'base.html', {
 		})
@@ -72,7 +75,10 @@ def logout_user(request):
 
 @login_required(login_url='/login')
 def info_usuario(request):
-
+    if  request.session['type'] == 'Estudiante' :
+        return HttpResponseRedirect(reverse(index_estudiante))
+    if request.session['type'] == 'Docente' :
+        return HttpResponseRedirect(reverse(index_docente))
     return render(request,'usuarios/info_usuario.html',{
 
     })

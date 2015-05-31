@@ -42,6 +42,10 @@ INSTALLED_APPS = (
     'gestion',
     'carrera',
     'inscripcion',
+    'estudiante',
+    'docente',
+    'pagination',
+    'asistencia',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,6 +56,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'pagination.middleware.PaginationMiddleware',
 )
 
 ROOT_URLCONF = 'scaincos.urls'

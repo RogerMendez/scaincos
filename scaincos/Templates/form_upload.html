@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block cuerpo %}
+    {% block info_form %}{% endblock %}
     <div class="row">
         <div class="span7">
             <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}

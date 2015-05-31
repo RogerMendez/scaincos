@@ -43,7 +43,7 @@
                 {% include '__menu.html' %}
             {% endif %}
             {% if request.session.type == "Docente" %}
-
+                {% include '__menu_doc.html' %}
             {% endif %}
         {% else %}
             {% include '__menu.html' %}

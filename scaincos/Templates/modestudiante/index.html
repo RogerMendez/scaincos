@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ persona.nombre|upper }} {{ persona.paterno|upper }}
+{% endblock %}
+{% block menu_izq %}
+{% include 'usuarios/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2><i class="fa fa-users"></i> <strong>Informacion de Estudiante</strong></h2>
+    <div class="span3">
+        <img src="/media/{{ estudiante.persona.avatar }}" alt="{{ estudiante.persona.nombre }}"/>
+        <hr/>
+        <p class="subheader-secondary text-center">{{ estudiante.persona.usuario.username }}</p>
+        <hr/>
+        <p><strong><i class="fa fa-clock-o"></i> Registrado el</strong> {{ estudiante.persona.usuario.date_joined|date:"d M Y" }}</p>
+    </div>
+    <div class="span7 bd-black">
+        <h4 class="text-center">Datos Personales</h4>
+        <p class="readable-text">
+            <strong>Nombre Completo:</strong> {{ estudiante.persona.nombre }} {{ estudiante.persona.paterno }} {{ estudiante.persona.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Cedula de Identidad:</strong> {{ estudiante.persona.ci }}
+        </p>
+        <p class="readable-text">
+            <strong>Nro. Estudiante: </strong>{{ estudiante.nro_estudiante }}
+        </p>
+        <p class="readable-text">
+            <strong>Fecha de Nacimiento: </strong>{{ estudiante.persona.fecha_nac }}
+        </p>
+        <p class="readable-text">
+            <strong>Telefono / Celular: </strong>{{ estudiante.persona.telefono }}
+        </p>
+        <p class="readable-text">
+            <strong>Correo Electronico: </strong>{{ estudiante.persona.email }}
+        </p>
+        <p class="readable-text">
+            <strong>Fecha de Ingreso: </strong>{{ estudiante.fecha_ingreso|date:"d - M - Y" }}
+        </p>
+    </div>
+</div>
+    <hr/>
+<div class="row">
+    <h2><i class="fa fa-home"></i> <strong>Informacion de Inscripcion</strong></h2>
+    <div class="span11">
+        <p class="readable-text">
+            <strong>Carrera: </strong>{{ inscripcion.carrera }}
+        </p>
+        <p class="readable-text">
+            <strong>Fecha de Inscripcion: </strong> {{ inscripcion.fecha_registro }}
+        </p>
+        <p class="readable-text">
+            <strong>Gestion de Inscripcion: </strong>{{ inscripcion.gestion }}
+        </p>
+    </div>
+</div>
+{% endblock %}

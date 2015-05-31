@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+Mterias Docentes
+{% endblock %}
+{% block menu_izq %}
+{% include 'usuarios/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Materias</h2>
+    <div class="span11">
+        <table class="table striped hovered">
+            <thead>
+            <tr>
+                <th width="50px">#</th>
+                <th>Carreraa</th>
+                <th>Materia</th>
+                <th>Grupo</th>
+                <th>Grupo</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for asig in asignaciones %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ asig.materia.carrera.nombre }}</td>
+                        <td>{{ asig.materia.nombre }}</td>
+                        <td>{{ asig.materia.sigla }}</td>
+                        <td>{{ asig.grupo }}</td>
+                        <td>
+                            <a href="{% url 'docente.views.estudiantes_materia_notas' asig.id %}" class="button info">Estudiantes</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

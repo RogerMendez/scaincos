@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+Administrativos
+{% endblock %}
+{% block menu_izq %}
+{% include 'usuarios/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2>Listado de Estudiantes</h2>
+    <div class="span11">
+        {% if estudiantes %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Cedula de Identidad</th>
+                        <th>Nro. de Estudiante</th>
+                        <th>Nombre Completo</th>
+                        <th>Dirección</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for est in estudiantes %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ est.persona.ci }}</td>
+                            <td>{{ est.nro_estudiante }}</td>
+                            <td>{{ est.persona.paterno }} {{ est.persona.materno }}, {{ est.persona.nombre }}</td>
+                            <td>{{ est.persona.direccion }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}
+Administrativos
+{% endblock %}
+{% block menu_izq %}
+{% include 'usuarios/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="span11">
+        <h2><strong>Materia: </strong>{{ materia.nombre }}</h2>
+    </div>
+</div>
+<div class="row">
+    <h2>Listado de Estudiantes</h2>
+    <h3><strong>Gestion: </strong>{{ request.session.gestion }}</h3>
+    <div class="span11">
+        {% if estudiantes %}
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Cedula de Identidad</th>
+                        <th>Nro. de Estudiante</th>
+                        <th>Nombre Completo</th>
+                        <th>1T.</th>
+                        <th>2T.</th>
+                        <th>3T.</th>
+                        <th>PPA</th>
+                        <th>EH</th>
+                        <th>PPF</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pro in programaciones %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ pro.inscripcion.estudiante.persona.ci }}</td>
+                            <td>{{ pro.inscripcion.estudiante.nro_estudiante }}</td>
+                            <td>{{ pro.inscripcion.estudiante.persona.paterno }} {{ pro.inscripcion.estudiante.persona.materno }}, {{ pro.inscripcion.estudiante.persona.nombre }}</td>
+                            <td>{{ pro.priner }}</td>
+                            <td>{{ pro.segundo }}</td>
+                            <td>{{ pro.tercer }}</td>
+                            <td>{{ pro.promedio }}</td>
+                            <td>{{ pro.segundo_T }}</td>
+                            <td>{{ pro.final }}</td>
+                            <td>
+                                <a href="{% url 'docente.views.subir_notas_pro' pro.id asignacion.id %}">Notas</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

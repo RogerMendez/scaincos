@@ -12,6 +12,7 @@ class Inscripcion(models.Model):
     carrera = models.ForeignKey(Carrera)
     gestion = models.ForeignKey(Gestion)
     usuario = models.ForeignKey(User, null=True)
+    estado = models.BooleanField(default=True)
     def __unicode__(self):
         return str(self.estudiante.persona.ci)
     def __str__(self):

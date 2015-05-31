@@ -28,7 +28,10 @@
             </li>
             {% if user.is_authenticated %}
                 <li>
-                    <a href="">Notas</a>
+                    <a href="{% url 'estudiante.views.programacion' %}">Programacion</a>
+                </li>
+                <li>
+                    <a href="{% url 'estudiante.views.notas' %}">Notas</a>
                 </li>
             {% endif %}
         </ul>

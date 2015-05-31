@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ persona.nombre|upper }} {{ persona.paterno|upper }}
+{% endblock %}
+{% block menu_izq %}
+{% include 'usuarios/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2><i class="fa fa-users"></i> <strong>Informacion de Estudiante</strong></h2>
+    <div class="span3">
+        <img src="/media/{{ docente.persona.avatar }}" alt="{{ docente.persona.nombre }}"/>
+        <hr/>
+        <p class="subheader-secondary text-center">{{ docente.persona.usuario.username }}</p>
+        <hr/>
+        <p><strong><i class="fa fa-clock-o"></i> Registrado el</strong> {{ docente.persona.usuario.date_joined|date:"d M Y" }}</p>
+    </div>
+    <div class="span7 bd-black">
+        <h4 class="text-center">Datos Personales</h4>
+        <p class="readable-text">
+            <strong>Nombre Completo:</strong> {{ docente.persona.nombre }} {{ docente.persona.paterno }} {{ docente.persona.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Cedula de Identidad:</strong> {{ docente.persona.ci }}
+        </p>
+        <p class="readable-text">
+            <strong>Nro. Item: </strong>{{ docente.nro_docente }}
+        </p>
+        <p class="readable-text">
+            <strong>Fecha de Nacimiento: </strong>{{ docente.persona.fecha_nac }}
+        </p>
+        <p class="readable-text">
+            <strong>Telefono / Celular: </strong>{{ docente.persona.telefono }}
+        </p>
+        <p class="readable-text">
+            <strong>Correo Electronico: </strong>{{ docente.persona.email }}
+        </p>
+        <p class="readable-text">
+            <strong>Fecha de Ingreso: </strong>{{ docente.fecha_ingreso|date:"d - M - Y" }}
+        </p>
+    </div>
+</div>
+<hr/>
+{% endblock %}

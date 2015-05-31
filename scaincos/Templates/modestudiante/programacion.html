@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}
+Programacion
+{% endblock %}
+{% block menu_izq %}
+{% include 'usuarios/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+{% load helper_estudiante %}
+<div class="row">
+    <div class="span11">
+        <table class="table striped">
+            <thead>
+                <tr>
+                    <th width="50px">#</th>
+                    <th>Materia</th>
+                    <th>Sigla</th>
+                    <th>Nivel</th>
+                    <th>Grupo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for materia in materias %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ materia.nombre }}</td>
+                        <td>{{ materia.sigla }}</td>
+                        <td>{{ materia.nivel }}</td>
+                        {% if materia.id|materiaprogramada:request.session.gestion|materiaprogramadaestu:inscripcion.id %}
+                            <td>
+                            {% for pro in materia.id|materiaprogramada:request.session.gestion|materiaprogramadaestu:inscripcion.id %}
+                                {{ pro.grupo     }}
+                            {% endfor %}
+
+                            </td>
+                            <td class="programacion">
+                                Programado
+                            </td>
+                        {% else %}
+                            <td>
+                                <div class="input-control select">
+                                    <select name="_grupo">
+                                        <option></option>
+                                        {% for grupo in materia.grupo.all %}
+                                            <option value="{{ grupo.id }}">{{ grupo }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </td>
+                            <td class="programacion">
+                                <a href="#" id="{% url 'estudiante.views.programar' %}?materia={{ materia.id}}&grupo=">Programar</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('select').change(function(){
+            var valor = $(this).val();
+            if (valor){
+                var td = $(this).parent().parent();
+                var tr = td.parent();
+                var a = tr.find('td.programacion').find('a');
+                a.attr('href', a.attr('id') + valor );
+            }
+            else{
+                var td = $(this).parent().parent();
+                var tr = td.parent();
+                var a = tr.find('td.programacion').find('a');
+                a.attr('href', "#");
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -110,7 +110,7 @@ def new_materia(request):
             log_addition(request, m, 'Materia Creada')
             sms = 'Materia <strong>%s</strong> Creada Correctamente'% (m.nombre)
             messages.info(request, sms)
-            return HttpResponseRedirect(reverse(index_carrera))
+            return HttpResponseRedirect(reverse(index_materia))
     else:
         formulario = MateriaForm()
     return render(request, 'materias/new.html', {
