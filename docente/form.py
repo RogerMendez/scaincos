@@ -6,4 +6,4 @@ from estudiante.models import Programacion
 class NotasForm(ModelForm):
     class Meta:
         model = Programacion
-        exclude = ['inscripcion', 'materia', 'grupo', 'gestion']
+        exclude = ['inscripcion', 'materia', 'grupo', 'gestion', 'final']

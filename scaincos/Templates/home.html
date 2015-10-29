@@ -1,0 +1,132 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="{% static 'css/my_style.css' %}">
+    <link href="{% static 'css/metro-bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/metro-bootstrap-responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'css/iconFont.css' %}" rel="stylesheet">
+    <link href="{% static 'css/docs.css' %}" rel="stylesheet">
+    <link href="{% static 'js/prettify/prettify.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'packicon/css/font-awesome.min.css' %}"/>
+
+    <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery/jquery.widget.min.js' %}"></script>
+    <script src="{% static 'js/jquery/jquery.mousewheel.js' %}"></script>
+    <script src="{% static 'js/prettify/prettify.js' %}"></script>
+
+    <script src="{% static 'js/metro.min.js' %}"></script>
+
+    <script src="{% static 'js/docs.js' %}"></script>
+    <title>Incos | {% block title %}Inicio{% endblock %}</title>
+
+    <style>
+    </style>
+</head>
+<body class="metro">
+    <header class="bg-dark">
+        {% if user.is_authenticated %}
+            {% if request.session.type == 'Estudiante' %}
+                {% include '__menu_estu.html' %}
+            {% endif %}
+            {% if request.session.type == "Administrativo" or request.session.type == 'Admin' %}
+                {% include '__menu.html' %}
+            {% endif %}
+            {% if request.session.type == "Docente" %}
+                {% include '__menu_doc.html' %}
+            {% endif %}
+        {% else %}
+            {% include '__menu.html' %}
+        {% endif %}
+    </header>
+
+    <div class="">
+        <div class="container">
+            <div class="grid">
+                {% block body %}
+                    <div class="row">
+                        <div class="span3">
+                            {% block menu_izq %}
+
+                            {% endblock %}
+                        </div>
+                        <div class="span11">
+                            {% if messages %}
+                                <div class="notice">
+                                    {% for message in messages %}
+                                        <div class="fg-white">
+                                            {{ message|safe }}.
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% block cuerpo %}
+                                <div class="row">
+                                    <div class="tile triple double-vertical ol-transparent bg-white">
+                                        <div class="tile-content">
+                                            <div class="panel no-border">
+                                                <div class="panel-header bg-blue fg-white">Mision</div>
+                                                <div class="panel-content fg-dark nlp nrp">
+                                                    <img src="{{ STATIC_URL }}images/mision.jpg" class="place-left margin10 nlm ntm size2">
+                                                    <p class="text-justify">
+                                                        Garantizar la formación profesional conforme a los principios objetivos y políticas de la educación, fundamentada en el perfeccionamiento del proceso educativo y la interacción social, dotados de capacidad de análisis crítico y reflexivo, para un desempeño laboral de calidad y compromiso.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tile triple double-vertical ol-transparent bg-white">
+                                        <div class="tile-content">
+                                            <div class="panel no-border">
+                                                <div class="panel-header bg-green fg-white">Vision</div>
+                                                <div class="panel-content fg-dark nlp nrp">
+                                                    <img src="{{ STATIC_URL }}images/vision.png" class="place-left margin10 nlm ntm size2">
+                                                    <p class="text-justify">
+                                                        Ser una institución de Educación Superior no Universitaria, propositiva y actualizada, constituida en referente de la formación de profesionales solidarios y competitivos en el área comercial, orientado hacia el logro del desarrollo personal, social y económico. Respetando las diferentes nacionalidades.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="bg-dark">
+            <div class="container" style="padding: 10px 0;">
+
+                <div class="grid no-margin">
+                    <div class="row no-margin">
+                        <div class="span3 padding10">
+                            <img src="{% static 'images/incos.png' %}" alt="" class="polaroid" height="100px"/>
+                        </div>
+                        <div class="span6 padding10">
+                            <h3 class="fg-white">UATF</h3>
+                            <p class="fg-white">Universidad Autonoma Tomas Frias</p>
+                        </div>
+                        <div class="span3 padding10">
+                            <a class="button danger " style="width: 100%; margin-bottom: 5px"  href="">Google Plus</a>
+                            <a class="button info " style="width: 100%; margin-bottom: 5px"  href="">Facebook</a>
+                            <a class="button warning " style="width: 100%; margin-bottom: 5px;"  href="">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container tertiary-text bg-dark fg-white" style="padding: 10px">
+                2015, INCOS &copy; por  <a href="" class="fg-yellow">Mario Laime</a>
+            </div>
+        </div>
+    </div>
+
+    <!--script src="{% static 'js/hitua.js' %}"></script-->
+
+</body>
+</html>

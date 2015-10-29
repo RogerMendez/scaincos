@@ -1,0 +1,32 @@
+{% extends 'form.html' %}
+{% block title %}
+Crear Nro. Folio
+{% endblock %}
+{% block legend %}
+Crear Numero de Folio
+{% endblock %}
+{% block menu_izq %}
+{% include 'notas/__menu_izq.html' %}
+{% endblock %}
+{% block info_form %}
+<div class="row">
+    <div class="span6">
+        <p class="readable-text">
+            <strong>Nombre Completo: </strong>{{ inscripcion.estudiante.persona.nombre }} {{ inscripcion.estudiante.persona.paterno }} {{ inscripcion.estudiante.persona.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Cedula de Identidad: </strong>{{ inscripcion.estudiante.persona.ci }}
+        </p>
+        <p></p>
+    </div>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Gestion de Ingreso: </strong>{{ inscripcion.gestion.gestion }}
+        </p>
+        <p class="readable-text">
+            <strong>Carrera: </strong>{{ inscripcion.carrera.nombre }}
+        </p>
+    </div>
+</div>
+{% endblock %}
+{% block submit %}Crear{% endblock %}

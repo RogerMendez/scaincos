@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+Docentes
+{% endblock %}
+{% block menu_izq %}
+{% include 'asistencia/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="span11">
+        <form action="" method="get">{% csrf_token %}
+            {% include 'form_include.html' %}
+            <input type="submit" value="Buscar" class="button default"/>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <h2>Asistencias en fecha: <strong>{{ fecha|date:"l" }}  -  {{ fecha|date:"d M Y" }}</strong></h2>
+    <div class="span11">
+        <table class="table striped">
+            <thead>
+                <tr>
+                    <th width="50px">#</th>
+                    <th>Cedula de Identidad</th>
+                    <th>Nombre Completo</th>
+                    <th>Fecha Asistencia</th>
+                    <th>Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in asistencias %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ a.persona.ci }}</td>
+                        <td>{{ a.persona.nombre }} {{ a.persona.paterno }} {{ a.persona.nombre }}</td>
+                        <td>{{ a.fecha }}</td>
+                        <td class="text-right">{{ a.hora|time }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -62,6 +62,7 @@ class Estudiante(models.Model):
 class Docente(models.Model):
     nro_docente = models.IntegerField(unique=True, verbose_name='Codigo Docente')
     fecha_ingreso = models.DateField(verbose_name='Fecha de Ingreso')
+    carga_horario = models.PositiveIntegerField(verbose_name='Carga Horaria Semanal', default=1, help_text='En Horas')
     persona = models.ForeignKey(Persona, unique=True, null=True, blank=True)
     def __unicode__(self):
         return str(self.persona)

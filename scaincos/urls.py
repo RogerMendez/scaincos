@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     url(r'^est/(?P<est_id>\d+)/update/$', 'personal.views.update_estudiante'),
     url(r'^est/list/detail/$', 'personal.views.list_detail_estudiante'),
     url(r'^est/(?P<est_id>\d+)/detail/$', 'personal.views.detail_estudiante'),
+    url(r'^est/pdf/list/$', 'personal.views.pdf_estudianes'),
 
     #DOCENTES
     url(r'^doc/$', 'personal.views.index_docente'),
@@ -60,6 +61,7 @@ urlpatterns = patterns('',
     url(r'^carrera/list/plan/curricular/$', 'carrera.views.list_carrera_plan'),
 
     url(r'^carrera/(?P<carrera_id>\d+)/plan/curricular/$', 'carrera.views.pdf_plan_curricular'),
+    url(r'^carrera/pdf/list/$', 'carrera.views.pdf_carreras'),
 
     #MATERIAS
     url(r'^materia/$', 'carrera.views.index_materia'),
@@ -81,9 +83,15 @@ urlpatterns = patterns('',
     url(r'^gestion/asignar/(?P<docente_id>\d+)/docente/materia/$', 'gestion.views.asignar_materia_docente'),
     url(r'^gestion/asignar/(?P<docente_id>\d+)/docente/(?P<materia_id>\d+)/materia/(?P<grupo_id>\d+)/$', 'gestion.views.add_materia_docente'),
     url(r'^gestion/asignar/remove/(?P<asign_id>\d+)/asignacion/$', 'gestion.views.remove_asignacion'),
+    url(r'^gestion/docente/(?P<docente_id>\d+)/materias/$', 'gestion.views.materias_docente'),
+    url(r'^gestion/pdf/docente/(?P<docente_id>\d+)/materias/$', 'gestion.views.pdf_materias_docente'),
+    url(r'^gestion/materia/(?P<asig_id>\d+)/estudiantes/$', 'gestion.views.estudiantes_docente_materia'),
+    url(r'^gestion/pdf/materia/(?P<asig_id>\d+)/estudiantes/$', 'gestion.views.pdf_estudiantes_docente_materia'),
+    url(r'^gestion/docente/(?P<doc_id>\d+)/horario/$', 'gestion.views.horario_docente'),
 
     url(r'^ajax/materias/carrera/$', 'gestion.views.ajax_materias_carrera'),
     url(r'^ajax/materias/asig/docente/$', 'gestion.views.ajax_materias_asignadas_docente'),
+    url(r'^ajax/gestion/materias/search/$', 'gestion.views.ajax_search_matter'),
 
     #INSCRIPCIONES
     url(r'^insc/$', 'inscripcion.views.index_inscripcion'),
@@ -91,6 +99,8 @@ urlpatterns = patterns('',
     url(r'^insc/new/estudiante/(?P<carrera_id>\d+)/carrera/$', 'inscripcion.views.new_estudiante'),
     url(r'^insc/new/info/(?P<carrera_id>\d+)/carrera/(?P<estu_id>\d+)/est/$', 'inscripcion.views.info_new_inscripxion'),
     url(r'^insc/new/confirm/(?P<carrera_id>\d+)/carrera/(?P<estu_id>\d+)/est$', 'inscripcion.views.confirm_new_inscripcion'),
+    url(r'^insc/carrera/estudiante/all/$', 'inscripcion.views.estudiantes_carrera'),
+    url(r'^insc/(?P<carrera_id>\d+)/carrera/estudiante/all/$', 'inscripcion.views.pdf_estudiantes_arrera'),
 
     #MATICULAS
     url(r'^matricula/$', 'inscripcion.views.index_matricula'),
@@ -105,20 +115,49 @@ urlpatterns = patterns('',
     url(r'^horario/remove/(?P<horario_id>\d+)/horario/$', 'gestion.views.remove_materia_horario'),
 
     url(r'^ajax/horario/materia/asignacion/$', 'gestion.views.ajax_materia_horario'),
+    url(r'^ajax/horario/search/docente/$', 'gestion.views.ajax_search_docente'),
 
+    #ASISTENCIA
+    url(r'^asistencia/$', 'asistencia.views.index'),
+    url(r'^asistencia/new/$', 'asistencia.views.new_asistencia'),
+    url(r'^asistencia/list/docentes/$', 'asistencia.views.asistencia_list_docente'),
+    url(r'^asistencia/(?P<docente_id>\d+)/docentes/$', 'asistencia.views.asistencia_docente'),
 
-   #MODULO ESTUDIANTE
-   url(r'^estudiante/$', 'estudiante.views.index_estudiante'),
-   url(r'^estudiante/programacion/$', 'estudiante.views.programacion'),
-   url(r'^estudiante/programar/$', 'estudiante.views.programar'),
-   url(r'^estudiante/notas/$', 'estudiante.views.notas'),
+    url(r'^asistencia/ajax/horario/docente/$', 'asistencia.views.ajax_horario_docente'),
 
-   #MODULO DOCENTE
-   url(r'^docente/$', 'docente.views.index_docente'),
-   url(r'^docente/mis/materias/$', 'docente.views.mis_materias'),
-   url(r'^docente/materia/(?P<asig_id>\d+)/estudiantes/$', 'docente.views.estudiantes_materia'),
-   url(r'^docente/materias/notas/$', 'docente.views.materias_docente_notas'),
-   url(r'^docente/materia/(?P<asig_id>\d+)/estudiantes/notas/$', 'docente.views.estudiantes_materia_notas'),
-   url(r'^docente/notas/(?P<pro_id>\d+)/(?P<asig_id>\d+)/estudiantes/subir/$', 'docente.views.subir_notas_pro'),
+    #MODULO ESTUDIANTE
+    url(r'^estudiante/$', 'estudiante.views.index_estudiante'),
+    url(r'^estudiante/programacion/$', 'estudiante.views.programacion'),
+    url(r'^estudiante/programar/$', 'estudiante.views.programar'),
+    url(r'^estudiante/notas/$', 'estudiante.views.notas'),
+
+    #MODULO DOCENTE
+    url(r'^docente/$', 'docente.views.index_docente'),
+    url(r'^docente/mis/materias/$', 'docente.views.mis_materias'),
+    url(r'^docente/materia/(?P<asig_id>\d+)/estudiantes/$', 'docente.views.estudiantes_materia'),
+    url(r'^docente/materias/notas/$', 'docente.views.materias_docente_notas'),
+    url(r'^docente/materia/(?P<asig_id>\d+)/estudiantes/notas/$', 'docente.views.estudiantes_materia_notas'),
+    url(r'^docente/notas/(?P<pro_id>\d+)/(?P<asig_id>\d+)/estudiantes/subir/$', 'docente.views.subir_notas_pro'),
+
+    #Preinsctipcion
+    url(r'^pre/new/$', 'preinscripcion.views.new_preinscripcion'),
+    url(r'^pre/list/$', 'preinscripcion.views.index_preinscripcion'),
+    url(r'^pre/list/gestion/$', 'preinscripcion.views.list_preinscripciones_gestion'),
+    url(r'^pre/new/estudiante/(?P<pre_id>\d+)/new/inscripcion/$', 'preinscripcion.views.new_inscripcion'),
+
+    #NOTAS
+    url(r'^notas/estudiante/all/$', 'estudiante.views.index_notas'),
+    url(r'^notas/(?P<insc_id>\d+)/estudiante/notas/$', 'estudiante.views.notas_estudiante'),
+    url(r'^notas/gestion/carrera/$', 'estudiante.views.notas_gestion_carreras'),
+    url(r'^notas/(?P<gestion_id>\d+)/gestion/(?P<carrera_id>\d+)/carrera/(?P<nivel>\d+)/$', 'estudiante.views.pdf_notas_gestion_carrera'),
+    url(r'^notas/estudios/finalizacion/$', 'estudiante.views.estudiantes_finalizacion'),
+    url(r'^notas/(?P<insc_id>\d+)/estudiante/historial/$', 'estudiante.views.historial_notas'),
+    url(r'^notas/(?P<insc_id>\d+)/estudiante/libro/folio/$', 'estudiante.views.crear_folio_libro'),
+    url(r'^notas/(?P<insc_id>\d+)/certificado/calificaciones/pdf/$', 'estudiante.views.pdf_certificado_calificaciones'),
+
+    url(r'^notas/ajax/estudiante/search/$', 'estudiante.views.ajax_buscar_estudiantes'),
+    url(r'^notas/ajax/estudiante/notas/$', 'estudiante.views.ajax_notas_estudiante'),
+    url(r'^notas/ajax/niveles/carrera/$', 'estudiante.views.ajax_niveles_carrera'),
+    url(r'^notas/ajax//carrera/gestion/$', 'estudiante.views.ajax_notas_estudiantes_gestion_carrera'),
 
 )

@@ -1,12 +1,12 @@
 {% extends 'form_upload.html' %}
 {% block legend %}
-Nuevo Administrativo
+Modificar Estudiante
 {% endblock %}
 {% block menu_izq %}
 {% include 'estudiante/__menu_izq.html' %}
 {% endblock %}
 {% block title %}
-Nuevo Administrativo
+Modificar Estudiante
 {% endblock %}
 {% block cuerpo_form %}
     {% for field in perform %}
@@ -41,5 +41,5 @@ Nuevo Administrativo
             </p>
         {% endif %}
     {% endfor %}
-
 {% endblock %}
+{% block submit %}Modificar{% endblock %}

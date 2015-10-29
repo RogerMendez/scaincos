@@ -5,6 +5,7 @@
       <identifier-quote-string>&quot;</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
+    <schema name="as" catalog="incos_db"/>
     <schema name="information_schema" catalog="incos_db"/>
     <schema name="pg_catalog" catalog="incos_db"/>
     <schema name="public" catalog="incos_db"/>
@@ -2367,6 +2368,27 @@
       <column name="viewowner" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="definition" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
     </table>
+    <table name="asistencia_asistencia" schema="public" catalog="incos_db" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYXNpc3RlbmNpYV9hc2lzdGVuY2lhX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
+      <column name="fecha" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
+      <column name="hora" sqlType="time" precision="15" scale="6" nullable="true" jdbcType="92"/>
+      <column name="persona_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="asistencia_asistencia_pkey" columns="id"/>
+      <foreign-key name="asistencia_asistenci_persona_id_2461a76f_fk_usuarios_persona_id" columns="persona_id" ref-table="usuarios_persona" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="asistencia_asistencia_e8589820" unique="false" columns="persona_id"/>
+    </table>
+    <table name="asistencia_asistencia_id_seq" schema="public" catalog="incos_db" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
     <table name="auth_group" schema="public" catalog="incos_db" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnYXV0aF9ncm91cF9pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
       <column name="name" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
@@ -2520,10 +2542,13 @@
       <column name="tiempo" sqlType="varchar" precision="2" scale="0" nullable="false" jdbcType="12"/>
       <column name="fecha_creacion" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
       <column name="resenha" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="area" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nivel" sqlType="varchar" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="carrera_carrera_pkey" columns="id"/>
       <exported-key name="carrera_materia_carrera_id_37ee21e_fk_carrera_carrera_id" table="carrera_materia" schema="public" catalog="incos_db" columns="carrera_id"/>
       <exported-key name="gestion_gestion_carre_carrera_id_59c33d9a_fk_carrera_carrera_id" table="gestion_gestion_carrera" schema="public" catalog="incos_db" columns="carrera_id"/>
       <exported-key name="inscripcion_inscripci_carrera_id_48b7c125_fk_carrera_carrera_id" table="inscripcion_inscripcion" schema="public" catalog="incos_db" columns="carrera_id"/>
+      <exported-key name="preinscripcion_preins_carrera_id_2c01753f_fk_carrera_carrera_id" table="preinscripcion_preinscripcion" schema="public" catalog="incos_db" columns="carrera_id"/>
       <index name="carrera_carrera_nombre_key" unique="true" columns="nombre"/>
     </table>
     <table name="carrera_carrera_id_seq" schema="public" catalog="incos_db" type="SEQUENCE">
@@ -2805,6 +2830,7 @@
       <exported-key name="gestion_horario_gestion_id_1bc82dcf_fk_gestion_gestion_id" table="gestion_horario" schema="public" catalog="incos_db" columns="gestion_id"/>
       <exported-key name="inscripcion_inscripcio_gestion_id_c2fc7ae_fk_gestion_gestion_id" table="inscripcion_inscripcion" schema="public" catalog="incos_db" columns="gestion_id"/>
       <exported-key name="inscripcion_matricula_gestion_id_6de0d63b_fk_gestion_gestion_id" table="inscripcion_matricula" schema="public" catalog="incos_db" columns="gestion_id"/>
+      <exported-key name="preinscripcion_preins_gestion_id_253d5e12_fk_gestion_gestion_id" table="preinscripcion_preinscripcion" schema="public" catalog="incos_db" columns="gestion_id"/>
       <index name="gestion_gestion_gestion_key" unique="true" columns="gestion"/>
       <index name="gestion_gestion_abfe0f96" unique="false" columns="usuario_id"/>
     </table>
@@ -2880,6 +2906,8 @@
       <column name="gestion_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="usuario_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="estado" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="nro_folio" sqlType="varchar" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nro_libro" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="inscripcion_inscripcion_pkey" columns="id"/>
       <foreign-key name="inscripcion_inscripcion_usuario_id_6a344ccd_fk_auth_user_id" columns="usuario_id" ref-table="auth_user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="inscripcion_inscripci_carrera_id_48b7c125_fk_carrera_carrera_id" columns="carrera_id" ref-table="carrera_carrera" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -2939,6 +2967,37 @@
       <index name="institucion_aula_nro_e7b154e_uniq" unique="true" columns="nro"/>
     </table>
     <table name="institucion_aula_id_seq" schema="public" catalog="incos_db" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="preinscripcion_preinscripcion" schema="public" catalog="incos_db" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncHJlaW5zY3JpcGNpb25fcHJlaW5zY3JpcGNpb25faWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
+      <column name="ci" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombre" sqlType="varchar" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="paterno" sqlType="varchar" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="materno" sqlType="varchar" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fecha_nac" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
+      <column name="direccion" sqlType="varchar" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="telefono" sqlType="varchar" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="carrera_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="gestion_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="estado" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <primary-key name="preinscripcion_preinscripcion_pkey" columns="id"/>
+      <foreign-key name="preinscripcion_preins_carrera_id_2c01753f_fk_carrera_carrera_id" columns="carrera_id" ref-table="carrera_carrera" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="preinscripcion_preins_gestion_id_253d5e12_fk_gestion_gestion_id" columns="gestion_id" ref-table="gestion_gestion" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="preinscripcion_preinscripcion_ci_key" unique="true" columns="ci"/>
+      <index name="preinscripcion_preinscripcion_15b82638" unique="false" columns="carrera_id"/>
+      <index name="preinscripcion_preinscripcion_9a3f2655" unique="false" columns="gestion_id"/>
+    </table>
+    <table name="preinscripcion_preinscripcion_id_seq" schema="public" catalog="incos_db" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -3035,6 +3094,7 @@
       <column name="usuario_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="usuarios_persona_pkey" columns="id"/>
       <foreign-key name="usuarios_persona_usuario_id_32455bb5_fk_auth_user_id" columns="usuario_id" ref-table="auth_user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="asistencia_asistenci_persona_id_2461a76f_fk_usuarios_persona_id" table="asistencia_asistencia" schema="public" catalog="incos_db" columns="persona_id"/>
       <exported-key name="usuarios_administrat_persona_id_6a6b8868_fk_usuarios_persona_id" table="usuarios_administrativo" schema="public" catalog="incos_db" columns="persona_id"/>
       <exported-key name="usuarios_docente_persona_id_4906374d_fk_usuarios_persona_id" table="usuarios_docente" schema="public" catalog="incos_db" columns="persona_id"/>
       <exported-key name="usuarios_estudiante_persona_id_12ad4434_fk_usuarios_persona_id" table="usuarios_estudiante" schema="public" catalog="incos_db" columns="persona_id"/>

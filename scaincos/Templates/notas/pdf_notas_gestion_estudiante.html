@@ -1,0 +1,136 @@
+{# encoding=utf-8 #}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>Reporte</title>
+        <style>
+            @page {
+                size: legal landscape;
+                margin-left: 1cm;
+                margin-top: 1.5cm;
+                margin-right: 1cm;
+                margin-bottom:1cm;
+                @frame header {
+                    -pdf-frame-content: headerContent;
+                    margin-top:0.5cm;
+                    margin-left: 0.5cm;
+                    margin-right: 0.5cm;
+                    margin-bottom: 0cm;
+                    }
+                @frame footer {
+                    -pdf-frame-content: footerContent;
+                    bottom: 0cm;
+                    margin-left: 6cm;
+                    margin-right: 6cm;
+                    height: 1cm;
+                }
+            }
+            .barra{
+                font-size: 2px;
+                background: #000000;
+            }
+            h1{
+                font-family: Helvetica;
+                font-size: 20px;
+            }
+            table {
+                max-width: 100%;
+                background-color: transparent;
+                border: 1px;
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+            .table th{
+                padding-top: 5px;
+                padding-right: 2px;
+                padding-left: 2px;
+                background: #6b7cb3;
+                color: white;
+                font-size: 14px;
+                border-left: 1px solid #fff;
+                border-right: 1px solid #fff;
+                border-bottom: 1px solid #fff;
+            }
+
+            .table td{
+                font-size: 12px;
+                font-family: Arial;
+                vertical-align: middle;
+                padding: 2px;
+                border-left: 1px solid #030a04;
+                border-right: 1px solid #030a04;
+                border-bottom: 1px solid #030a04;
+            }
+            .table td.datos{
+                text-align: left;
+            }
+            h2{
+                color: black;
+                font-family: courier;
+                font-size: 19px;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="headerContent">
+            <h2>INSTITUTO COMERCIAL SUPERIO INCOS POTOSI FISCAL</h2>
+            <div class="barra">s</div>
+        </div>
+        <section class="consulta">
+            <h2 align="center">Cuadro General de Calificaciones</h2>
+            <h2 align="center"><strong>Gestion Academica: </strong>{{ gestion.gestion }}</h2>
+            <h2><strong>Carrera: </strong>{{ carrera.nombre }}</h2>
+            {% load humanize %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="3" align="right">Sigla</th>
+                        {% for materia in materias %}
+                            <th colspan="3">{{ materia.sigla }}</th>
+                        {% endfor %}
+                        <th colspan="1">{{ gestion.gestion }}</th>
+                    </tr>
+                    <tr>
+                        <th width="50px">#</th>
+                        <th width="300px">
+                            {{ nivel|ordinal }} Año
+                        </th>
+                        <th width="70px">Matr.</th>
+                        {% for materia in materias %}
+                            <th width="40px">PA</th>
+                            <th width="40px">EH</th>
+                            <th width="40px">PP</th>
+                        {% endfor %}
+                        <th>Obser. </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% load helper_notas %}
+                    {% for est in estudiantes %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ est.persona.paterno }} {{ est.persona.materno }} {{ est.persona.nombre }}</td>
+                            <td>{{ est.nro_estudiante }}
+                            {% for materia in materias  %}
+                                {% for no in est.id|inscripcion_notas:materia.id|programaciones_gestion:gestion.id|notas_final:materia.id %}
+                                    <td>{{ no.promedio }}</td>
+                                    <td>{{ no.segundo_T }}</td>
+                                    <td>{{ no.final1 }}</td>
+                                {% empty %}
+                                    <td>0</td>
+                                    <td></td>
+                                    <td></td>
+                                {% endfor %}
+                            {% endfor %}
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </section>
+   </body>
+</html>

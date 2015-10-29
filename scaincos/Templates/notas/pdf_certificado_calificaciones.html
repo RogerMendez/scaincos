@@ -1,0 +1,129 @@
+{# encoding=utf-8 #}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>Reporte</title>
+        <style>
+            @page {
+                size: legal;
+                margin-left: 1cm;
+                margin-top: 9.5cm;
+                margin-right: 1cm;
+                margin-bottom:1cm;
+                @frame header {
+                    -pdf-frame-content: headerContent;
+                    margin-top:0.5cm;
+                    margin-left: 0.5cm;
+                    margin-right: 0.5cm;
+                    margin-bottom: 0cm;
+                    }
+                @frame footer {
+                    -pdf-frame-content: footerContent;
+                    bottom: 0cm;
+                    margin-left: 6cm;
+                    margin-right: 6cm;
+                    height: 1cm;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="headerContent">
+            <header>
+                <br/><br/><br/><br/><br/><br/>
+                <h2 align="center" style="font-size: 15px">INSTITUTO TECNICO POTOSI - FISCAL</h2>
+
+                <p style="font-size: 12px;font-family: Arial, Helvetica, sans-serif" align="center">
+                    <strong>R. M. No 659/2011</strong>
+                </p>
+                <h1 align="center" style="font-size: 24px">
+                    CERTIFICADO DE CALIFICACIONES
+                </h1>
+            </header>
+        </div>
+        <section class="consulta">
+            <br/>
+            <table>
+                <tr style="text-align: center; font-family: Arial, Helvetica, sans-serif;font-size: 12px;">
+                    <td>
+                        {{ inscripcion.estudiante.persona.paterno }}
+                    </td>
+                    <td>
+                        {{ inscripcion.estudiante.persona.materno }}
+                    </td>
+                    <td>
+                        {{ inscripcion.estudiante.persona.nombre }}
+                    </td>
+                    <td>
+                        {{ inscripcion.estudiante.persona.ci }}
+                    </td>
+                </tr>
+            </table>
+            <br/><br/><br/>
+            <p>
+                <table>
+                    <tr style="text-align: center; font-family: Arial, Helvetica, sans-serif;font-size: 12px;color: black">
+                        <td>{{ inscripcion.carrera.area }}</td>
+                        <td>{{ inscripcion.carrera.nombre }}</td>
+                        <td style="text-align: right">{{ inscripcion.carrera.nivel }}</td>
+                    </tr>
+                </table>
+            </p>
+            <br/>
+            <table>
+                <tr style="font-size: 12px;font-family: Arial, Helvetica, sans-serif">
+                    <td style="text-align: center;width:200px;">{{ inscripcion.nro_libro }}</td>
+                    <td style="text-align: center; width: 200px">{{ inscripcion.nro_folio }}</td>
+                    <td style="text-align: center; width: 100px">{{ inscripcion.estudiante.nro_estudiante }}</td>
+                    <td style="text-align: center">Tercer</td>
+                </tr>
+            </table>
+            <br/>
+            <table>
+                <tr style="font-size: 12px;font-family: Arial, Helvetica, sans-serif"">
+                    <td width="150px" style="text-align:right ">
+                        {{ gestion.gestion }}
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+            <br/><br/><br/><br/>
+            <table style="font-family: Arial, Helvetica, sans-serif; font-size: 12px">
+                {% for pro in programaciones %}
+                    <tr style="padding-top:3px; padding-bottom: 3px; ">
+                        <td width="2.5cm">{{ pro.materia.sigla }}</td>
+                        <td>{{ pro.materia.nombre }}</td>
+                        <td width="2.5cm" align="center">{{ pro.final }}</td>
+                        <td>{{ pro.literal }}</td>
+                        <td width="3cm" align="center">4</td>
+                    </tr>
+
+                {% endfor %}
+            </table>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <table style="font-family: Arial, Helvetica, sans-serif; font-size: 12px">
+                <tr>
+                    <td width="4cm" align="right">POR TANTO:</td>
+                    <td align="center">SI</td>
+                </tr>
+            </table>
+            <br/>
+            <table style="font-family: Arial, Helvetica, sans-serif; font-size: 12px">
+                <tr>
+                    <td align="right">Potosí, </td>
+                    <td align="center">{{ fecha|date:"d" }}</td>
+                    <td align="center">{{ fecha|date:"F" }}</td>
+                    <td width="100px">{{ fecha|date:"y" }}</td>
+                </tr>
+            </table>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <table style="font-family: Arial, Helvetica, sans-serif; font-size: 12px">
+                <tr>
+                    <td align="center">JEFE ACADEMICO</td>
+                    <td align="center">RECTOR</td>
+                </tr>
+            </table>
+        </section>
+   </body>
+</html>

@@ -1,13 +1,44 @@
 {% extends 'base.html' %}
 {% block title %}
-{{ user.username|upper }}
+{{ persona.nombre|upper }} {{ persona.paterno|upper }}
 {% endblock %}
 {% block menu_izq %}
 {% include 'usuarios/__menu_izq.html' %}
 {% endblock %}
 {% block cuerpo %}
-Bienvenido {{ user.username }}
-    <p>hello</p>
-    <p>{{ request.session.type }}</p>
-    <p>{{ request.session.gestion }}</p>
+<div class="row">
+    <h2><i class="fa fa-users"></i> <strong>Informacion de Administrativo</strong></h2>
+    <div class="span3">
+        <img src="/media/{{ administrativo.persona.avatar }}" alt="{{ administrativo.persona.nombre }}"/>
+        <hr/>
+        <p class="subheader-secondary text-center">{{ administrativo.persona.usuario.username }}</p>
+        <hr/>
+        <p><strong><i class="fa fa-clock-o"></i> Registrado el</strong> {{ administrativo.persona.usuario.date_joined|date:"d M Y" }}</p>
+    </div>
+    <div class="span7 bd-black">
+        <h4 class="text-center">Datos Personales</h4>
+        <p class="readable-text">
+            <strong>Nombre Completo:</strong> {{ administrativo.persona.nombre }} {{ administrativo.persona.paterno }} {{ administrativo.persona.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Cedula de Identidad:</strong> {{ administrativo.persona.ci }}
+        </p>
+        <p class="readable-text">
+            <strong>Nro. Item: </strong>{{ administrativo.nro_item }}
+        </p>
+        <p class="readable-text">
+            <strong>Fecha de Nacimiento: </strong>{{ administrativo.persona.fecha_nac }}
+        </p>
+        <p class="readable-text">
+            <strong>Telefono / Celular: </strong>{{ administrativo.persona.telefono }}
+        </p>
+        <p class="readable-text">
+            <strong>Correo Electronico: </strong>{{ administrativo.persona.email }}
+        </p>
+        <p class="readable-text">
+            <strong>Cargo Ocupado: </strong>{{ administrativo.cargo }}
+        </p>
+    </div>
+</div>
+<hr/>
 {% endblock %}

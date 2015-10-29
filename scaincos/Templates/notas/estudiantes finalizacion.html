@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}
+Estudiantes Gestion
+{% endblock %}
+{% block menu_izq %}
+{% include 'notas/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="row">
+        <form action="" method="get">{% csrf_token %}
+            <fieldset>
+                <legend></legend>
+                    {% for field in formulario %}
+                        <div class="span4">
+                        {{ field.label_tag }}
+                        <div class="input-control text{% if field.errors %} error-state{% endif %}" data-role="input-control">
+                            {{ field }}
+                        </div>
+                        {% if field.errors %}
+                            <div class="balloon bottom bd-red bg-red">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                        {% if field.help_text %}
+                            <p class="fg-green">
+                                <small><span class="icon-alert"></span> {{ field.help_text }}</small>
+                            </p>
+                        {% endif %}
+                        </div>
+                    {% endfor %}
+            </fieldset>
+            <input type="submit" value="Buscar" class="button default"/>
+        </form>
+    <script>
+    $(document).ready(function(){
+        var campo = $('select');
+        var div = campo.parent();
+        div.removeClass('text');
+        div.addClass('select');
+
+        var campo = $('textarea');
+        var div = campo.parent();
+        div.removeClass('text');
+        div.addClass('textarea');
+    })
+    </script>
+    </div>
+    <div class="row">
+        <h2>
+            <strong>Carrera: </strong>{{ carrera.nombre }}
+        </h2>
+    </div>
+    <div class="row">
+        <h2 class="text-center">Notas Estudiante</h2>
+        <div id="span11">
+            <table class="table hovered border myClass">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Cedula de Identidad</th>
+                        <th>Nro. de Estudiante</th>
+                        <th>Nombre Completo</th>
+                        <th>Dirección</th>
+                        <th>Fecha de Ingreso</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="estudiantesinscripcion">
+                    {% for insc in inscripciones %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ insc.estudiante.persona.ci }}</td>
+                            <td>{{ insc.estudiante.nro_estudiante }}</td>
+                            <td>{{ insc.estudiante.persona.paterno }} {{ insc.estudiante.persona.materno }}, {{ insc.estudiante.persona.nombre }}</td>
+                            <td>{{ insc.estudiante.persona.direccion }}</td>
+                            <td>{{ insc.estudiante.fecha_ingreso|date:"j M Y" }}</td>
+                            <td>
+                                <a href="{% url 'estudiante.views.historial_notas' insc.id %}" class="button info">Ver Notas</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

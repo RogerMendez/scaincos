@@ -6,10 +6,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, AdminPasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 from django.db.models import Max
 
-from usuarios.models import Persona
+from usuarios.models import Persona, Administrativo
 from gestion.models import Gestion
 
 from estudiante.views import index_estudiante
@@ -79,8 +80,11 @@ def info_usuario(request):
         return HttpResponseRedirect(reverse(index_estudiante))
     if request.session['type'] == 'Docente' :
         return HttpResponseRedirect(reverse(index_docente))
+    persona = get_object_or_404(Persona, usuario = request.user)
+    administrativo = Administrativo.objects.get(persona = persona)
     return render(request,'usuarios/info_usuario.html',{
-
+        'persona':persona,
+        'administrativo':administrativo,
     })
 
 @login_required(login_url='/login')

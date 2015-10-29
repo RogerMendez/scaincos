@@ -7,54 +7,75 @@ Carreras
 {% endblock %}
 {% block cuerpo %}
 <div class="row">
-    <h2>Listado de Carreras</h2>
+    <div class="span5">
+        <form action="" method="get">{% csrf_token %}
+            {% include 'form_include.html' %}
+            <input type="submit" value="Buscar" class="button default"/>
+        </form>
+    </div>
+<div class="span6"></div>
+</div>
+<div class="row">
     <div class="span11">
-        {% if carreras %}
-            {% for carrera in carreras %}
+        {% if carrera %}
+            <div class="row">
                 <div class="row">
-                    <div class="row">
-                        <div class="span6">
-                            <p class="readable-text">
-                                <strong>Carrera: </strong>{{ carrera.nombre }}
-                            </p>
-                        </div>
-                        <div class="span5">
-                            <p class="readable-text">
-                                <strong>Cantidad de Materias: </strong>{{ carrera.materia_set.select_related.count }}
-                            </p>
-                        </div>
+                    <div class="span6">
+                        <p class="readable-text">
+                            <strong>Carrera: </strong>{{ carrera.nombre }}
+                        </p>
                     </div>
-                    <div class="row">
-                        <table class="table hovered border">
-                            <thead>
-                            <tr>
-                                <th width="50px">#</th>
-                                <th>Nombre Materia</th>
-                                <th>Sigla Materia</th>
-                                <th>Nivel</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                {% for materia in carrera.materia_set.select_related.all %}
-                                <tr>
-                                    <td>{{ forloop.counter }}</td>
-                                    <td>{{ materia.nombre }}</td>
-                                    <td>{{ materia.sigla }}</td>
-                                    <td>{{ materia.nivel }}</td>
-                                    <td>
-                                        <a href="{% url 'carrera.views.update_materia' materia.id %}" class="button warning">
-                                            <i class="fa fa-edit"></i> Modificar
-                                        </a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                    <div class="span5">
+                        <p class="readable-text">
+                            <strong>Cantidad de Materias: </strong>{{ carrera.materia_set.select_related.count }}
+                        </p>
                     </div>
                 </div>
-                <hr/>
-            {% endfor %}
+                <div class="row">
+                    <h2 class="text-center">Liatado de Materias</h2>
+                    <table class="table hovered border">
+                        <thead>
+                        <tr>
+                            <th width="50px">#</th>
+                            <th>Nombre Materia</th>
+                            <th>Sigla Materia</th>
+                            <th>Grupos</th>
+                            <th>Nivel</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for materia in carrera.materia_set.select_related.all %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ materia.nombre }}</td>
+                                <td>{{ materia.sigla }}</td>
+                                <td>
+                                    {% for grupo in materia.grupo.all %}
+                                        {% if not forloop.counter == 1  %}
+                                            --
+                                        {% endif %}
+                                        {{ grupo.abreviacion }}
+                                    {% endfor %}
+
+                                </td>
+                                <td>{{ materia.nivel }}</td>
+                                <td>
+                                    <a href="{% url 'carrera.views.update_materia' materia.id %}" class="button warning">
+                                        <i class="fa fa-edit"></i> Modificar
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr/>
+        {% else %}
+            {% if perms.carrera.add_carrera %}
+                <a href="{% url 'carrera.views.new_carrera' %}" class="button warning">Registrar Carrera</a>
+            {% endif %}
         {% endif %}
     </div>
 </div>

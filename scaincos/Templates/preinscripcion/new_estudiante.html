@@ -1,0 +1,32 @@
+{% extends 'form.html' %}
+{% block title %}
+Registro Estudiante
+{% endblock %}
+{% block menu_izq %}
+{% include 'preinscripcion/__menu_izq.html' %}
+{% endblock %}
+{% block legend %}
+Completar Informacion Estudiante
+{% endblock %}
+{% block info_form %}
+<div class="row">
+    <h2><i class="fa fa-users"></i> <strong>Informacion de Preinscripcion</strong></h2>
+    <h4 class="text-center">Datos Personales</h4>
+    <div class="span5 bd-black">
+        <p class="readable-text">
+            <strong>Nombre Completo:</strong> {{ preinscripcion.nombre }} {{ preinscripcion.paterno }} {{ preinscripcion.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Cedula de Identidad:</strong> {{ preinscripcion.ci }}
+        </p>
+    </div>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Fecha de Nacimiento: </strong>{{ preinscripcion.fecha_nac }}
+        </p>
+        <p class="readable-text">
+            <strong>Telefono / Celular: </strong>{{ preinscripcion.telefono }}
+        </p>
+    </div>
+</div>
+{% endblock %}

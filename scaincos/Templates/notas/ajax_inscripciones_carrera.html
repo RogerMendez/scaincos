@@ -1,0 +1,13 @@
+{% for insc in inscripciones %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ insc.estudiante.persona.ci }}</td>
+        <td>{{ insc.estudiante.nro_estudiante }}</td>
+        <td>{{ insc.estudiante.persona.paterno }} {{ insc.estudiante.persona.materno }}, {{ insc.estudiante.persona.nombre }}</td>
+        <td>{{ insc.estudiante.persona.direccion }}</td>
+        <td>{{ insc.estudiante.fecha_ingreso|date:"j M Y" }}</td>
+        <td>
+            <a href="{% url 'estudiante.views.notas_estudiante' insc.id %}" class="button info">Ver Notas</a>
+        </td>
+    </tr>
+{% endfor %}

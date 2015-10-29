@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ docente.persona.nombre|upper }} {{ docente.persona.paterno|upper }}
+{% endblock %}
+{% block menu_izq %}
+{% include 'asistencia/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2 class=""><i class="fa fa-users"></i> <strong>Informacion de Docente</strong></h2>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Nombre Completo:</strong> {{ docente.persona.nombre }} {{ docente.persona.paterno }} {{ docente.persona.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Cedula de Identidad:</strong> {{ docente.persona.ci }}
+        </p>
+    </div>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Nro. Docente: </strong>{{ docente.nro_docente }}
+        </p>
+        <p class="readable-text">
+            <strong>Telefono / Celular: </strong>{{ docente.persona.telefono }}
+        </p>
+    </div>
+</div>
+<hr/>
+<div class="row">
+    <div class="span5">
+        <div class="input-control select">
+            <label for="dia">Seleccione Dia</label>
+            <select name="dia" id="dia">
+                <option value="">---------</option>
+                <option value="Lunes">Lunes</option>
+                <option value="Martes">Martes</option>
+                <option value="Miercoles">Miercoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+                <option value="Sabado">Sabado</option>
+                <option value="Domingo">Domingo</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row" id="horariosdocente"></div>
+<script>
+    $(document).ready(function(){
+        $('#dia').change(function(){
+            var valor = $(this).val();
+            if(valor){
+                $.ajax({
+                    data:{'dia': valor, 'docente':"{{ docente.id }}"},
+                    url:"{% url 'asistencia.views.ajax_horario_docente' %}",
+                    type:'GET',
+                    success: function(data){
+                        $('#horariosdocente').html(data);
+                        //materias_asignadas();
+                    },
+                    failure: function(data){
+                        console.log('error')
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

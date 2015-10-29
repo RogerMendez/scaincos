@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}
+Estudiantes Gestion
+{% endblock %}
+{% block menu_izq %}
+{% include 'notas/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+{% if gestiones %}
+    <div class="row">
+        <div class="span5">
+            <form>
+                <fieldset>
+                    <legend></legend>
+                    <div class="input-control select">
+                        <select name="gestion" id="gestion">
+                            <option value="">--------</option>
+                            {% for gestion in gestiones %}
+                                <option value="{{ gestion.id }}">{{ gestion.gestion }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endif %}
+{% load helper_estudiante %}
+<div class="row">
+    <div class="span6">
+        <p class="readable-text">
+            <strong>Estudiante: </strong>{{ inscripcion.estudiante.persona.nombre }} {{ inscripcion.estudiante.persona.paterno }} {{ inscripcion.estudiante.persona.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Cedula de Identidad: </strong>{{ inscripcion.estudiante.persona.ci }}
+        </p>
+    </div>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Nro. Estudiante: </strong>{{ inscripcion.estudiante.nro_estudiante }}
+        </p>
+    </div>
+</div>
+<div class="row" id="notasestudiante">
+
+</div>
+<script>
+    $(document).ready(function(){
+        $('#gestion').change(function(){
+            var valor = $(this).val();
+            if(valor){
+                $.ajax({
+                    data:{'gestion_id': valor, 'insc_id':"{{ inscripcion.id }}"},
+                    url:"{% url 'estudiante.views.ajax_notas_estudiante' %}",
+                    type:'GET',
+                    success: function(data){
+                        $('#notasestudiante').html(data);
+                        //materias_asignadas();
+                    },
+                    failure: function(data){
+                        console.log('error')
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

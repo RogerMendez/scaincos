@@ -18,6 +18,8 @@ Gestiones
                     <th>Nombre Completo</th>
                     <th>Dirección</th>
                     <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,9 +30,19 @@ Gestiones
                         <td>{{ doc.nro_docente }}</td>
                         <td>{{ doc.persona.paterno }} {{ doc.persona.materno }}, {{ doc.persona.nombre }}</td>
                         <td>{{ doc.persona.direccion }}</td>
-                        <td>
+                        <td style="padding-right: 0px !important;">
                             <a href="{% url 'gestion.views.asignar_materia_docente' doc.id %}" class="button success">
-                                <i class="fa fa-plus-circle"></i> Seleccionar
+                                <i class="fa fa-plus-circle"></i>Asignar
+                            </a>
+                        </td>
+                        <td style="padding-right: 0px !important;">
+                            <a href="{% url 'gestion.views.materias_docente' doc.id %}" class="fg-black button warning">
+                                <i class="fa fa-file-pdf-o"></i>Materias
+                            </a>
+                        </td>
+                        <td style="padding-right: 0px !important;">
+                            <a href="{% url 'gestion.views.horario_docente' doc.id %}" class="button">
+                                <i class="fa fa-clock-o"></i>Horario
                             </a>
                         </td>
                     </tr>

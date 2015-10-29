@@ -18,6 +18,7 @@ from usuarios.models import Estudiante
 from personal.form import PersonaForm, EstudianteForm
 from personal.views import password_create
 from carrera.models import Carrera
+from carrera.form import CarrerasForm
 from gestion.models import Gestion, Gestion_Carrera
 from inscripcion.models import Inscripcion, Matricula
 
@@ -171,3 +172,31 @@ def confirm_new_matricula(request, g_c_id, estu_id):
     )
     log_addition(request, matri, 'Matricula Creada')
     return HttpResponseRedirect(reverse(index_matricula))
+
+@permission_required('inscripciones.report_inscripcion', login_url='/login')
+def estudiantes_carrera(request):
+    gestion = Gestion.objects.get(gestion = request.session['gestion'])
+    carrera = Carrera.objects.first()
+    formulario = CarrerasForm(request.GET or None)
+    if formulario.is_valid():
+        id = request.GET['carrera']
+        carrera = Carrera.objects.get(id = int(id))
+    inscripciones = Inscripcion.objects.filter(carrera = carrera, estudiante__terminado = False, estado = True)
+    return render(request, 'inscripcion/estudiantes_carrera.html', {
+        'carrera':carrera,
+        'formulario':formulario,
+        'gestion':gestion,
+        'inscripciones':inscripciones,
+    })
+
+@permission_required('inscripciones.report_inscripcion', login_url='/login')
+def pdf_estudiantes_arrera(request, carrera_id):
+    gestion = Gestion.objects.get(gestion = request.session['gestion'])
+    carrera = get_object_or_404(Carrera, pk = carrera_id)
+    inscripciones = Inscripcion.objects.filter(carrera = carrera, estudiante__terminado = False, estado = True).order_by('gestion')
+    html = render_to_string('inscripcion/pdf_estudiantes_carrera.html', {
+        'carrera':carrera,
+        'gestion':gestion,
+        'inscripciones':inscripciones,
+    }, context_instance=RequestContext(request))
+    return generar_pdf(html)

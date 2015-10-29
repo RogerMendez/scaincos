@@ -26,6 +26,8 @@ class Carrera(models.Model):
     )
     nombre = models.CharField(max_length='50', verbose_name='Nombre de Carrera', unique=True)
     tiempo = models.CharField(max_length='2', verbose_name='Tiempo de Carrera', choices=choicestiempo)
+    area = models.CharField(max_length='50', default='Comercial')
+    nivel = models.CharField(max_length='50', default='Superior')
     fecha_creacion = models.DateField(verbose_name='Creacion de Carrera')
     resenha = models.TextField(verbose_name='Breve Reseña')
     def __unicode__(self):

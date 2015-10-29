@@ -1,0 +1,49 @@
+{% load humanize %}
+<a href="{% url 'estudiante.views.pdf_notas_gestion_carrera' gestion.id carrera.id nivel %}" class="button success">Ver PDF</a>
+<table class="table striped bordered hovered">
+    <thead>
+        <tr>
+            <th colspan="3">Sigla</th>
+            {% for materia in materias %}
+                <th colspan="3">{{ materia.sigla }}</th>
+            {% endfor %}
+            <th colspan="1">{{ gestion.gestion }}</th>
+        </tr>
+        <tr>
+            <th width="20px" colspan="1">#</th>
+            <th class="1">
+                {{ nivel|ordinal }} Año
+            </th>
+            <th colspan="1">Matr.</th>
+            {% for materia in materias %}
+                <th>PA</th>
+                <th>EH</th>
+                <th>PP</th>
+            {% endfor %}
+            <th>Obser. </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% load helper_notas %}
+        {% for est in estudiantes %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ est.persona.paterno }} {{ est.persona.materno }} {{ est.persona.nombre }}</td>
+                <td>{{ est.nro_estudiante }}
+                {% for materia in materias  %}
+                    {% for no in est.id|inscripcion_notas:materia.id|programaciones_gestion:gestion.id|notas_final:materia.id %}
+                        <td>{{ no.promedio }}</td>
+                        <td>{{ no.segundo_T }}</td>
+                        <td>{{ no.final1 }}</td>
+                    {% empty %}
+                        <td>0</td>
+                        <td></td>
+                        <td></td>
+                    {% endfor %}
+                {% endfor %}
+                <td></td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>

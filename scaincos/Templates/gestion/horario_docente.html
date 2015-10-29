@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}
+Docentes
+{% endblock %}
+{% block menu_izq %}
+{% include 'gestion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="span6">
+        <p class="readable-text">
+            <strong>Docente: </strong>{{ docente.persona.nombre }} {{ docente.persona.paterno }} {{ docente.persona.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Gestion: </strong>{{ request.session.gestion }}
+        </p>
+    </div>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Nro Item: </strong>{{ docente.nro_docente }}
+        </p>
+    </div>
+</div>
+    {% load helper_gestion %}
+    {% for a in aulas %}
+        <div class="row">
+            <div class="span11">
+                <h2>Aula  --  <strong>{{ a.nro|upper }}</strong></h2>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="span11">
+                <table class="table hovered bordered">
+                    <thead>
+                    <tr>
+                        <th width="50px">Hr.</th>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miercoles</th>
+                        <th>Jueves</th>
+                        <th>Viernes</th>
+                        <th>Sabado</th>
+                        <th>Domingo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for h in horas %}
+                            <tr>
+                                <td class="hora">{{ h }}</td>
+                                <td class="">
+                                    {% if docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Lunes'|horario_hora:h %}
+                                        {% for horario in docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Lunes'|horario_hora:h %}
+                                            {{ horario.asignaciondocente.materia.sigla }}/{{ horario.asignaciondocente.grupo.abreviacion }}
+                                        {% endfor %}
+                                    {% endif %} 
+                                </td>
+                                <td>
+                                    {% if docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Martes'|horario_hora:h %}
+                                        {% for horario in docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Martes'|horario_hora:h %}
+                                            {{ horario.asignaciondocente.materia.sigla }}/{{ horario.asignaciondocente.grupo.abreviacion }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Miercoles'|horario_hora:h %}
+                                        {% for horario in docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Miercoles'|horario_hora:h %}
+                                            {{ horario.asignaciondocente.materia.sigla }}/{{ horario.asignaciondocente.grupo.abreviacion }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Jueves'|horario_hora:h %}
+                                        {% for horario in docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Jueves'|horario_hora:h %}
+                                            {{ horario.asignaciondocente.materia.sigla }}/{{ horario.asignaciondocente.grupo.abreviacion }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Viernes'|horario_hora:h %}
+                                        {% for horario in docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Viernes'|horario_hora:h %}
+                                            {{ horario.asignaciondocente.materia.sigla }}/{{ horario.asignaciondocente.grupo.abreviacion }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Sabado'|horario_hora:h %}
+                                        {% for horario in docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Sabado'|horario_hora:h %}
+                                            {{ horario.asignaciondocente.materia.sigla }}/{{ horario.asignaciondocente.grupo.abreviacion }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Domingo'|horario_hora:h %}
+                                        {% for horario in docente.id|asignacion_docente:request.session.gestion|asignacion_horarios_aula:a.id|horarios_dia:'Domingo'|horario_hora:h %}
+                                            {{ horario.asignaciondocente.materia.sigla }}/{{ horario.asignaciondocente.grupo.abreviacion }}
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

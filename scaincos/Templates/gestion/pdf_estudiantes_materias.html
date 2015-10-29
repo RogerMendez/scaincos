@@ -1,0 +1,43 @@
+{% extends 'base_reporte.html' %}
+{% block cuerpo %}
+    <div class="">
+        <h2><strong style="color:#26AAAF">Docente: </strong> {{ asignacion.docente.persona.nombre }} {{ asignacion.docente.persona.paterno }} {{ asignacion.docente.persona.materno }}</h2>
+        <h2><strong style="color: #26AAAF">Gestion: </strong>{{ gestion.gestion }}</h2>
+        <h2 style="color: black;">
+            <strong style="color: #26AAAF">Materia: </strong> {{ asignacion.materia.nombre|upper }}
+        </h2>
+        <h2 style="color: black;">
+            <strong style="color: #26AAAF">Sigla: </strong> {{ asignacion.materia.sigla|upper }}
+        </h2>
+    </div>
+    <h1>Listado de Estudiantes</h1>
+    <table class="table table-hover table-bordered">
+        <thead>
+                <tr>
+                    <th width="30px">#</th>
+                    <th>Cedula de Identidad</th>
+                    <th>Nro. Estudiante</th>
+                    <th>Nombre Completo</th>
+                    <th>Dirección</th>
+                    <th>Fecha Ingreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doc in estudiantes %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ doc.persona.ci }}</td>
+                        <td>{{ doc.nro_estudiante }}</td>
+                        <td>{{ doc.persona.paterno }} {{ doc.persona.materno }}, {{ doc.persona.nombre }}</td>
+                        <td>{{ doc.persona.direccion }}</td>
+                        <td>{{ doc.fecha_ingreso|date:"d - M - Y" }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+    </table>
+
+    <div id="footerContent">
+        Pagina <pdf:pagenumber>
+    </div>
+{% endblock %}

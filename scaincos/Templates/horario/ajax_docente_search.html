@@ -1,0 +1,11 @@
+{% for a in asignados %}
+    <tr>
+        <td>{{ a.docente.persona.nombre }} {{ a.docente.persona.paterno }} {{ a.docente.persona.materno }}</td>
+        <td>{{ a.materia.nombre }}</td>
+        <td>{{ a.materia.sigla }}</td>
+        <td>{{ a.grupo }}</td>
+        <td>
+            <a href="{% url 'gestion.views.add_materia_horario' aula_id a.id %}?hora={{ hora }}&dia={{ dia }}" class="button success">Asignar</a>
+        </td>
+    </tr>
+{% endfor %}

@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.models import Permission
-from usuarios.models import Persona
+from usuarios.models import Persona, Administrativo
 
 admin.site.register(Permission)
 
 @admin.register(Persona)
-class UnidadOptions(admin.ModelAdmin):
+class PersonaOptions(admin.ModelAdmin):
     list_display = ['ci', 'nombre', 'paterno']
-    list_filter = ('ci', )
+    list_filter = ('tipo', 'ci' )
+
+admin.site.register(Administrativo)

@@ -1,0 +1,16 @@
+{% for materia in materias %}
+    {% for g in materia.grupo.all %}
+        <tr>
+        <td>{{ materia.nombre }}</td>
+        <td>{{ materia.nivel }}</td>
+        <td>
+            {{ g }}
+        </td>
+        <td>
+            <a href="{% url 'gestion.views.add_materia_docente' docente.id materia.id g.id %}" class="button info">
+                <i class="fa fa-plus-circle"></i> Asignar
+            </a>
+        </td>
+        </tr>
+    {% endfor %}
+{% endfor %}

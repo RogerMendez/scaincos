@@ -1,13 +1,11 @@
+#encoding:utf-8
 from django.db import models
 
 from usuarios.models import Persona
 
 class Asistencia(models.Model):
-    fecha = models.DateField(auto_now_add=True)
-    entrada = models.TimeField(blank=True, null=True, verbose_name="Hora Entrada Mañana")
-    salida = models.TimeField(blank=True, null=True, verbose_name="Hora Salida Mañana")
-    horas_realizadas = models.TimeField(blank=True, null=True, default="00:00")
-    atraso = models.TimeField(blank=True, null=True)
+    fecha = models.DateField()
+    hora = models.TimeField(blank=True, null=True)
     persona = models.ForeignKey(Persona)
     def __str__(self):
         return self.persona.nombre
@@ -21,4 +19,5 @@ class Asistencia(models.Model):
             ("detail_fecha_asistencia", "Asistencia Por Fecha"),
             ("historial_month_asistencia", "Historial Mensual"),
             ("historial_year_asistencia", "Historial Anual"),
+            ("report_asistencia", "Reporte Asistencia"),
         )

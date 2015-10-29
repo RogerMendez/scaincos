@@ -1,0 +1,34 @@
+{% extends 'base_reporte.html' %}
+{% block cuerpo %}
+    <h1>Listado de Estudiantes</h1>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+                <tr>
+                    <th width="30px">#</th>
+                    <th>Cedula de Identidad</th>
+                    <th>Nro. Estudiante</th>
+                    <th>Nombre Completo</th>
+                    <th>Dirección</th>
+                    <th>Fecha Ingreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doc in estudiantes %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ doc.persona.ci }}</td>
+                        <td>{{ doc.nro_estudiante }}</td>
+                        <td>{{ doc.persona.paterno }} {{ doc.persona.materno }}, {{ doc.persona.nombre }}</td>
+                        <td>{{ doc.persona.direccion }}</td>
+                        <td>{{ doc.fecha_ingreso|date:"d - M - Y" }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+    </table>
+
+    <div id="footerContent">
+        Pagina <pdf:pagenumber>
+    </div>
+{% endblock %}

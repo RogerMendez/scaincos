@@ -217,7 +217,7 @@ def update_estudiante(request, est_id):
         estform = EstudianteForm(instance=est)
     return render(request, 'estudiante/update.html', {
         'perform':perform,
-        'estfirm':estform,
+        'estform':estform,
     })
 
 @permission_required('usuarios.detail_estudiante', login_url='/login')
@@ -233,6 +233,14 @@ def detail_estudiante(request, est_id):
     return render(request, 'estudiante/detail.html', {
         'estudiante':estudiante,
     })
+
+@permission_required('usuarios.report_estudiante', login_url='/login')
+def pdf_estudianes(request):
+    estudiantes = Estudiante.objects.filter(persona__activo = True)
+    html = render_to_string('estudiante/pdf_estudiantes.html', {
+        'estudiantes':estudiantes,
+    }, context_instance=RequestContext(request))
+    return generar_pdf(html)
 
 @permission_required('usuarios.index_docente', login_url='/login')
 def index_docente(request):

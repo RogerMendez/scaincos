@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}
+Estudiantes Gestion
+{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="row">
+        <div class="span3">
+            <h1 class=>
+                <a href="{% url 'estudiante.views.index_notas' %}"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+                Atras
+            </h1>
+        </div>
+        <div class="span3">
+            <div class="input-control select">
+                <label for="gestion">Gestion</label>
+                <select name="gestion" id="gestion">
+                    {% for gestion in gestiones %}
+                        <option value="{{ gestion.id }}">{{ gestion.gestion }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="input-control select">
+                <label for="carrera">Carrera</label>
+                <select name="carrera" id="carrera">
+                    <option value="">--------</option>
+                    {% for carrera in carreras %}
+                        <option value="{{ carrera.id }}">{{ carrera.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="input-control select">
+                <label for="nivel">Nivel de Materias</label>
+                <select name="nivel" id="nivel" disabled>
+                    <option value="">--------</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h2 class="text-center">Notas Estudiante</h2>
+        <div id="tablenotas">
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        var gestion = $('#gestion').val();
+        var carrera = $('#carrera').val();
+        $('#gestion').change(function(){
+            gestion = $(this).val();
+        });
+        $('#carrera').change(function(){
+            carrera = $(this).val();
+            if (carrera){
+                $.ajax({
+                    data:{'carrera': carrera},
+                    url:"{% url 'estudiante.views.ajax_niveles_carrera' %}",
+                    type:'GET',
+                    success: function(data){
+                        $('#nivel').html(data);
+                        $('#nivel').removeAttr('disabled');
+                    },
+                    failure: function(data){
+                        console.log('error')
+                    }
+                });
+            }
+            else{
+                $('#nivel').attr('disabled', 'disabled');
+            }
+        });
+        $('#nivel').change(function(){
+            var nivel = $(this).val();
+            if(nivel){
+                $.ajax({
+                    data:{'carrera':carrera, 'nivel':nivel, 'gestion':gestion},
+                    url:"{% url 'estudiante.views.ajax_notas_estudiantes_gestion_carrera' %}",
+                    type:'GET',
+                    success: function(data){
+                        $('#tablenotas').html(data);
+                        //materias_asignadas();
+                    },
+                    failure: function(data){
+                        console.log('error')
+                    }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

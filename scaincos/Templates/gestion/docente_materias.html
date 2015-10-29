@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}
+Materias Docente
+{% endblock %}
+{% block menu_izq %}
+{% include 'gestion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="span6">
+        <p class="readable-text">
+            <strong>Docente: </strong>{{ docente.persona.nombre }} {{ docente.persona.paterno }} {{ docente.persona.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Gestion: </strong>{{ request.session.gestion }}
+        </p>
+    </div>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Nro Item: </strong>{{ docente.nro_docente }}
+        </p>
+    </div>
+</div>
+<div class="row">
+    <h2 class="text-center">Materias Asignadas</h2>
+    <a href="{% url 'gestion.views.pdf_materias_docente' docente.id %}" class="button success">
+        <i class="fa fa-file-pdf-o"></i> Ver PDF
+    </a>
+    <table class="table hovered border">
+        <thead>
+        <tr>
+            <th width="50px">#</th>
+            <th>Carrera</th>
+            <th>Nombre Materia</th>
+            <th>Sigla Materia</th>
+            <th>Grupo</th>
+            <th>Nivel</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for asig in asignaciones %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ asig.materia.carrera.nombre }}</td>
+                <td>{{ asig.materia.nombre }}</td>
+                <td>{{ asig.materia.sigla }}</td>
+                <td>{{ asig.grupo.grupo }}</td>
+                <td>{{ asig.materia.nivel }}</td>
+                <td>
+                    <a href="{% url 'gestion.views.estudiantes_docente_materia' asig.id %}" class="button warning">
+                        <i class="fa fa-users"></i> Estudiantes
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+<nav class="sidebar (light)">
+    <ul>
+        <li class="title">Opciones</li>
+        <li class="divider"></li>
+        <li class="stick bg-violet">
+            <a href="{% url 'asistencia.views.index' %}">Asistencias</a>
+        </li>
+        <li class="stick bg-blue">
+            <a href="{% url 'asistencia.views.new_asistencia' %}">Nueva Asistencia</a>
+        </li>
+        <li class="stick bg-pink">
+            <a href="{% url 'asistencia.views.asistencia_list_docente' %}">Asistencia Docente</a>
+        </li>
+
+    </ul>
+</nav>

@@ -13,6 +13,8 @@ class Inscripcion(models.Model):
     gestion = models.ForeignKey(Gestion)
     usuario = models.ForeignKey(User, null=True)
     estado = models.BooleanField(default=True)
+    nro_libro = models.PositiveIntegerField(null=True)
+    nro_folio = models.CharField(null=True, max_length='100')
     def __unicode__(self):
         return str(self.estudiante.persona.ci)
     def __str__(self):
@@ -22,6 +24,7 @@ class Inscripcion(models.Model):
         verbose_name_plural = 'Inscripciones'
         permissions = (
             ('index_inscripcion', 'Index Inscripciones'),
+            ('report_inscripcion', 'Reporte Inscripciones'),
         )
 
 class Matricula(models.Model):

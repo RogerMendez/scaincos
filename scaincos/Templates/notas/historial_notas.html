@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}
+Estudiantes Gestion
+{% endblock %}
+{% block menu_izq %}
+{% include 'notas/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="row">
+        <div class="span6">
+            <p class="readable-text">
+                <strong>Estudiante: </strong>{{ inscripcion.estudiante.persona.nombre }} {{ inscripcion.estudiante.persona.paterno }} {{ inscripcion.estudiante.persona.materno }}
+            </p>
+            <p class="readable-text">
+                <strong>Cedula de Identidad: </strong>{{ inscripcion.estudiante.persona.ci }}
+            </p>
+        </div>
+        <div class="span5">
+            <p class="readable-text">
+                <strong>Nro. Estudiante: </strong>{{ inscripcion.estudiante.nro_estudiante }}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span6">
+            <p class="readable-text">
+                <strong>Carrera: </strong>{{ inscripcion.carrera.nombre }}
+            </p>
+        </div>
+        <div class="span5">
+            <p class="readable-text">
+                <strong>Cantidad de Materias: </strong>{{ inscripcion.carrera.materia_set.select_related.count}} Materias
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <h2 class="text-center">Historial de Calificaciones</h2>
+        <h3>
+            <strong>Materias aprobadas: </strong>{{ programaciones.count }} Materias
+        </h3>
+        <p>
+            {% if inscripcion.nro_folio and inscripcion.nro_libro %}
+                <a href="{% url 'estudiante.views.pdf_certificado_calificaciones' inscripcion.id %}" class="button success">
+                    <i class="fa fa-file-pdf-o"></i>
+                    Certificado Calificaciones
+                </a>
+            {% else %}
+                <a href="{% url 'estudiante.views.crear_folio_libro' inscripcion.id %}" class="button success">
+                    <i class="fa fa-forward"></i>
+                    Crear Nro. de Folio
+                </a>
+            {% endif %}
+        </p>
+        <div id="span11">
+            <table class="table hovered bordered">
+                <thead>
+                    <tr>
+                        <th width="30px">#</th>
+                        <th>Materia</th>
+                        <th>Sigla</th>
+                        <th>Nivel</th>
+                        <th>PA</th>
+                        <th>EH</th>
+                        <th>PP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pro in programaciones %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ pro.materia.nombre }}</td>
+                            <td>{{ pro.materia.sigla }}</td>
+                            <td>{{ pro.materia.nivel }}</td>
+                            <td>{{ pro.promedio }}</td>
+                            <td>{{ pro.segundo_T }}</td>
+                            <td>{{ pro.final }}</td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

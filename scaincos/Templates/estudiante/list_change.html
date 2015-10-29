@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-Administrativos
+Estudiantes
 {% endblock %}
 {% block menu_izq %}
 {% include 'estudiante/__menu_izq.html' %}
@@ -8,11 +8,6 @@ Administrativos
 {% block cuerpo %}
 <div class="row">
     <h2>Listado de Estudiantes</h2>
-    <p>
-        {% if permission.usuarios.report_estudiante %}
-            <a href="" class="button success">VER PDF</a>
-        {% endif %}
-    </p>
     <div class="span11">
         {% if estudiantes %}
             <table class="table hovered border myClass">

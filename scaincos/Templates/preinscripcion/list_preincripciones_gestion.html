@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}
+Agregar Requisitos
+{% endblock %}
+{% block menu_izq %}
+{% include 'preinscripcion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+    <div class="row">
+    <div class="span5">
+        <form action="" method="get">{% csrf_token %}
+            {% include 'form_include.html' %}
+            <input type="submit" value="Buscar" class="button default"/>
+        </form>
+    </div>
+<div class="span6"></div>
+</div>
+<div class="row">
+    <div class="span11">
+        <div class="row">
+            <div class="row">
+                <div class="span6">
+                    <p class="readable-text">
+                        <strong>Carrera: </strong>{{ carrera.nombre }}
+                    </p>
+                </div>
+                <div class="span5">
+                    <p class="readable-text">
+                        <strong>Cantidad de Preinscritos: </strong>{{ preinscripciones.count }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <h3 class="text-center">Listado de Materias</h3>
+                <table class="table hovered border">
+                    <thead>
+                    <tr>
+                        <th width="50px">#</th>
+                        <th>Cedula de Identidad</th>
+                        <th>Nombre Completo</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for pre in preinscripciones %}
+                                <tr {% if pre.estado == False %}class="warning"{% endif %}>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ pre.ci }}</td>
+                                    <td>{{ pre.nombre }} {{ pre.paterno }} {{ pre.materno }}</td>
+                                    <td>{{ pre.direccion }}</td>
+                                    <td>{{ pre.telefono }}</td>
+                                    <td>
+                                        {% if pre.estado == True and gestion.gestion == request.session.gestion %}
+                                            <a href="{% url 'preinscripcion.views.new_inscripcion' pre.id %}" class="button danger">
+                                                <i class="fa fa-plus-circle"></i> Inscribir
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -8,9 +8,9 @@ Carreras
 {% block cuerpo %}
 <div class="row">
     <h2>Listado de Carrera</h2>
-    {% if perms.carrera.report_docente %}
+    {% if perms.carrera.report_carrera %}
         <p>
-            <a href="" class="button success">VER PDF</a>
+            <a href="{% url 'carrera.views.pdf_carreras' %}" class="button success">VER PDF</a>
         </p>
     {% endif %}
     <div class="span11">

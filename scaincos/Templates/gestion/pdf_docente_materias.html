@@ -1,0 +1,35 @@
+{% extends 'base_reporte.html' %}
+{% block cuerpo %}
+    <h1 align="center">Materias Asignadas</h1>
+    <div class="">
+        <h2>Docente: <strong>{{ docente.persona.nombre }} {{ docente.persona.paterno }} {{ docente.persona.materno }}</strong></h2>
+        <h2><strong>Gestion: </strong>{{ gestion.gestion }}</h2>
+    </div>
+    <table class="table hovered border">
+        <thead>
+        <tr>
+            <th width="50px">#</th>
+            <th>Carrera</th>
+            <th width="170px">Nombre Materia</th>
+            <th>Sigla Materia</th>
+            <th>Grupo</th>
+            <th width="50px">Nivel</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for asig in asignaciones %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ asig.materia.carrera.nombre }}</td>
+                <td>{{ asig.materia.nombre }}</td>
+                <td>{{ asig.materia.sigla }}</td>
+                <td>{{ asig.grupo.grupo }}</td>
+                <td>{{ asig.materia.nivel }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div id="footerContent">
+        Pagina <pdf:pagenumber>
+    </div>
+{% endblock %}

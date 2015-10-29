@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block menu_izq %}
+{% include 'inscripcion/__menu_izq.html' %}
+{% endblock %}
+{% block title %}
+Estudiantes Carrera
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <div class="span5">
+        <form action="" method="get">{% csrf_token %}
+            {% include 'form_include.html' %}
+            <input type="submit" value="Buscar" class="button default"/>
+        </form>
+    </div>
+<div class="span6"></div>
+</div>
+    <hr/>
+<a href="{% url 'inscripcion.views.pdf_estudiantes_arrera' carrera.id %}" class="button success">Ver PDF</a>
+<div class="row">
+    <div class="span6">
+        <p class="readable-text">
+            <strong>Carrera: </strong>{{ carrera.nombre }}
+        </p>
+        <p class="readable-text">
+            <strong>Cantidad de Estudiantes: </strong>{{ inscripciones.count }}
+        </p>
+    </div>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Tiempo Carrera: </strong> {{ carrera.tiempo }}
+        </p>
+    </div>
+</div>
+<div class="row">
+    <h2 class="text-center">Listado de Estudiantes</h2>
+    <div class="span11">
+        <table class="table hovered border myClass">
+            <thead>
+                <tr>
+                    <th width="30px">#</th>
+                    <th>Cedula de Identidad</th>
+                    <th>Nro. de Estudiante</th>
+                    <th>Nombre Completo</th>
+                    <th>Gestion de Ingreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for insc in inscripciones %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ insc.estudiante.persona.ci }}</td>
+                        <td>{{ insc.estudiante.nro_estudiante }}</td>
+                        <td>{{ insc.estudiante.persona.paterno }} {{ insc.estudiante.persona.materno }}, {{ insc.estudiante.persona.nombre }}</td>
+                        <td>{{ insc.gestion }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+<h2 class="text-center">Notas Estudiante</h2>
+<p class="readable-text">
+    <strong>Gestion: </strong>{{ gestion.gestion }}
+</p>
+<div class="span11">
+    <table class="table striped">
+        <thead>
+            <tr>
+                <th width="30px">#</th>
+                <th>Sigla</th>
+                <th>Materia</th>
+                <th>Nivel</th>
+                <th>Grupo</th>
+                <th>1T.</th>
+                <th>2T.</th>
+                <th>3T.</th>
+                <th>PPA</th>
+                <th>EH</th>
+                <th>PPF</th>
+                <th>Obs.</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pro in programaciones %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ pro.materia.sigla }}</td>
+                    <td>{{ pro.materia.nombre }}</td>
+                    <td>{{ pro.materia.nivel }}</td>
+                    <td>{{ pro.grupo.abreviacion }}</td>
+                    <td>{{ pro.priner }}</td>
+                    <td>{{ pro.segundo }}</td>
+                    <td>{{ pro.tercer }}</td>
+                    <td>{{ pro.promedio }}</td>
+                    <td>{{ pro.segundo_T }}</td>
+                    <td>{{ pro.final }}</td>
+                    <td>
+                        {% if pro.final > 50 %}
+                            Aprob.
+                        {% else %}
+                            Reprob.
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

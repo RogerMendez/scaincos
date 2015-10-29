@@ -13,7 +13,7 @@ from scaincos.reportes import generar_pdf
 from scaincos.log_usuarios import log_addition, log_change
 
 from carrera.models import Carrera, Materia, Requisitos, Grupo
-from carrera.form import CarreraForm, MateriaForm
+from carrera.form import CarreraForm, MateriaForm, CarrerasForm
 from gestion.form import GrupoForm
 
 @permission_required('carrera.index_carrera', login_url='/login')
@@ -96,9 +96,14 @@ def pdf_plan_curricular(request, carrera_id):
 
 @permission_required('carrera.index_materia', login_url='/login')
 def index_materia(request):
-    carreras = Carrera.objects.all()
+    carrera = Carrera.objects.first()
+    formulario = CarrerasForm(request.GET or None)
+    if formulario.is_valid():
+        id = request.GET['carrera']
+        carrera = Carrera.objects.get(id = int(id))
     return render(request, 'materias/index.html', {
-        'carreras':carreras,
+        'carrera':carrera,
+        'formulario':formulario,
     })
 
 @permission_required('carrera.add_materia', login_url='/login')
@@ -119,9 +124,14 @@ def new_materia(request):
 
 @permission_required('carrera.change_carrera')
 def list_materias_update(request):
-    carreras = Carrera.objects.all()
+    carrera = Carrera.objects.first()
+    formulario = CarrerasForm(request.GET or None)
+    if formulario.is_valid():
+        id = request.GET['carrera']
+        carrera = Carrera.objects.get(id = int(id))
     return render(request, 'materias/list_update.html', {
-        'carreras':carreras,
+        'carrera':carrera,
+        'formulario':formulario,
     })
 
 @permission_required('carrera.change_carrera')
@@ -143,9 +153,14 @@ def update_materia(request, materia_id):
 
 @permission_required('carrera,requirement_materia', login_url='/login')
 def list_materias_requisitos(request):
-    carreras = Carrera.objects.all()
+    carrera = Carrera.objects.first()
+    formulario = CarrerasForm(request.GET or None)
+    if formulario.is_valid():
+        id = request.GET['carrera']
+        carrera = Carrera.objects.get(id = int(id))
     return render(request, 'materias/list_materias_add_requisitos.html', {
-        'carreras':carreras,
+        'carrera':carrera,
+        'formulario':formulario,
     })
 
 @permission_required('carrera,requirement_materia', login_url='/login')
@@ -154,7 +169,7 @@ def requisitos_materia(request, materia_id):
     carrera = get_object_or_404(Carrera, pk = materia.carrera_id)
     asignados = Requisitos.objects.filter(from_materia = materia.id)
     q1 = asignados.values('to_materia_id')
-    s_asignar = Materia.objects.exclude(nivel = materia.nivel).filter(nivel__lt = materia.nivel).exclude(id__in = q1)
+    s_asignar = Materia.objects.exclude(nivel = materia.nivel).filter(nivel__lt = materia.nivel).exclude(id__in = q1).filter(carrera = carrera)
     return render(request, 'materias/requisitos_materia.html', {
         'materia':materia,
         'carrera':carrera,
@@ -205,3 +220,11 @@ def new_grupo(request):
     return render(request, 'grupos/new.html', {
         'formulario':formulario,
     })
+
+@permission_required('carrera.report_carrera', login_url='/login')
+def pdf_carreras(request):
+    carreras = Carrera.objects.all()
+    html = render_to_string('carreras/pdf_carreras.html', {
+        'carreras':carreras,
+    }, context_instance=RequestContext(request))
+    return generar_pdf(html)

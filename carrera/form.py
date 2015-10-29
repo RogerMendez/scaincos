@@ -16,3 +16,9 @@ class MateriaForm(forms.ModelForm):
     class Meta:
         model = Materia
         exclude = ['requisito']
+        widgets = {
+            'nivel':TextInput(attrs={'type':'number', 'min':'1'}),
+        }
+
+class CarrerasForm(forms.Form):
+    carrera = forms.ModelChoiceField(label='Seleccione Carrera', queryset = Carrera.objects.all())

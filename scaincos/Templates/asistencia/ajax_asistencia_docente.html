@@ -1,0 +1,49 @@
+<h2 class="text-center">
+    <strong>Asistencias dia: </strong>{{ dia }}
+</h2>
+<div class="span5">
+<h3 class="text-center">Marcas De asistencia</h3>
+    <table class="table hovered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in asistencias %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ a.fecha }}</td>
+                    <td>{{ a.hora|time }}</td>
+                </tr>            
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+<div class="span5">
+<h3 class="text-center">Horarios</h3>
+    <table class="table hovered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>hora</th>
+                <th>Aula</th>
+                <th>Materia</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in horarios %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ h.hora|time }}</td>
+                    <td>{{ h.aula.nro }}</td>
+                    <td>{{ h.asignaciondocente.materia.sigla }}</td>
+                </tr>            
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>

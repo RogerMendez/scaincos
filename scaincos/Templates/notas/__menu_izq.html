@@ -1,0 +1,17 @@
+<nav class="sidebar (light)">
+    <ul>
+        <li class="title">Opciones</li>
+        <li class="divider"></li>
+        <li class="stick bg-yellow">
+            <a href="{% url 'estudiante.views.index_notas' %}">Matriculas</a>
+        </li>
+        <li class="stick bg-red">
+            <a href="{% url 'estudiante.views.notas_gestion_carreras' %}" class="bd-white">
+                Notas Gestion
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'estudiante.views.estudiantes_finalizacion' %}">Estudios Terminados</a>
+        </li>
+    </ul>
+</nav>

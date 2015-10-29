@@ -1,0 +1,36 @@
+{% extends 'base_reporte.html' %}
+{% block cuerpo %}
+    <h1 style="text-align: center">Listado de Estudiantes</h1>
+    <h2>
+        <strong style="color: #0067cb;">Carrera: </strong>{{ carrera.nombre }}
+    </h2>
+    <h2>
+        <strong style="color: #0067cb;">Gestion: </strong>{{ gestion.gestion }}
+    </h2>
+    <table class="table hovered border myClass">
+        <thead>
+            <tr>
+                <th width="30px">#</th>
+                <th>Cedula de Identidad</th>
+                <th>Nro. de Estudiante</th>
+                <th>Nombre Completo</th>
+                <th>Gestion de Ingreso</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for insc in inscripciones %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ insc.estudiante.persona.ci }}</td>
+                    <td>{{ insc.estudiante.nro_estudiante }}</td>
+                    <td>{{ insc.estudiante.persona.paterno }} {{ insc.estudiante.persona.materno }}, {{ insc.estudiante.persona.nombre }}</td>
+                    <td>{{ insc.gestion }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div id="footerContent">
+        Pagina <pdf:pagenumber>
+    </div>
+{% endblock %}

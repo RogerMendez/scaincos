@@ -1,0 +1,32 @@
+<fieldset>
+    <legend></legend>
+        {% for field in formulario %}
+            {{ field.label_tag }}
+            <div class="input-control text{% if field.errors %} error-state{% endif %}" data-role="input-control">
+                {{ field }}
+            </div>
+            {% if field.errors %}
+                <div class="balloon bottom bd-red bg-red">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+            {% if field.help_text %}
+                <p class="fg-green">
+                    <small><span class="icon-alert"></span> {{ field.help_text }}</small>
+                </p>
+            {% endif %}
+        {% endfor %}
+</fieldset>
+<script>
+$(document).ready(function(){
+    var campo = $('select');
+    var div = campo.parent();
+    div.removeClass('text');
+    div.addClass('select');
+
+    var campo = $('textarea');
+    var div = campo.parent();
+    div.removeClass('text');
+    div.addClass('textarea');
+})
+</script>

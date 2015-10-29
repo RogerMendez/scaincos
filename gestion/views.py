@@ -7,18 +7,19 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django import template
 
 from scaincos.reportes import generar_pdf, sms_sesion
 from scaincos.log_usuarios import log_addition, log_change
 
-from usuarios.models import Docente, Persona
+from usuarios.models import Docente, Persona, Estudiante
 from institucion.models import Aula
 from carrera.models import Carrera, Materia, Grupo
 from gestion.models import Gestion, Gestion_Carrera, AsignacionDocente, Horario
 from gestion.form import GestionForm, GestionCarreraForm
-
+from estudiante.models import Inscripcion, Programacion
 
 register = template.Library()
 
@@ -199,13 +200,33 @@ def ajax_materia_horario(request):
         aula = get_object_or_404(Aula, pk = aula_id)
         dia = request.GET['dia']
         hora = request.GET['hora']
-        asignar = AsignacionDocente.objects.all()
+        gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+        asignar = AsignacionDocente.objects.filter(gestion = gestion)
         html = render_to_string('horario/ajax_materias_no_horarios.html', {
             'dia':dia,
             'hora':hora,
             'aula':aula,
             'asignados':asignar,
         }, context_instance=RequestContext(request))
+        return JsonResponse(html, safe=False)
+    else:
+        raise Http404
+
+@login_required(login_url='/login')
+def ajax_search_matter(request):
+    if request.is_ajax():
+        carrera_id = request.GET['carrera_id']
+        materia = request.GET['materia']
+        gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+        docente_id = request.GET['docente_id']
+        docente = Docente.objects.get(id = docente_id)
+        carrera = Carrera.objects.get(id = carrera_id)
+        matters = Materia.objects.filter(carrera = carrera, nombre__icontains = materia)
+        html = render_to_string('gestion/result_matter_search.html', {
+            'materias':matters,
+            'docente':docente,
+            'g':gestion,
+        })
         return JsonResponse(html, safe=False)
     else:
         raise Http404
@@ -218,7 +239,7 @@ def add_materia_horario(request, aula_id, asig_id):
     hora = request.GET['hora']
     dia = request.GET['dia']
     if Horario.objects.filter(dia = dia, hora = hora, asignaciondocente = asignacion, gestion = gestion):
-        sms = 'No se puede Asignar a este horario'
+        sms = 'No se puede Asignar a este horario Ya fue Asignado en esta Hora'
     else:
         docente = Docente.objects.get(id = asignacion.docente_id)
         asignaciones = AsignacionDocente.objects.filter(docente = docente)
@@ -226,15 +247,21 @@ def add_materia_horario(request, aula_id, asig_id):
         if horarios.filter(dia = dia, gestion = gestion, hora = hora):
             sms = "No se pude asignar horario <strong>DOCENTE OCUPADO</strong>"
         else:
-            h = Horario.objects.create(
-                dia = dia,
-                hora = hora,
-                aula = aula,
-                asignaciondocente = asignacion,
-                gestion = gestion,
-            )
-            log_addition(request, h, 'Horario Creado')
-            sms = 'Horario Asignado Correctamente'
+            horas_docente = 0
+            for h in horarios:
+                horas_docente += 1
+            if horas_docente < docente.carga_horario:
+                h = Horario.objects.create(
+                    dia = dia,
+                    hora = hora,
+                    aula = aula,
+                    asignaciondocente = asignacion,
+                    gestion = gestion,
+                )
+                log_addition(request, h, 'Horario Creado')
+                sms = 'Horario Asignado Correctamente'
+            else:
+                sms = 'Carago Horaria de Docente Completa -- No se puede asignar'
     messages.info(request, sms)
     return HttpResponseRedirect(reverse(aula_view_horario, args={aula_id,}))
 
@@ -245,3 +272,98 @@ def remove_materia_horario(request, horario_id):
     sms = "Horario Removido Correctamente"
     messages.info(request, sms)
     return HttpResponseRedirect(reverse(aula_view_horario, args={horario.aula.id}))
+
+@permission_required('usuarios.report_docente', login_url='/login')
+def materias_docente(request, docente_id):
+    sms_sesion(request)
+    gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+    docente = get_object_or_404(Docente, pk = docente_id)
+    asignaciones = AsignacionDocente.objects.filter(docente = docente, gestion = gestion).order_by('materia__carrera')
+    return render(request, 'gestion/docente_materias.html', {
+        'docente':docente,
+        'asignaciones':asignaciones,
+    })
+
+@permission_required('usuarios.report_docente', login_url='/login')
+def pdf_materias_docente(request, docente_id):
+    gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+    docente = get_object_or_404(Docente, pk = docente_id)
+    asignaciones = AsignacionDocente.objects.filter(docente = docente, gestion = gestion).order_by('materia__carrera')
+    html = render_to_string('gestion/pdf_docente_materias.html', {
+        'docente':docente,
+        'asignaciones':asignaciones,
+        'gestion':gestion,
+    })
+    return generar_pdf(html)
+
+@permission_required('usuarios.report_docente', login_url='/login')
+def estudiantes_docente_materia(request, asig_id):
+    sms_sesion(request)
+    gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+    asignacion = get_object_or_404(AsignacionDocente, pk = asig_id)
+    materia = Materia.objects.get(id = asignacion.materia_id)
+    programados = Programacion.objects.filter(materia = materia, grupo_id = asignacion.grupo_id, gestion = gestion)
+    inscripciones = Inscripcion.objects.filter(id__in = programados.values('inscripcion_id'))
+    estudiantes = Estudiante.objects.filter(id__in = inscripciones.values('estudiante_id'))
+    return render(request, 'gestion/estudiantes_materia.html', {
+        'estudiantes':estudiantes,
+        'asignacion':asignacion,
+    })
+
+@permission_required('usuarios.report_docente', login_url='/login')
+def pdf_estudiantes_docente_materia(request, asig_id):
+    gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+    asignacion = get_object_or_404(AsignacionDocente, pk = asig_id)
+    materia = Materia.objects.get(id = asignacion.materia_id)
+    programados = Programacion.objects.filter(materia = materia, grupo_id = asignacion.grupo_id, gestion = gestion)
+    inscripciones = Inscripcion.objects.filter(id__in = programados.values('inscripcion_id'))
+    estudiantes = Estudiante.objects.filter(id__in = inscripciones.values('estudiante_id'))
+    html = render_to_string('gestion/pdf_estudiantes_materias.html', {
+        'estudiantes':estudiantes,
+        'asignacion':asignacion,
+        'gestion':gestion,
+    }, context_instance=RequestContext(request))
+    return generar_pdf(html)
+
+@permission_required('usuarios.report_docente', login_url='/login')
+def horario_docente(request, doc_id):
+    sms_sesion(request)
+    gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+    docente = get_object_or_404(Docente, pk = doc_id)
+    asignaciones = AsignacionDocente.objects.filter(docente = docente, gestion = gestion)
+    horarios = Horario.objects.filter(asignaciondocente_id__in = asignaciones.values('id'))
+    aulas = Aula.objects.filter(id__in = horarios.values('aula_id'))
+    horas = ['18:00','19:00','20:00','21:00', '22:00']
+    return render(request, 'gestion/horario_docente.html', {
+        'horas':horas,
+        'docente':docente,
+        'horarios':horarios,
+        'aulas':aulas,
+    })
+
+@login_required(login_url='/login')
+def ajax_search_docente(request):
+    if request.is_ajax():
+        nombre = request.GET['nombres']
+        paterno = request.GET['paterno']
+        materno = request.GET['materno']
+        aula_id = request.GET['aula_id']
+        hora = request.GET['hora']
+        dia = request.GET['dia']
+        asignaciones = AsignacionDocente.objects.filter(
+            docente__persona__nombre__icontains = nombre,
+            docente__persona__paterno__icontains = paterno,
+            docente__persona__materno__icontains = materno
+        )
+        #asignaciones = AsignacionDocente.objects.filter(
+        #    Q(docente__persona__nombre__icontains = nombre) | Q(docente__persona__paterno__icontains = paterno) | Q(docente__persona__materno__icontains = materno)
+        #)
+        html = render_to_string('horario/ajax_docente_search.html', {
+            'asignados':asignaciones,
+            'hora':hora,
+            'dia':dia,
+            'aula_id':aula_id,
+        }, context_instance=RequestContext(request))
+        return JsonResponse(html, safe=False)
+    else:
+        raise Http404

@@ -45,6 +45,7 @@ def mis_materias(request):
 
 @login_required(login_url='/login')
 def estudiantes_materia(request, asig_id):
+    sms_sesion(request)
     gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
     asignacion = get_object_or_404(AsignacionDocente, pk = asig_id)
     materia = Materia.objects.get(id = asignacion.materia_id)
