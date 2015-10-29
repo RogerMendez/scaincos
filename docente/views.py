@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 
 from django.contrib.auth.models import User
 
@@ -19,7 +20,11 @@ from usuarios.models import Estudiante, Persona, Docente
 from inscripcion.models import Inscripcion
 from carrera.models import Materia, Carrera
 from estudiante.models import Programacion, Notas
-from docente.form import NotasForm
+from docente.models import ExcelNotas
+from docente.form import NotasForm, NotasExcelForm
+
+import xlrd
+import os
 
 @login_required(login_url='/login')
 def index_docente(request):
@@ -75,11 +80,47 @@ def estudiantes_materia_notas(request, asig_id):
     programados = Programacion.objects.filter(materia = materia, grupo_id = asignacion.grupo_id, gestion = gestion)
     inscripciones = Inscripcion.objects.filter(id__in = programados.values('inscripcion_id'))
     estudiantes = Estudiante.objects.filter(id__in = inscripciones.values('estudiante_id'))
+    if request.method == "POST":
+        formulario = NotasExcelForm(request.POST, request.FILES)
+        if formulario.is_valid():
+            e = ExcelNotas.objects.create(
+                excel = request.FILES['input_excel']
+            )
+            #location_file = "http://127.0.0.1:8000/media/" + str(e.excel)#
+            location_file = "D:/Django/scaincos/scaincos/media/" + str(e.excel)
+            workbook = xlrd.open_workbook(location_file)
+            sheet = workbook.sheet_by_index(0)
+            #print sheet.cell_value(7,3)
+            columnas = sheet.ncols
+            filas = sheet.nrows
+            print sheet.cell_value(7,3)
+            for f in range(7, filas):
+                ci = int(sheet.cell_value(f, 3))
+                if estudiantes.filter(persona__ci = ci):
+                    estudiante = estudiantes.get(persona__ci = ci)
+                    inscripcion = inscripciones.get(estudiante = estudiante)
+                    programacion = programados.get(inscripcion = inscripcion)
+                    primer = sheet.cell_value(f,4)
+                    segunto = sheet.cell_value(f, 5)
+                    tercer = sheet.cell_value(f, 6)
+                    final = sheet.cell_value(f, 9)
+                    programacion.priner = primer
+                    programacion.segundo = segunto
+                    programacion.tercer = tercer
+                    programacion.final = final
+                    programacion.save()
+                else:
+                    print 'No Programo'
+            #return HttpResponseRedirect('/')
+            return HttpResponseRedirect(reverse(estudiantes_materia_notas, args={asig_id, }))
+    else:
+        formulario = NotasExcelForm()
     return render(request, 'moddocente/estudiantes_materia_notas.html', {
         'materia':materia,
         'estudiantes':estudiantes,
         'programaciones':programados,
         'asignacion':asignacion,
+        'formulario':formulario,
     })
 
 @login_required(login_url='/login')

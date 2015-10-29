@@ -12,6 +12,14 @@ Administrativos
     </div>
 </div>
 <div class="row">
+    <div class="span11">
+        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            {% include 'form_include.html' %}
+            <input type="submit" value="Enviar" class="button default"/>
+        </form>
+    </div>
+</div>
+<div class="row">
     <h2>Listado de Estudiantes</h2>
     <h3><strong>Gestion: </strong>{{ request.session.gestion }}</h3>
     <div class="span11">
