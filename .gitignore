@@ -3,7 +3,9 @@ Thumbs.db
 ehthumbs.db
 
 .idea/
-.pyc
+.idea/**/*
+*~
+*.pyc
 # Folder config file
 Desktop.ini
 

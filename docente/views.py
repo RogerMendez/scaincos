@@ -5,7 +5,6 @@ from django.template.loader import render_to_string
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404
 from django.conf import settings
@@ -87,13 +86,15 @@ def estudiantes_materia_notas(request, asig_id):
                 excel = request.FILES['input_excel']
             )
             #location_file = "http://127.0.0.1:8000/media/" + str(e.excel)#
-            location_file = "D:/Django/scaincos/scaincos/media/" + str(e.excel)
+            location_file = settings.DIR_FIS + str(e.excel)
             workbook = xlrd.open_workbook(location_file)
             sheet = workbook.sheet_by_index(0)
             #print sheet.cell_value(7,3)
             columnas = sheet.ncols
             filas = sheet.nrows
-            print sheet.cell_value(7,3)
+            #print sheet.cell_value(7,3)
+            n_programo = 0
+            programo = 0
             for f in range(7, filas):
                 ci = int(sheet.cell_value(f, 3))
                 if estudiantes.filter(persona__ci = ci):
@@ -109,9 +110,13 @@ def estudiantes_materia_notas(request, asig_id):
                     programacion.tercer = tercer
                     programacion.final = final
                     programacion.save()
+                    programo = programo + 1
                 else:
-                    print 'No Programo'
-            #return HttpResponseRedirect('/')
+                    n_programo = n_programo + 1
+            sms = "No Se Registraron %s notas"%(str(n_programo))
+            messages.success(request, sms)
+            sms = "Se Registraron %s notas Correctamente"% (str(programo))
+            messages.success(request, sms)
             return HttpResponseRedirect(reverse(estudiantes_materia_notas, args={asig_id, }))
     else:
         formulario = NotasExcelForm()

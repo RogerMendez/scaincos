@@ -19,6 +19,7 @@ from usuarios.models import Persona, Estudiante
 from gestion.models import Gestion
 from carrera.models import Carrera
 from carrera.form import CarrerasForm
+from inscripcion.models import Inscripcion
 from preinscripcion.models import Preinscripcion
 from preinscripcion.form import PreinscripcionForm, EstudianteForm
 from inscripcion.views import info_new_inscripxion
@@ -79,48 +80,61 @@ def new_inscripcion(request, pre_id):
     if request.method == 'POST':
         formulario = EstudianteForm(request.POST)
         if formulario.is_valid():
-            password = password_create()
-            email = formulario.cleaned_data['email']
-            nro_estu = formulario.cleaned_data['nro_estudiante']
-            usuario = User.objects.create_user(pre.ci, email, password)
-            persona = Persona.objects.create(
-                ci = pre.ci,
-                nombre = pre.nombre,
-                paterno = pre.paterno,
-                materno = pre.materno,
-                fecha_nac = pre.fecha_nac,
-                direccion = pre.direccion,
-                telefono = pre.telefono,
-                avatar = pre.avatar,
-                tipo = 'Estudiante',
-                email = email,
-                usuario = usuario,
-            )
-            estudiante = Estudiante.objects.create(
-                nro_estudiante = nro_estu,
-                persona = persona,
-            )
-            pre.estado = False
-            pre.save()
-            log_addition(request, persona, 'Persona Creada')
-            log_addition(request, estudiante, 'Estudiante Creado')
-            html = render_to_string('estudiante/email_confimacion.html',{
-                'username':usuario.username,
-                'password':password,
-            }, context_instance=RequestContext(request))
-            subject = 'Cuenta Creada Correctamente'
-            text_content = 'Mensaje...nLinea 2nLinea3'
-            html_content = html
-            from_email = '"INCOS" <sieboliva@gmail.com>'
-            to = persona.email
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
-            sms = "Estudiante Creado Correctamente"
-            messages.success(request, sms)
-            sms = "Un mensaje fue enviado a <strong>%s</strong> con los datos de su Cuenta"% (persona.email)
-            messages.success(request, sms)
-            return HttpResponseRedirect(reverse(info_new_inscripxion, args={pre.carrera_id, estudiante.id}))
+            if Persona.objects.filter(ci = pre.ci):
+                persona = Persona.objects.get(ci = pre.ci)
+                estudiante = Estudiante.objects.get(persona = persona)
+                if Inscripcion.objects.filter(terminado = False, estudiante = estudiante):
+                    sms = 'Ya esta registrado en otra carrera'
+                    messages.info(request, sms)
+                    return HttpResponseRedirect(reverse(new_inscripcion, args={pre.id, }))
+                else:
+                    sms = 'El Estudiante ya esta registrado'
+                    messages.info(request, sms)
+                    return HttpResponseRedirect(reverse(info_new_inscripxion, args={pre.carrera_id, estudiante.id}))
+            else:
+                print 'no existe'
+                password = password_create()
+                email = formulario.cleaned_data['email']
+                nro_estu = formulario.cleaned_data['nro_estudiante']
+                usuario = User.objects.create_user(pre.ci, email, password)
+                persona = Persona.objects.create(
+                    ci = pre.ci,
+                    nombre = pre.nombre,
+                    paterno = pre.paterno,
+                    materno = pre.materno,
+                    fecha_nac = pre.fecha_nac,
+                    direccion = pre.direccion,
+                    telefono = pre.telefono,
+                    avatar = pre.avatar,
+                    tipo = 'Estudiante',
+                    email = email,
+                    usuario = usuario,
+                )
+                estudiante = Estudiante.objects.create(
+                    nro_estudiante = nro_estu,
+                    persona = persona,
+                )
+                pre.estado = False
+                pre.save()
+                log_addition(request, persona, 'Persona Creada')
+                log_addition(request, estudiante, 'Estudiante Creado')
+                html = render_to_string('estudiante/email_confimacion.html',{
+                    'username':usuario.username,
+                    'password':password,
+                }, context_instance=RequestContext(request))
+                subject = 'Cuenta Creada Correctamente'
+                text_content = 'Mensaje...nLinea 2nLinea3'
+                html_content = html
+                from_email = '"INCOS" <sieboliva@gmail.com>'
+                to = persona.email
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+                sms = "Estudiante Creado Correctamente"
+                messages.success(request, sms)
+                sms = "Un mensaje fue enviado a <strong>%s</strong> con los datos de su Cuenta"% (persona.email)
+                messages.success(request, sms)
+                return HttpResponseRedirect(reverse(info_new_inscripxion, args={pre.carrera_id, estudiante.id}))
     else:
         formulario = EstudianteForm()
     return render(request, 'preinscripcion/new_estudiante.html', {

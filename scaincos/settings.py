@@ -141,3 +141,5 @@ EMAIL_USE_TLS = True
 #AUTH_PROFILE_MODULE = 'users.Perfil'
 
 DIRECCION = "http://127.0.0.1:8000/"
+
+DIR_FIS = "D:/Django/scaincos/scaincos/media/"

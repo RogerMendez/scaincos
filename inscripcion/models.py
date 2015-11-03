@@ -15,6 +15,7 @@ class Inscripcion(models.Model):
     estado = models.BooleanField(default=True)
     nro_libro = models.PositiveIntegerField(null=True)
     nro_folio = models.CharField(null=True, max_length='100')
+    terminado = models.BooleanField(default=False)
     def __unicode__(self):
         return str(self.estudiante.persona.ci)
     def __str__(self):

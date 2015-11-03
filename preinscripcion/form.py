@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import TextInput
 from django.forms import ModelForm
 from django.core.exceptions import ValidationError
 
@@ -14,6 +15,9 @@ class PreinscripcionForm(ModelForm):
     class Meta:
         model = Preinscripcion
         exclude = ['gestion', 'estado']
+        widgets = {
+            'fecha_nac':TextInput(attrs={'type':'date'}),
+            }
 
 class EstudianteForm(forms.Form):
     email = forms.EmailField(label='Correo Electronico')

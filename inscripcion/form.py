@@ -10,7 +10,7 @@ class InscripcionForm(forms.Form):
 class FolioLibroForm(forms.ModelForm):
     class Meta:
         model = Inscripcion
-        exclude = ['c_inscripcion', 'estudiante', 'carrera', 'gestion', 'usuario', 'estado']
+        exclude = ['c_inscripcion', 'estudiante', 'carrera', 'gestion', 'usuario', 'estado', 'terminado']
         widgets = {
             'nro_folio':TextInput(attrs={'type':'number'}),
             }
