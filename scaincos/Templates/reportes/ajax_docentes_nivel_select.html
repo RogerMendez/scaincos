@@ -1,0 +1,38 @@
+<label for="id_docentes">Docentes</label>
+<div class="input-control select" data-role="input-control">
+    <select name="docentes" id="id_docentes">
+        <option value="">----------</option>
+        {% for docente in docentes %}
+            <option value="{{ docente.id }}">{{ docente.persona.nombre }} {{ docente.persona.paterno }} {{ docente.persona.materno }}</option>
+        {% endfor %}
+    </select>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#id_docentes').change(function(){
+            var docente = $(this).val();
+            $.ajax({
+                data:{'gestion': {{ request.session.gestion }}, 'carrera_id':{{ carrera.id }}, 'nivel':{{ nivel }}, 'docente_id':docente},
+                url:"{% url 'gestion.views.ajax_docente_nivel_carrera_materias' %}",
+                type:'GET',
+                success: function(data){
+                    $('#list_docentes').html(data);
+                    $.ajax({
+                        data:{'gestion': {{ request.session.gestion }}, 'carrera_id':{{ carrera.id }}, 'nivel':{{ nivel }}, 'docente_id':docente},
+                        url:"{% url 'gestion.views.ajax_docente_nivel_carrera_materias_select' %}",
+                        type:'GET',
+                        success: function(data){
+                            $('#select_matera').html(data);
+                        },
+                        failure: function(data){
+                            console.log('error')
+                        }
+                    });
+                },
+                failure: function(data){
+                    console.log('error')
+                }
+            });
+        });
+    });
+</script>

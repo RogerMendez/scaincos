@@ -41,6 +41,9 @@ class Gestion_Carrera(models.Model):
     class Meta:
         ordering = ['gestion']
         verbose_name_plural = 'Carreras - Gestion'
+        permissions = (
+            ('report_gestion', 'Reporte Gestiones'),
+        )
 
 class AsignacionDocente(models.Model):
     fecha_asignacion = models.DateField(auto_now_add=True)

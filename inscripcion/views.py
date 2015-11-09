@@ -117,6 +117,9 @@ def confirm_new_inscripcion(request, carrera_id, estu_id):
         gestion = gestion,
         usuario = request.user,
     )
+    user = User.objects.get(username=estudiante.persona.ci)
+    user.is_active = True
+    user.save()
     log_addition(request, i, 'Inscripcion Creada')
     sms = "Estudiante <strong>%s %s, %s</strong> Inscrito Correctamente"%(estudiante.persona.paterno, estudiante.persona.materno, estudiante.persona.nombre)
     messages.info(request, sms)

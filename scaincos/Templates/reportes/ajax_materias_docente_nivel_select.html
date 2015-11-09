@@ -1,0 +1,27 @@
+<label for="id_materias">Materias</label>
+<div class="input-control select" data-role="input-control">
+    <select name="materias" id="id_materias">
+        <option value="">----------</option>
+        {% for asig in asignaciones %}
+            <option value="{{ asig.id }}">{{ asig.grupo.grupo }}--{{ asig.materia.nombre }}</option>
+        {% endfor %}
+    </select>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#id_materias').change(function(){
+            var asignacion = $(this).val();
+            $.ajax({
+                data:{'asignacion_id': asignacion },
+                url:"{% url 'gestion.views.ajax_docente_nivel_carrera_materia_estudiantes' %}",
+                type:'GET',
+                success: function(data){
+                    $('#list_docentes').html(data);
+                },
+                failure: function(data){
+                    console.log('error')
+                }
+            });
+        });
+    });
+</script>

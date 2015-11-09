@@ -73,6 +73,8 @@ urlpatterns = patterns('',
     url(r'^materia/list/update/$', 'carrera.views.list_materias_update'),
     url(r'^materia/(?P<materia_id>\d+)/update/$', 'carrera.views.update_materia'),
 
+    url(r'^ajax/materia/nivel/$', 'carrera.views.ajax_tiempo_carrera'),
+
     #GESTION
     url(r'^gestion/$', 'gestion.views.index_gestion'),
     url(r'^gestion/new/$', 'gestion.views.new_gestion'),
@@ -160,4 +162,11 @@ urlpatterns = patterns('',
     url(r'^notas/ajax/niveles/carrera/$', 'estudiante.views.ajax_niveles_carrera'),
     url(r'^notas/ajax//carrera/gestion/$', 'estudiante.views.ajax_notas_estudiantes_gestion_carrera'),
 
+    #REPORTES
+    url(r'^reporte/carreras/$', 'gestion.views.listado_carreras_reporte'),
+    url(r'^ajax/reporte/carrera/docentes/$', 'gestion.views.ajax_docentes_nivel_carrera'),
+    url(r'^ajax/reporte/carrera/docentes/select/$', 'gestion.views.ajax_docentes_nivel_carrera_select'),
+    url(r'^ajax/reporte/carrera/docente/materias/$', 'gestion.views.ajax_docente_nivel_carrera_materias'),
+    url(r'^ajax/reporte/carrera/docente/materias/select/$', 'gestion.views.ajax_docente_nivel_carrera_materias_select'),
+    url(r'^ajax/reporte/carrera/docente/materia/estudiantes/$', 'gestion.views.ajax_docente_nivel_carrera_materia_estudiantes'),
 )

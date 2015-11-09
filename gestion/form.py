@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 
+from carrera.models import Carrera
 from gestion.models import Gestion
 from carrera.models import Grupo
 
@@ -17,3 +18,7 @@ class GrupoForm(ModelForm):
     class Meta:
         model = Grupo
         fields = '__all__'
+
+
+class SearchCarreraForm(forms.Form):
+    carrera = forms.ModelChoiceField(label='Seleccione Carrera', queryset = Carrera.objects.all())

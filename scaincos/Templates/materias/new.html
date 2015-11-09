@@ -8,3 +8,24 @@ Nueva Materia
 {% block menu_izq %}
 {% include 'carreras/__menu_izq.html' %}
 {% endblock %}
+{% block js_script %}
+<script>
+    $(document).ready(function(){
+        $('#id_carrera').change(function(){
+            var carrera = $(this).val();
+            $.ajax({
+                data:{'carrera_id': carrera},
+                url:"{% url 'carrera.views.ajax_tiempo_carrera' %}",
+                type:'GET',
+                success: function(data){
+                    $('#id_nivel').attr('max', data)
+                    //alert(data);
+                },
+                failure: function(data){
+                    console.log('error')
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -18,7 +18,7 @@ from usuarios.models import Docente, Persona, Estudiante
 from institucion.models import Aula
 from carrera.models import Carrera, Materia, Grupo
 from gestion.models import Gestion, Gestion_Carrera, AsignacionDocente, Horario
-from gestion.form import GestionForm, GestionCarreraForm
+from gestion.form import GestionForm, GestionCarreraForm, SearchCarreraForm
 from estudiante.models import Inscripcion, Programacion
 
 register = template.Library()
@@ -363,6 +363,127 @@ def ajax_search_docente(request):
             'hora':hora,
             'dia':dia,
             'aula_id':aula_id,
+        }, context_instance=RequestContext(request))
+        return JsonResponse(html, safe=False)
+    else:
+        raise Http404
+
+
+@permission_required('gestion.report_gestion', login_url='/login')
+def listado_carreras_reporte(request):
+    sms_sesion(request)
+    year = request.session['gestion']
+    formulario = SearchCarreraForm(request.GET or None)
+    if formulario.is_valid():
+        carrera_id = request.GET['carrera']
+        carrera = Carrera.objects.get(pk = carrera_id)
+    else:
+        carrera = Carrera.objects.first()
+    gestion = Gestion.objects.get(gestion = year)
+    gestion_carreras = Gestion_Carrera.objects.filter(gestion = gestion)
+    niveles = range(1, int(carrera.tiempo) + 1)
+    return render(request, 'reportes/index.html', {
+        'formulario':formulario,
+        'gestion_carreras':gestion_carreras,
+        'niveles':niveles,
+        'carrera':carrera,
+    })
+
+
+@login_required(login_url='/login')
+def ajax_docentes_nivel_carrera(request):
+    if request.is_ajax():
+        carrera_id = request.GET['carrera_id']
+        gestion = request.GET['gestion']
+        nivel = request.GET['nivel']
+        g = Gestion.objects.get(gestion = gestion)
+        carrera = Carrera.objects.get(pk = carrera_id)
+        materias = Materia.objects.filter(carrera = carrera, nivel = nivel)
+        asignaciones = AsignacionDocente.objects.filter(gestion = g, materia_id__in = materias.values('id'))
+        html = render_to_string('reportes/ajax_docentes_nivel.html', {
+            'asignaciones':asignaciones,
+            'nivel':nivel,
+        }, context_instance=RequestContext(request))
+        return JsonResponse(html, safe=False)
+    else:
+        raise Http404
+
+
+@login_required(login_url='/login')
+def ajax_docentes_nivel_carrera_select(request):
+    if request.is_ajax():
+        carrera_id = request.GET['carrera_id']
+        gestion = request.GET['gestion']
+        nivel = request.GET['nivel']
+        g = Gestion.objects.get(gestion = gestion)
+        carrera = Carrera.objects.get(pk = carrera_id)
+        materias = Materia.objects.filter(carrera = carrera, nivel = nivel)
+        asignaciones = AsignacionDocente.objects.filter(gestion = g, materia_id__in = materias.values('id'))
+        docentes = Docente.objects.filter(id__in = asignaciones.values('docente_id'))
+        html = render_to_string('reportes/ajax_docentes_nivel_select.html', {
+            'docentes':docentes,
+            'nivel':nivel,
+            'carrera':carrera,
+        }, context_instance=RequestContext(request))
+        return JsonResponse(html, safe=False)
+    else:
+        raise Http404
+
+@login_required(login_url='/login')
+def ajax_docente_nivel_carrera_materias(request):
+    if request.is_ajax():
+        carrera_id = request.GET['carrera_id']
+        gestion = request.GET['gestion']
+        nivel = request.GET['nivel']
+        docente_id = request.GET['docente_id']
+        g = Gestion.objects.get(gestion = gestion)
+        carrera = Carrera.objects.get(pk = carrera_id)
+        docente = Docente.objects.get(pk = docente_id)
+        materias = Materia.objects.filter(carrera = carrera, nivel = nivel)
+        asignaciones = AsignacionDocente.objects.filter(gestion = g, materia_id__in = materias.values('id'), docente = docente)
+        html = render_to_string('reportes/ajax_materias_docente_nivel.html', {
+            'docente':docente,
+            'asignaciones':asignaciones,
+            'nivel':nivel,
+        }, context_instance=RequestContext(request))
+        return JsonResponse(html, safe=False)
+    else:
+        raise Http404
+
+@login_required(login_url='/login')
+def ajax_docente_nivel_carrera_materias_select(request):
+    if request.is_ajax():
+        carrera_id = request.GET['carrera_id']
+        gestion = request.GET['gestion']
+        nivel = request.GET['nivel']
+        docente_id = request.GET['docente_id']
+        g = Gestion.objects.get(gestion = gestion)
+        carrera = Carrera.objects.get(pk = carrera_id)
+        docente = Docente.objects.get(pk = docente_id)
+        materias = Materia.objects.filter(carrera = carrera, nivel = nivel)
+        asignaciones = AsignacionDocente.objects.filter(gestion = g, materia_id__in = materias.values('id'), docente = docente)
+        html = render_to_string('reportes/ajax_materias_docente_nivel_select.html', {
+            'docente':docente,
+            'carrera':carrera,
+            'asignaciones':asignaciones,
+            'nivel':nivel,
+        }, context_instance=RequestContext(request))
+        return JsonResponse(html, safe=False)
+    else:
+        raise Http404
+
+@login_required(login_url='/login')
+def ajax_docente_nivel_carrera_materia_estudiantes(request):
+    if request.is_ajax():
+        asignacion_id = request.GET['asignacion_id']
+        asignacion = AsignacionDocente.objects.get(pk = asignacion_id)
+        gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+        materia = Materia.objects.get(id = asignacion.materia_id)
+        programaciones = Programacion.objects.filter(materia = materia, grupo_id = asignacion.grupo_id, gestion = gestion)
+
+        html = render_to_string('reportes/ajax_docente_nivel_carrera_materia_estudiantes.html', {
+            'asignacion':asignacion,
+            'programaciones':programaciones,
         }, context_instance=RequestContext(request))
         return JsonResponse(html, safe=False)
     else:

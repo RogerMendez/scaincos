@@ -29,7 +29,7 @@ import datetime
 def index_estudiante(request):
     persona = get_object_or_404(Persona, usuario = request.user)
     estudiante = Estudiante.objects.get(persona = persona)
-    insc = Inscripcion.objects.get(estudiante = estudiante, estado = True)
+    insc = Inscripcion.objects.get(estudiante = estudiante, estado = True, terminado = False)
 
     return render(request, 'modestudiante/index.html', {
         'persona':persona,

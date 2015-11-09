@@ -1,3 +1,4 @@
+{% load helper_gestion %}
 <h3 class="text-center">{{ carrera.nombre|upper }} - Materias </h3>
 <div class="row bd-black">
     <div class="input-control text" data-role="input-control">
@@ -16,18 +17,20 @@
     <tbody id="result_matter">
     {% for materia in materias %}
         {% for g in materia.grupo.all %}
-            <tr>
-            <td>{{ materia.nombre }}</td>
-            <td>{{ materia.nivel }}</td>
-            <td>
-                {{ g }}
-            </td>
-            <td>
-                <a href="{% url 'gestion.views.add_materia_docente' docente.id materia.id g.id %}" class="button info">
-                    <i class="fa fa-plus-circle"></i> Asignar
-                </a>
-            </td>
-            </tr>
+            {% if not materia.id|matter_verify:request.session.gestion|asign_verify_grupo:g.id %}
+                <tr>
+                    <td>{{ materia.nombre }}</td>
+                    <td>{{ materia.nivel }}</td>
+                    <td>
+                        {{ g }}
+                    </td>
+                    <td>
+                        <a href="{% url 'gestion.views.add_materia_docente' docente.id materia.id g.id %}" class="button info">
+                            <i class="fa fa-plus-circle"></i> Asignar
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
         {% endfor %}
     {% endfor %}
     </tbody>

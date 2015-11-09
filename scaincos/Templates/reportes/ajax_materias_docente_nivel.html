@@ -1,0 +1,40 @@
+{% load humanize %}
+<div class="row">
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Listado de Materias</strong>
+        </p>
+    </div>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Nivel de Materia: </strong> {{ nivel|ordinal }} Nivel
+        </p>
+        <p>
+            <strong>Docente: </strong>{{ docente.persona.nombre }} {{ docente.persona.paterno }} {{ docente.persona.materno }}
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="span11">
+        <table class="table hovered border myClass">
+            <thead>
+                <tr>
+                    <th width="30px">#</th>
+                    <th>Materia</th>
+                    <th>Grupo</th>
+                    <th>Estudiantes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asig in asignaciones %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ asig.materia.nombre }}</td>
+                        <td>{{ asig.grupo.grupo }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

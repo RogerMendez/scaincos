@@ -6,7 +6,7 @@ Gestiones
 {% include 'inscripcion/__menu_izq.html' %}
 {% endblock %}
 {% block cuerpo %}
-    {% load helper_inscripciones %}
+{% load helper_inscripciones %}
 <div class="row">
     <h2>Seleccionar Carrera</h2>
     {% for carrera in carreras %}
@@ -35,15 +35,17 @@ Gestiones
                                         </thead>
                                         <tbody>
                                         {% for estu in carrera.id|estudiantes %}
-                                            <tr>
-                                                <td>{{ forloop.counter }}</td>
-                                                <td>{{ estu.persona.ci }}</td>
-                                                <td>{{ estu.nro_estudiante }}</td>
-                                                <td>{{ estu.persona.nombre }} {{ estu.persona.paterno }} {{ estu.persona.materno }}</td>
-                                                <td>
-                                                    <a href="{% url 'inscripcion.views.info_new_inscripxion' carrera.id estu.id  %}" class="button info">Seleccionar</a>
-                                                </td>
-                                            </tr>
+                                            {% if not estu.id|estudiante_inscrito %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ estu.persona.ci }}</td>
+                                                    <td>{{ estu.nro_estudiante }}</td>
+                                                    <td>{{ estu.persona.nombre }} {{ estu.persona.paterno }} {{ estu.persona.materno }}</td>
+                                                    <td>
+                                                        <a href="{% url 'inscripcion.views.info_new_inscripxion' carrera.id estu.id  %}" class="button info">Seleccionar</a>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
                                         {% endfor %}
                                         </tbody>
                                     </table>

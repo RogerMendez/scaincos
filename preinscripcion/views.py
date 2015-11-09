@@ -88,7 +88,7 @@ def new_inscripcion(request, pre_id):
                     messages.info(request, sms)
                     return HttpResponseRedirect(reverse(new_inscripcion, args={pre.id, }))
                 else:
-                    sms = 'El Estudiante ya esta registrado'
+                    sms = 'El Estudiante ya esta registrado Proceda con su Inscripcion'
                     messages.info(request, sms)
                     return HttpResponseRedirect(reverse(info_new_inscripxion, args={pre.carrera_id, estudiante.id}))
             else:

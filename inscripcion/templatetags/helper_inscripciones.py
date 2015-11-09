@@ -13,7 +13,6 @@ def estudiantes(carrera_id):
     estu = Estudiante.objects.exclude(id__in = insc.values('estudiante_id'))
     return estu
 
-
 @register.filter(name='estu_sin_matricula')
 def estudiantes_no_matricula(carrera_id, gestion):
     g = Gestion.objects.get(gestion = gestion)
@@ -24,3 +23,12 @@ def estudiantes_no_matricula(carrera_id, gestion):
     insc = insc.filter(id__in = matriculas.values('inscripcion_id'))
     estudiantes = estudiantes.exclude(id__in = insc.values('estudiante_id'))
     return estudiantes
+
+
+@register.filter(name='estudiante_inscrito')
+def estudiante_inscrito(estudiante_id):
+    estudiante = Estudiante.objects.get(pk = estudiante_id)
+    if Inscripcion.objects.filter(estudiante = estudiante, terminado = False, estado = True):
+        return True
+    else:
+        return False

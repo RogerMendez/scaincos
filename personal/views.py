@@ -159,6 +159,7 @@ def new_estudiante(request):
             e.persona = p
             e.save()
             u.email = p.email
+            u.is_active = False
             u.first_name = p.nombre
             u.last_name = p.paterno + ' ' + p.materno
             u.save()

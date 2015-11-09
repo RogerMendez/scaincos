@@ -5,6 +5,7 @@ from django import template
 register = template.Library()
 
 from institucion.models import Aula
+from carrera.models import Grupo, Materia
 from gestion.models import Horario, Gestion, AsignacionDocente
 from usuarios.models import Docente
 
@@ -74,3 +75,19 @@ def horario_hora(horarios, hora):
     else:
         h = horarios.filter(hora = hora)
         return h
+
+
+@register.filter(name='matter_verify')
+def matter_verify(materia_id, gestion):
+    materia = get_object_or_404(Materia, pk = materia_id)
+    gestion = Gestion.objects.get(gestion = gestion)
+    asignados = AsignacionDocente.objects.filter(materia = materia, gestion = gestion)
+    return asignados
+
+@register.filter(name='asign_verify_grupo')
+def asign_verify_grupo(asignaciones, grupo_id):
+    grupo = get_object_or_404(Grupo, pk = grupo_id)
+    if asignaciones.filter(grupo = grupo):
+        return True
+    else:
+        return False

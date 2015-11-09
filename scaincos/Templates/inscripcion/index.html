@@ -31,7 +31,7 @@ Gestiones
                             <td>{{ insc.estudiante.persona.nombre }} {{ insc.estudiante.persona.paterno }} {{ insc.estudiante.persona.materno }}</td>
                             <td>{{ insc.estudiante.persona.telefono }}</td>
                             <td>{{ insc.fecha_registro|date:"M, d" }}</td>
-                            <td>{{ insc.carrera.nombre }}</td>
+                            <td>{{ insc.carrera.nombre|upper }}</td>
                         </tr>                    
                     {% endfor %}
                     

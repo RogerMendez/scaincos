@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}
+Carreras
+{% endblock %}
+{% block menu_izq %}
+{% include 'gestion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+{% load humanize %}
+{% load helper_gestion %}
+<div class="row bd-black">
+    <form action="" method="get">{% csrf_token %}
+        <div class="span5">
+            {% include 'form_include.html' %}
+            <button type="submit">
+                <i class="fa fa-search"></i>Buscar
+            </button>
+        </div>
+        <div class="span5">
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="span5">
+        <p class="readable-text"><strong>Carrera: </strong>{{ carrera.nombre }}</p>
+    </div>
+    <div class="span5">
+        <p class="readable-text">
+            <strong>Tiempo de Carrea: </strong> {{ carrera.tiempo }} Años
+        </p>
+    </div>
+</div>
+<div class="row">
+    <p>
+        <strong>Opciones de busqueda</strong>
+    </p>
+    <div class="span3">
+        <label for="id_nivel">Niveles</label>
+        <div class="input-control text" data-role="input-control">
+            <select name="nivel" id="id_nivel">
+                <option value="">---------</option>
+                {% for nivel in niveles %}
+                    <option value="{{ nivel }}">{{ nivel|ordinal }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="span3" id="select_docente"></div>
+    <div class="span3" id="select_matera"></div>
+</div>
+<div class="row" id="list_docentes">
+    <h2>Niveles Carrera</h2>
+    <div class="span11">
+        <table class="table hovered border myClass">
+            <thead>
+                <tr>
+                    <th width="30px">#</th>
+                    <th>Niveles de Carrera</th>
+                    <th>Cantidad Materias</th>
+                    <th>Cantidad Docentes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nivel in niveles %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ nivel|ordinal }} Nivel</td>
+                        <td></td>
+                        <td></td>
+                    </tr>                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#id_nivel').change(function(){
+            var nivel = $(this).val();
+            $.ajax({
+                data:{'gestion': {{ request.session.gestion }}, 'carrera_id':{{ carrera.id }}, nivel:nivel},
+                url:"{% url 'gestion.views.ajax_docentes_nivel_carrera' %}",
+                type:'GET',
+                success: function(data){
+                    $('#list_docentes').html(data);
+                    $('#select_matera').html("");
+                    $('#select_docente').html("");
+                    $.ajax({
+                        data:{'gestion': {{ request.session.gestion }}, 'carrera_id':{{ carrera.id }}, nivel:nivel},
+                        url:"{% url 'gestion.views.ajax_docentes_nivel_carrera_select' %}",
+                        type:'GET',
+                        success: function(data){
+                            $('#select_docente').html(data);
+                        },
+                        failure: function(data){
+                            console.log('error')
+                        }
+                    });
+                },
+                failure: function(data){
+                    console.log('error')
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

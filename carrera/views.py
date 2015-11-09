@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives
@@ -121,6 +121,15 @@ def new_materia(request):
     return render(request, 'materias/new.html', {
         'formulario':formulario,
     })
+
+@login_required(login_url='/login')
+def ajax_tiempo_carrera(request):
+    if request.is_ajax():
+        carrera_id = request.GET['carrera_id']
+        carrera = Carrera.objects.get(pk = carrera_id)
+        return JsonResponse(carrera.tiempo, safe=False)
+    else:
+        raise Http404
 
 @permission_required('carrera.change_carrera')
 def list_materias_update(request):
