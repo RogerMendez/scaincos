@@ -126,14 +126,14 @@ TEMPLATE_DIRS = (
 
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'sieboliva@gmail.com'
-EMAIL_HOST_PASSWORD = 'siebolivia2012'
+EMAIL_HOST_USER = 'incos.potosi.bolivia@gmail.com'
+EMAIL_HOST_PASSWORD = 'incos2015'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 #AUTH_PROFILE_MODULE = 'users.Perfil'
 
-DIRECCION = "http://127.0.0.1:8000/"
+DIRECCION = "https://scaincos.herokuapp.com/"
 
 DIR_FIS = os.path.dirname(os.path.realpath(__file__))
 

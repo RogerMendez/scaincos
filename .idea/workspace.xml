@@ -6,27 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a81d608e-e740-4b78-9e9a-075ac9f01724" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scaincos/Templates/gestion/horario_docente_pdf.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scaincos/Templates/inscripcion/kardex_estudiante.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scaincos/Templates/reportes/docente_nivel_carrera_materia_estudiantes_pdf.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docente/models.py" afterPath="$PROJECT_DIR$/docente/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docente/views.py" afterPath="$PROJECT_DIR$/docente/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/estudiante/templatetags/helper_estudiante.py" afterPath="$PROJECT_DIR$/estudiante/templatetags/helper_estudiante.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gestion/templatetags/helper_gestion.py" afterPath="$PROJECT_DIR$/gestion/templatetags/helper_gestion.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gestion/views.py" afterPath="$PROJECT_DIR$/gestion/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inscripcion/views.py" afterPath="$PROJECT_DIR$/inscripcion/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/Templates/asistencia/asistencia_docente.html" afterPath="$PROJECT_DIR$/scaincos/Templates/asistencia/asistencia_docente.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/Templates/docentes/detail.html" afterPath="$PROJECT_DIR$/scaincos/Templates/docentes/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/Templates/docentes/pdf_docentes.html" afterPath="$PROJECT_DIR$/scaincos/Templates/docentes/pdf_docentes.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/Templates/gestion/asignar_materia_docente.html" afterPath="$PROJECT_DIR$/scaincos/Templates/gestion/asignar_materia_docente.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/Templates/gestion/horario_docente.html" afterPath="$PROJECT_DIR$/scaincos/Templates/gestion/horario_docente.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/Templates/inscripcion/estudiantes_carrera.html" afterPath="$PROJECT_DIR$/scaincos/Templates/inscripcion/estudiantes_carrera.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/Templates/reportes/ajax_docente_nivel_carrera_materia_estudiantes.html" afterPath="$PROJECT_DIR$/scaincos/Templates/reportes/ajax_docente_nivel_carrera_materia_estudiantes.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/settings.py" afterPath="$PROJECT_DIR$/scaincos/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/urls.py" afterPath="$PROJECT_DIR$/scaincos/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scaincos/wsgi.py" afterPath="$PROJECT_DIR$/scaincos/wsgi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/usuarios/models.py" afterPath="$PROJECT_DIR$/usuarios/models.py" />
     </list>
     <ignored path="scaincos.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,21 +36,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scaincos/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="59" column="44" selection-start-line="59" selection-start-column="44" selection-end-line="59" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19318181">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.85714287">
+              <caret line="156" column="1" selection-start-line="156" selection-start-column="1" selection-end-line="156" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -103,7 +75,6 @@
         <option value="$PROJECT_DIR$/scaincos/Templates/horario/ajax_docente_search.html" />
         <option value="$PROJECT_DIR$/scaincos/Templates/moddocente/estudiantes_materia_notas.html" />
         <option value="$PROJECT_DIR$/docente/form.py" />
-        <option value="$PROJECT_DIR$/docente/models.py" />
         <option value="$PROJECT_DIR$/personal/form.py" />
         <option value="$PROJECT_DIR$/preinscripcion/form.py" />
         <option value="$PROJECT_DIR$/preinscripcion/models.py" />
@@ -129,7 +100,6 @@
         <option value="$PROJECT_DIR$/scaincos/Templates/reportes/ajax_materias_docente_nivel_select.html" />
         <option value="$PROJECT_DIR$/scaincos/Templates/reportes/index.html" />
         <option value="$PROJECT_DIR$/gestion/templatetags/helper_gestion.py" />
-        <option value="$PROJECT_DIR$/scaincos/settings.py" />
         <option value="$PROJECT_DIR$/usuarios/models.py" />
         <option value="$PROJECT_DIR$/scaincos/Templates/asistencia/asistencia_docente.html" />
         <option value="$PROJECT_DIR$/scaincos/Templates/docentes/detail.html" />
@@ -140,7 +110,6 @@
         <option value="$PROJECT_DIR$/gestion/views.py" />
         <option value="$PROJECT_DIR$/scaincos/Templates/reportes/ajax_docente_nivel_carrera_materia_estudiantes.html" />
         <option value="$PROJECT_DIR$/scaincos/Templates/reportes/docente_nivel_carrera_materia_estudiantes_pdf.html" />
-        <option value="$PROJECT_DIR$/docente/views.py" />
         <option value="$PROJECT_DIR$/inscripcion/views.py" />
         <option value="$PROJECT_DIR$/scaincos/Templates/inscripcion/estudiantes_carrera.html" />
         <option value="$PROJECT_DIR$/scaincos/urls.py" />
@@ -148,6 +117,9 @@
         <option value="$PROJECT_DIR$/scaincos/Templates/inscripcion/kardex_estudiante.html" />
         <option value="$PROJECT_DIR$/scaincos/wsgi.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/docente/models.py" />
+        <option value="$PROJECT_DIR$/docente/views.py" />
+        <option value="$PROJECT_DIR$/scaincos/settings.py" />
       </list>
     </option>
   </component>
@@ -555,9 +527,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1370" height="754" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2097489" sideWeight="0.49755302" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2097489" sideWeight="0.49755302" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32868218" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -597,20 +569,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/scaincos/Templates/carreras/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="42" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gestion/form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scaincos/Templates/gestion/__menu_izq.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6338983">
@@ -856,13 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docente/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="106" column="50" selection-start-line="106" selection-start-column="50" selection-end-line="106" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/estudiante/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -874,13 +825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="42" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scaincos/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="106" column="85" selection-start-line="106" selection-start-column="85" selection-end-line="106" selection-end-column="85" />
         </state>
       </provider>
     </entry>
@@ -940,18 +884,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scaincos/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="44" selection-start-line="59" selection-start-column="44" selection-end-line="59" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19318181">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preinscripcion/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25">
+          <caret line="59" column="4" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docente/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scaincos/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="142" column="96" selection-start-line="142" selection-start-column="96" selection-end-line="142" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docente/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38798702">
+          <caret line="90" column="70" selection-start-line="90" selection-start-column="70" selection-end-line="90" selection-end-column="70" />
+          <folding>
+            <element signature="e#16#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scaincos/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.85714287">
+          <caret line="156" column="1" selection-start-line="156" selection-start-column="1" selection-end-line="156" selection-end-column="1" />
           <folding />
         </state>
       </provider>

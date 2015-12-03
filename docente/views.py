@@ -86,7 +86,10 @@ def estudiantes_materia_notas(request, asig_id):
                 excel = request.FILES['input_excel']
             )
             #location_file = "http://127.0.0.1:8000/media/" + str(e.excel)#
-            location_file = settings.DIR_FIS + str(e.excel)
+            location_file = os.path.join(settings.DIR_FIS, 'media')
+            location_file = os.path.join(location_file, 'notas')
+            location_file = os.path.join(location_file, str(e.excel)[6:500])
+            print location_file
             workbook = xlrd.open_workbook(location_file)
             sheet = workbook.sheet_by_index(0)
             #print sheet.cell_value(7,3)
