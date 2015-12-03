@@ -332,6 +332,7 @@ def horario_docente(request, doc_id):
     docente = get_object_or_404(Docente, pk = doc_id)
     asignaciones = AsignacionDocente.objects.filter(docente = docente, gestion = gestion)
     horarios = Horario.objects.filter(asignaciondocente_id__in = asignaciones.values('id'))
+    materias = Materia.objects.filter(id__in = asignaciones.values('materia_id'))
     aulas = Aula.objects.filter(id__in = horarios.values('aula_id'))
     horas = ['18:00','19:00','20:00','21:00', '22:00']
     return render(request, 'gestion/horario_docente.html', {
@@ -339,7 +340,27 @@ def horario_docente(request, doc_id):
         'docente':docente,
         'horarios':horarios,
         'aulas':aulas,
+        'materias':materias,
     })
+
+@login_required(login_url='/login')
+def horario_docente_pdf(request, doc_id):
+    docente = get_object_or_404(Docente, pk = doc_id)
+    gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+    docente = get_object_or_404(Docente, pk = doc_id)
+    asignaciones = AsignacionDocente.objects.filter(docente = docente, gestion = gestion)
+    horarios = Horario.objects.filter(asignaciondocente_id__in = asignaciones.values('id'))
+    materias = Materia.objects.filter(id__in = asignaciones.values('materia_id'))
+    aulas = Aula.objects.filter(id__in = horarios.values('aula_id'))
+    horas = ['18:00','19:00','20:00','21:00', '22:00']
+    html = render_to_string('gestion/horario_docente_pdf.html', {
+        'horas':horas,
+        'docente':docente,
+        'horarios':horarios,
+        'aulas':aulas,
+        'materias':materias,
+    }, context_instance=RequestContext(request))
+    return generar_pdf(html)
 
 @login_required(login_url='/login')
 def ajax_search_docente(request):
@@ -488,3 +509,16 @@ def ajax_docente_nivel_carrera_materia_estudiantes(request):
         return JsonResponse(html, safe=False)
     else:
         raise Http404
+
+
+@login_required(login_url='/login')
+def docente_nivel_carrera_estudiantes_pdf(request, asignacion_id):
+    asignacion = AsignacionDocente.objects.get(pk = asignacion_id)
+    gestion = get_object_or_404(Gestion, gestion = request.session['gestion'])
+    materia = Materia.objects.get(id = asignacion.materia_id)
+    programaciones = Programacion.objects.filter(materia = materia, grupo_id = asignacion.grupo_id, gestion = gestion)
+    html = render_to_string('reportes/docente_nivel_carrera_materia_estudiantes_pdf.html', {
+        'asignacion':asignacion,
+        'programaciones':programaciones,
+    }, context_instance=RequestContext(request))
+    return generar_pdf(html)

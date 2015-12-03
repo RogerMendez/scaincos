@@ -192,6 +192,15 @@ def estudiantes_carrera(request):
         'inscripciones':inscripciones,
     })
 
+@login_required(login_url='/login')
+def kardex_estudiante(request, insc_id):
+    inscripcion = get_object_or_404(Inscripcion, pk = insc_id)
+    gestiones = Gestion.objects.filter(gestion__gte = inscripcion.gestion.gestion)
+    return render(request, 'inscripcion/kardex_estudiante.html', {
+        'inscripcion':inscripcion,
+        'gestiones':gestiones,
+    })
+
 @permission_required('inscripciones.report_inscripcion', login_url='/login')
 def pdf_estudiantes_arrera(request, carrera_id):
     gestion = Gestion.objects.get(gestion = request.session['gestion'])

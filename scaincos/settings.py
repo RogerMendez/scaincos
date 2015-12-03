@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'pagination',
     'usuarios',
     'institucion',
     'personal',
@@ -45,7 +46,6 @@ INSTALLED_APPS = (
     'inscripcion',
     'estudiante',
     'docente',
-    'pagination',
     'asistencia',
     'preinscripcion',
 )
@@ -118,13 +118,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
 
-TEMPLATE_LOADERS = (
-    ('pyjade.ext.django.Loader',(
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
-)
-
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 TEMPLATE_DIRS = (
@@ -142,4 +135,23 @@ EMAIL_USE_TLS = True
 
 DIRECCION = "http://127.0.0.1:8000/"
 
-DIR_FIS = "D:/Django/scaincos/scaincos/media/"
+DIR_FIS = os.path.dirname(os.path.realpath(__file__))
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+# Static asset configuration
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)

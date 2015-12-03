@@ -43,6 +43,7 @@ Estudiantes Carrera
                     <th>Nro. de Estudiante</th>
                     <th>Nombre Completo</th>
                     <th>Gestion de Ingreso</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +54,9 @@ Estudiantes Carrera
                         <td>{{ insc.estudiante.nro_estudiante }}</td>
                         <td>{{ insc.estudiante.persona.paterno }} {{ insc.estudiante.persona.materno }}, {{ insc.estudiante.persona.nombre }}</td>
                         <td>{{ insc.gestion }}</td>
+                        <td>
+                            <a href="{% url 'inscripcion.views.kardex_estudiante' insc.id %}">Kardex Academico</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

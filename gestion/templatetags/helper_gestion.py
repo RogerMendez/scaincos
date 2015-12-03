@@ -91,3 +91,41 @@ def asign_verify_grupo(asignaciones, grupo_id):
         return True
     else:
         return False
+
+
+@register.simple_tag
+def grupo_docente_materia(year, docente_id, **kwargs):
+    gestion = Gestion.objects.get(gestion = year)
+    docente = Docente.objects.get(pk = docente_id)
+    materia_id = kwargs['materia_id']
+    materia = Materia.objects.get(pk = materia_id)
+    asignacion = AsignacionDocente.objects.filter(gestion = gestion, docente = docente, materia = materia)
+    grupos = ""
+    for a in asignacion:
+        grupos += " - "
+        grupos += a.grupo.grupo
+    return grupos
+
+@register.simple_tag
+def horas_docente_materia(year, docente_id, **kwargs):
+    gestion = Gestion.objects.get(gestion = year)
+    docente = Docente.objects.get(pk = docente_id)
+    materia_id = kwargs['materia_id']
+    materia = Materia.objects.get(pk = materia_id)
+    asignacion = AsignacionDocente.objects.filter(gestion = gestion, docente = docente, materia = materia)
+    horarios = Horario.objects.filter(asignaciondocente_id__in = asignacion.values('id'))
+    horas = 0
+    for h in horarios:
+        horas += 1
+    return horas
+
+@register.simple_tag
+def horas_docente_total(year, docente_id):
+    gestion = Gestion.objects.get(gestion = year)
+    docente = Docente.objects.get(pk = docente_id)
+    asignacion = AsignacionDocente.objects.filter(gestion = gestion, docente = docente)
+    horarios = Horario.objects.filter(asignaciondocente_id__in = asignacion.values('id'))
+    horas = 0
+    for h in horarios:
+        horas += 1
+    return horas

@@ -90,6 +90,7 @@ urlpatterns = patterns('',
     url(r'^gestion/materia/(?P<asig_id>\d+)/estudiantes/$', 'gestion.views.estudiantes_docente_materia'),
     url(r'^gestion/pdf/materia/(?P<asig_id>\d+)/estudiantes/$', 'gestion.views.pdf_estudiantes_docente_materia'),
     url(r'^gestion/docente/(?P<doc_id>\d+)/horario/$', 'gestion.views.horario_docente'),
+    url(r'^gestion/docente/(?P<doc_id>\d+)/horario/pdf/$', 'gestion.views.horario_docente_pdf'),
 
     url(r'^ajax/materias/carrera/$', 'gestion.views.ajax_materias_carrera'),
     url(r'^ajax/materias/asig/docente/$', 'gestion.views.ajax_materias_asignadas_docente'),
@@ -103,6 +104,7 @@ urlpatterns = patterns('',
     url(r'^insc/new/confirm/(?P<carrera_id>\d+)/carrera/(?P<estu_id>\d+)/est$', 'inscripcion.views.confirm_new_inscripcion'),
     url(r'^insc/carrera/estudiante/all/$', 'inscripcion.views.estudiantes_carrera'),
     url(r'^insc/(?P<carrera_id>\d+)/carrera/estudiante/all/$', 'inscripcion.views.pdf_estudiantes_arrera'),
+    url(r'^insc/(?P<insc_id>\d+)/kardex/estudiante/view/$', 'inscripcion.views.kardex_estudiante'),
 
     #MATICULAS
     url(r'^matricula/$', 'inscripcion.views.index_matricula'),
@@ -169,4 +171,5 @@ urlpatterns = patterns('',
     url(r'^ajax/reporte/carrera/docente/materias/$', 'gestion.views.ajax_docente_nivel_carrera_materias'),
     url(r'^ajax/reporte/carrera/docente/materias/select/$', 'gestion.views.ajax_docente_nivel_carrera_materias_select'),
     url(r'^ajax/reporte/carrera/docente/materia/estudiantes/$', 'gestion.views.ajax_docente_nivel_carrera_materia_estudiantes'),
+    url(r'^reporte/(?P<asignacion_id>\d+)/carrera/docente/materia/estudiantes/pdf/$', 'gestion.views.docente_nivel_carrera_estudiantes_pdf'),
 )

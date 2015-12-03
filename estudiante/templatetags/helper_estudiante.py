@@ -23,3 +23,17 @@ def materiaprogramadaest(programacion, ins_id):
     if programacion.filter(inscripcion = insc):
         return programacion.filter(inscripcion = insc)
     return False
+
+@register.filter(name='programacion_gestion')
+def programacion_gestion(inscripcion_id, gestion_id):
+    inscripcion = Inscripcion.objects.get(pk = inscripcion_id)
+    gestion = Gestion.objects.get(pk = gestion_id)
+    programaciones = Programacion.objects.filter(inscripcion = inscripcion, gestion = gestion)
+    return programaciones
+
+@register.filter(name='programacion_gestion_count')
+def programacion_gestion_count(inscripcion_id, gestion_id):
+    inscripcion = Inscripcion.objects.get(pk = inscripcion_id)
+    gestion = Gestion.objects.get(pk = gestion_id)
+    programaciones = Programacion.objects.filter(inscripcion = inscripcion, gestion = gestion, final__lte = 50)
+    return programaciones.count()

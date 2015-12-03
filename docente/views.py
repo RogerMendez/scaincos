@@ -104,7 +104,7 @@ def estudiantes_materia_notas(request, asig_id):
                     primer = sheet.cell_value(f,4)
                     segunto = sheet.cell_value(f, 5)
                     tercer = sheet.cell_value(f, 6)
-                    final = sheet.cell_value(f, 9)
+                    final = sheet.cell_value(f, 7)
                     programacion.priner = primer
                     programacion.segundo = segunto
                     programacion.tercer = tercer

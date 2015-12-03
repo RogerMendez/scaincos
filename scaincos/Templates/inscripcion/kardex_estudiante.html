@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ inscripcion.estudiante.persona.nombre|upper }} {{ inscripcion.estudiante.persona.paterno|upper }}
+{% endblock %}
+{% block menu_izq %}
+{% include 'inscripcion/__menu_izq.html' %}
+{% endblock %}
+{% block cuerpo %}
+<div class="row">
+    <h2><i class="fa fa-users"></i> <strong>Informacion de Estudiante</strong></h2>
+    <div class="span3">
+        <img src="/media/{{ inscripcion.estudiante.persona.avatar }}" alt="{{ inscripcion.estudiante.persona.nombre }}"/>
+        <hr/>
+        <p class="subheader-secondary text-center">{{ inscripcion.estudiante.persona.usuario.username }}</p>
+        <hr/>
+        <p><strong><i class="fa fa-clock-o"></i> Registrado el</strong> {{ inscripcion.estudiante.persona.usuario.date_joined|date:"d M Y" }}</p>
+    </div>
+    <div class="span7 bd-black">
+        <h4 class="text-center">Datos Personales</h4>
+        <p class="readable-text">
+            <strong>Nombre Completo:</strong> {{ inscripcion.estudiante.persona.nombre }} {{ inscripcion.estudiante.persona.paterno }} {{ inscripcion.estudiante.persona.materno }}
+        </p>
+        <p class="readable-text">
+            <strong>Cedula de Identidad:</strong> {{ inscripcion.estudiante.persona.ci }}
+        </p>
+        <p class="readable-text">
+            <strong>Nro. Estudiante: </strong>{{ inscripcion.estudiante.nro_estudiante }}
+        </p>
+        <p class="readable-text">
+            <strong>Fecha de Nacimiento: </strong>{{ inscripcion.estudiante.persona.fecha_nac }}
+        </p>
+        <p class="readable-text">
+            <strong>Telefono / Celular: </strong>{{ inscripcion.estudiante.persona.telefono }}
+        </p>
+        <p class="readable-text">
+            <strong>Correo Electronico: </strong>{{ inscripcion.estudiante.persona.email }}
+        </p>
+        <p class="readable-text">
+            <strong>Fecha de Ingreso: </strong>{{ inscripcion.estudiante.fecha_ingreso|date:"d - M - Y" }}
+        </p>
+        <p class="readable-text">
+            <strong>Carrera: </strong>{{ inscripcion.carrera.nombre }}
+        </p>
+    </div>
+</div>
+<hr>
+{% load helper_estudiante %}
+<div class="row">
+    <div class="span11">
+        {% for gestion in gestiones %}
+            <h2 class="text-center">Gestion: {{ gestion.gestion }}</h2>
+            {% if inscripcion.id|programacion_gestion:gestion.id %}
+                <h4>
+                    {% if inscripcion.id|programacion_gestion_count:gestion.id >= 3 %}
+                        Gestion Reprobada
+                    {% else %}
+                        Gestion Aprobada
+                    {% endif %}
+                </h4>
+                <table class="table hovered bordered">
+                    <thead>
+                        <tr>
+                            <th width="30px">#</th>
+                            <th>Materia</th>
+                            <th width="50px">1T.</th>
+                            <th width="50px">2T.</th>
+                            <th width="50px">3T.</th>
+                            <th width="50px">PPA</th>
+                            <th width="50px">EH</th>
+                            <th width="50px">PPF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pro in inscripcion.id|programacion_gestion:gestion.id %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ pro.grupo.grupo }} -- {{ pro.materia.nombre}}</td>
+                                <td>{{ pro.priner }}</td>
+                                <td>{{ pro.segundo }}</td>
+                                <td>{{ pro.tercer }}</td>
+                                <td>{{ pro.promedio }}</td>
+                                <td>{{ pro.segundo_T }}</td>
+                                <td>{{ pro.final }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

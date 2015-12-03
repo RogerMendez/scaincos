@@ -1,12 +1,6 @@
-{% extends 'base.html' %}
-{% block title %}
-Docentes
-{% endblock %}
-{% block menu_izq %}
-{% include 'gestion/__menu_izq.html' %}
-{% endblock %}
+{% extends 'base_reporte.html' %}
 {% block cuerpo %}
-{% load helper_gestion %}
+    {% load helper_gestion %}
 {% load humanize %}
 <div class="row">
     <div class="span6">
@@ -21,11 +15,6 @@ Docentes
         <p class="readable-text">
             <strong>Nro Item: </strong>{{ docente.nro_docente }}
         </p>
-    </div>
-</div>
-<div class="row">
-    <div class="span12">
-        <a href="{% url 'gestion.views.horario_docente_pdf' docente.id %}" class="button success">VER PDF</a>
     </div>
 </div>
 {% for a in aulas %}
@@ -116,14 +105,13 @@ Docentes
         <table class="table hovered bordered">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th width="30px">#</th>
                     <th>Carrera</th>
                     <th>Materia</th>
-                    <th>Sigla</th>
+                    <th width="8a0px">Sigla</th>
                     <th>Grupo</th>
                     <th>Nivel</th>
                     <th>Hora Semanal</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -142,7 +130,6 @@ Docentes
                         </td>
                         <td>{{ materia.nivel|ordinal }} Nivel</td>
                         <td>{% horas_docente_materia request.session.gestion docente.id materia_id=materia.id %} Hr.</td>
-                        <td></td>
                     </tr>
                 {% endfor %}
                 <tr class="info">
@@ -155,10 +142,13 @@ Docentes
                         <strong>Total</strong>
                     </td>
                     <td>{% horas_docente_total request.session.gestion docente.id %} Hr.</td>
-                    <td></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+    <div id="footerContent">
+        Pagina <pdf:pagenumber>
+    </div>
 {% endblock %}

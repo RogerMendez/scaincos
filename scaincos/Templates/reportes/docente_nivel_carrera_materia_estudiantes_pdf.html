@@ -1,3 +1,7 @@
+{% extends 'base_reporte.html' %}
+{% block cuerpo %}
+    {% load helper_gestion %}
+
 {% load humanize %}
 <div class="row">
     <div class="span5">
@@ -18,11 +22,6 @@
     </div>
 </div>
 <div class="row">
-    <div class="span12">
-        <a href="{% url 'gestion.views.docente_nivel_carrera_estudiantes_pdf' asignacion.id %}" class="button success">Ver PDF</a>
-    </div>
-</div>
-<div class="row">
     <div class="span11">
         <table class="table hovered border myClass">
             <thead>
@@ -31,13 +30,12 @@
                     <th>Cedula de Identidad</th>
                     <th>Nro. de Estudiante</th>
                     <th>Nombre Completo</th>
-                    <th>1T.</th>
-                    <th>2T.</th>
-                    <th>3T.</th>
-                    <th>PPA</th>
-                    <th>EH</th>
-                    <th>PPF</th>
-                    <th></th>
+                    <th width="30px">1T.</th>
+                    <th width="30px">2T.</th>
+                    <th width="30px">3T.</th>
+                    <th width="30px">PPA</th>
+                    <th width="30px">EH</th>
+                    <th width="30px">PPF</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,12 +51,14 @@
                         <td>{{ pro.promedio }}</td>
                         <td>{{ pro.segundo_T }}</td>
                         <td>{{ pro.final }}</td>
-                        <td>
-
-                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+
+    <div id="footerContent">
+        Pagina <pdf:pagenumber>
+    </div>
+{% endblock %}
