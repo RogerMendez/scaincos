@@ -182,6 +182,15 @@ a {
   h3 {
     page-break-after: avoid;
   }
+  header{
+    display: none;
+  }
+  .sidebar{
+    display: none;
+  }
+  .bg-dark{
+    display: none;
+  }
 }
 .metro .box-sizing-border {
   -webkit-box-sizing: border-box;

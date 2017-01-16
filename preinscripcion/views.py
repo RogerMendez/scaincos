@@ -92,7 +92,6 @@ def new_inscripcion(request, pre_id):
                     messages.info(request, sms)
                     return HttpResponseRedirect(reverse(info_new_inscripxion, args={pre.carrera_id, estudiante.id}))
             else:
-                print 'no existe'
                 password = password_create()
                 email = formulario.cleaned_data['email']
                 nro_estu = formulario.cleaned_data['nro_estudiante']
@@ -134,7 +133,7 @@ def new_inscripcion(request, pre_id):
                 messages.success(request, sms)
                 sms = "Un mensaje fue enviado a <strong>%s</strong> con los datos de su Cuenta"% (persona.email)
                 messages.success(request, sms)
-                return HttpResponseRedirect(reverse(info_new_inscripxion, args={pre.carrera_id, estudiante.id}))
+                return HttpResponseRedirect(reverse(info_new_inscripxion, args={pre.carrera_id, estudiante.id, }))
     else:
         formulario = EstudianteForm()
     return render(request, 'preinscripcion/new_estudiante.html', {

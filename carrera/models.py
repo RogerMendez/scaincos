@@ -2,8 +2,8 @@
 from django.db import models
 
 class Grupo(models.Model):
-    grupo = models.CharField(max_length='10', unique=True)
-    abreviacion = models.CharField(max_length='3', unique=True)
+    grupo = models.CharField(max_length=10, unique=True)
+    abreviacion = models.CharField(max_length=3, unique=True)
     def __unicode__(self):
         return self.grupo
     def __str__(self):
@@ -24,10 +24,10 @@ class Carrera(models.Model):
         ('4', '4 Años'),
         ('5', '5 Años'),
     )
-    nombre = models.CharField(max_length='50', verbose_name='Nombre de Carrera', unique=True)
-    tiempo = models.CharField(max_length='2', verbose_name='Tiempo de Carrera', choices=choicestiempo)
-    area = models.CharField(max_length='50', default='Comercial')
-    nivel = models.CharField(max_length='50', default='Superior')
+    nombre = models.CharField(max_length=50, verbose_name='Nombre de Carrera', unique=True)
+    tiempo = models.CharField(max_length=2, verbose_name='Tiempo de Carrera', choices=choicestiempo)
+    area = models.CharField(max_length=50, default='Comercial')
+    nivel = models.CharField(max_length=50, default='Superior')
     fecha_creacion = models.DateField(verbose_name='Creacion de Carrera')
     resenha = models.TextField(verbose_name='Breve Reseña')
     def __unicode__(self):
@@ -44,8 +44,8 @@ class Carrera(models.Model):
         )
 
 class Materia(models.Model):
-    nombre = models.CharField(max_length='50', verbose_name='Nombre Materia')
-    sigla = models.CharField(max_length='10', verbose_name='Sigla Materia')
+    nombre = models.CharField(max_length=50, verbose_name='Nombre Materia')
+    sigla = models.CharField(max_length=10, verbose_name='Sigla Materia')
     nivel = models.IntegerField(verbose_name='Nivel de Materia')
     carrera = models.ForeignKey(Carrera)
     grupo = models.ManyToManyField(Grupo, verbose_name='Seleccione Los Grupos Para Materia')

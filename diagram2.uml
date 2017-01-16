@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DjangoModelDependency</ID>
+  <OriginalElement>#scaincos</OriginalElement>
+  <nodes>
+    <node x="573.5" y="0.0">carrera.models.Carrera</node>
+    <node x="167.14583333333337" y="234.0">inscripcion.models.Inscripcion</node>
+    <node x="823.1458333333334" y="234.0">preinscripcion.models.Preinscripcion</node>
+    <node x="428.0" y="622.0">inscripcion.models.Matricula</node>
+    <node x="98.0" y="878.0">estudiante.models.Notas</node>
+    <node x="565.1458333333334" y="311.0">gestion.models.Gestion_Carrera</node>
+    <node x="0.0" y="556.0">estudiante.models.Programacion</node>
+    <node x="108.14583333333337" y="11.0">usuarios.models.Estudiante</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="inscripcion.models.Inscripcion" target="usuarios.models.Estudiante">
+      <point x="-94.5" y="-136.0" />
+      <point x="0.0" y="81.0" />
+    </edge>
+    <edge source="preinscripcion.models.Preinscripcion" target="carrera.models.Carrera">
+      <point x="0.0" y="-136.0" />
+      <point x="997.1458333333334" y="209.0" />
+      <point x="781.8333333333333" y="209.0" />
+      <point x="83.33333333333326" y="92.0" />
+    </edge>
+    <edge source="estudiante.models.Notas" target="estudiante.models.Programacion">
+      <point x="0.0" y="-37.0" />
+      <point x="0.0" y="136.0" />
+    </edge>
+    <edge source="estudiante.models.Programacion" target="inscripcion.models.Inscripcion">
+      <point x="0.0" y="-136.0" />
+      <point x="204.0" y="531.0" />
+      <point x="261.64583333333337" y="531.0" />
+      <point x="-94.5" y="136.0" />
+    </edge>
+    <edge source="inscripcion.models.Matricula" target="inscripcion.models.Inscripcion">
+      <point x="0.0" y="-70.0" />
+      <point x="537.0" y="531.0" />
+      <point x="450.64583333333337" y="531.0" />
+      <point x="94.5" y="136.0" />
+    </edge>
+    <edge source="gestion.models.Gestion_Carrera" target="carrera.models.Carrera">
+      <point x="0.0" y="-59.0" />
+      <point x="684.1458333333334" y="209.0" />
+      <point x="698.5" y="209.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="inscripcion.models.Inscripcion" target="carrera.models.Carrera">
+      <point x="94.5" y="-136.0" />
+      <point x="450.64583333333337" y="209.0" />
+      <point x="615.1666666666667" y="209.0" />
+      <point x="-83.33333333333331" y="92.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6029411764705882" x="840.0" y="618.439024390244" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+</Diagram>
+

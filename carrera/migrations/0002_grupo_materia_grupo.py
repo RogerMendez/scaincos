@@ -15,8 +15,8 @@ class Migration(migrations.Migration):
             name='Grupo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('grupo', models.CharField(max_length=b'10')),
-                ('abreviacion', models.CharField(max_length=b'3')),
+                ('grupo', models.CharField(max_length=10)),
+                ('abreviacion', models.CharField(max_length=3)),
             ],
             options={
                 'ordering': ['abreviacion'],

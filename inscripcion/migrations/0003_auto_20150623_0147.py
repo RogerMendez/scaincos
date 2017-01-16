@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='inscripcion',
             name='nro_folio',
-            field=models.CharField(max_length=b'100', null=True),
+            field=models.CharField(max_length=100, null=True),
             preserve_default=True,
         ),
     ]

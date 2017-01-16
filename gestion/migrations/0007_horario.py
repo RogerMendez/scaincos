@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='Horario',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('dia', models.CharField(max_length=b'10')),
+                ('dia', models.CharField(max_length=10)),
                 ('hora', models.TimeField()),
                 ('aula', models.ForeignKey(to='institucion.Aula')),
                 ('gestion', models.ForeignKey(to='gestion.Gestion')),

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DjangoModelDependency</ID>
+  <OriginalElement>#scaincos</OriginalElement>
+  <nodes>
+    <node x="1297.0" y="994.0">carrera.models.Carrera</node>
+    <node x="552.8671875" y="628.0">usuarios.models.Persona</node>
+    <node x="105.234375" y="1228.0">inscripcion.models.Inscripcion</node>
+    <node x="547.0" y="1038.0">usuarios.models.Administrativo</node>
+    <node x="130.734375" y="526.0">django.contrib.auth.models.User</node>
+    <node x="121.484375" y="168.0">django.contrib.auth.models.Permission</node>
+    <node x="73.984375" y="358.0">django.contrib.auth.models.Group</node>
+    <node x="94.484375" y="0.0">django.contrib.contenttypes.models.ContentType</node>
+    <node x="971.0" y="1016.0">usuarios.models.Docente</node>
+    <node x="768.0" y="1038.0">asistencia.models.Asistencia</node>
+    <node x="220.0" y="1005.0">usuarios.models.Estudiante</node>
+    <node x="0.0" y="738.0">gestion.models.Gestion</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="inscripcion.models.Inscripcion" target="usuarios.models.Estudiante">
+      <point x="47.25" y="-136.0" />
+      <point x="341.484375" y="1203.0" />
+      <point x="373.5" y="1203.0" />
+      <point x="0.0" y="81.0" />
+    </edge>
+    <edge source="usuarios.models.Estudiante" target="usuarios.models.Persona">
+      <point x="0.0" y="-81.0" />
+      <point x="373.5" y="969.0" />
+      <point x="602.6171875" y="969.0" />
+      <point x="-149.25" y="158.0" />
+    </edge>
+    <edge source="django.contrib.auth.models.Permission" target="django.contrib.contenttypes.models.ContentType">
+      <point x="0.0" y="-70.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="usuarios.models.Persona" target="django.contrib.auth.models.User">
+      <point x="0.0" y="-158.0" />
+      <point x="751.8671875" y="603.0" />
+      <point x="303.234375" y="603.0" />
+      <point x="69.0" y="26.0" />
+    </edge>
+    <edge source="usuarios.models.Docente" target="usuarios.models.Persona">
+      <point x="0.0" y="-70.0" />
+      <point x="1124.0" y="969.0" />
+      <point x="901.1171875" y="969.0" />
+      <point x="149.25" y="158.0" />
+    </edge>
+    <edge source="usuarios.models.Administrativo" target="usuarios.models.Persona">
+      <point x="0.0" y="-48.0" />
+      <point x="647.5" y="969.0" />
+      <point x="702.1171875" y="969.0" />
+      <point x="-49.75" y="158.0" />
+    </edge>
+    <edge source="asistencia.models.Asistencia" target="usuarios.models.Persona">
+      <point x="0.0" y="-48.0" />
+      <point x="859.5" y="969.0" />
+      <point x="801.6171875" y="969.0" />
+      <point x="49.75" y="158.0" />
+    </edge>
+    <edge source="django.contrib.auth.models.User" target="django.contrib.auth.models.Permission">
+      <point x="51.75" y="-26.0" />
+      <point x="285.984375" y="501.0" />
+      <point x="301.484375" y="501.0" />
+      <point x="301.484375" y="333.0" />
+      <point x="304.484375" y="333.0" />
+      <point x="61.0" y="70.0" />
+    </edge>
+    <edge source="django.contrib.auth.models.User" target="django.contrib.auth.models.Group">
+      <point x="-51.75" y="-26.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="inscripcion.models.Inscripcion" target="django.contrib.auth.models.User">
+      <point x="-47.25" y="-136.0" />
+      <point x="246.984375" y="1203.0" />
+      <point x="209.5" y="1203.0" />
+      <point x="209.5" y="603.0" />
+      <point x="234.234375" y="603.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="django.contrib.auth.models.Group" target="django.contrib.auth.models.Permission">
+      <point x="0.0" y="-59.0" />
+      <point x="-61.0" y="70.0" />
+    </edge>
+    <edge source="gestion.models.Gestion" target="django.contrib.auth.models.User">
+      <point x="0.0" y="-48.0" />
+      <point x="99.5" y="603.0" />
+      <point x="165.234375" y="603.0" />
+      <point x="-69.0" y="26.0" />
+    </edge>
+    <edge source="inscripcion.models.Inscripcion" target="gestion.models.Gestion">
+      <point x="-141.75" y="-136.0" />
+      <point x="152.484375" y="1203.0" />
+      <point x="99.5" y="1203.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="inscripcion.models.Inscripcion" target="carrera.models.Carrera">
+      <point x="141.75" y="-136.0" />
+      <point x="435.984375" y="1203.0" />
+      <point x="1422.0" y="1203.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3995930824008138" x="840.554735234216" y="1021.9997454175153" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+</Diagram>
+

@@ -127,7 +127,7 @@ TEMPLATE_DIRS = (
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'incos.potosi.bolivia@gmail.com'
-EMAIL_HOST_PASSWORD = 'incos2015'
+EMAIL_HOST_PASSWORD = 'udrfrrzjprdtcmdk'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='materia',
             name='sigla',
-            field=models.CharField(max_length=b'10', verbose_name=b'Sigla Materia'),
+            field=models.CharField(max_length=10, verbose_name=b'Sigla Materia'),
         ),
     ]

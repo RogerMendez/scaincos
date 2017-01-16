@@ -14,13 +14,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='carrera',
             name='area',
-            field=models.CharField(default=b'Comercial', max_length=b'50'),
+            field=models.CharField(default=b'Comercial', max_length=50),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='carrera',
             name='nivel',
-            field=models.CharField(default=b'Superior', max_length=b'50'),
+            field=models.CharField(default=b'Superior', max_length=50),
             preserve_default=True,
         ),
     ]

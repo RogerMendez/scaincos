@@ -16,7 +16,7 @@ for a in range(a_ini, a_fin):
     anhos += ((a, a),)
 
 class Gestion(models.Model):
-    gestion = models.IntegerField(max_length='4', verbose_name='Gestion Academina', choices=anhos, unique=True)
+    gestion = models.IntegerField(verbose_name='Gestion Academina', choices=anhos, unique=True)
     usuario = models.ForeignKey(User, null=True, blank=True)
     def __unicode__(self):
         return str(self.gestion)
@@ -60,7 +60,7 @@ class AsignacionDocente(models.Model):
         verbose_name_plural = 'Asignacion Docente'
 
 class Horario(models.Model):
-    dia = models.CharField(max_length='10')
+    dia = models.CharField(max_length=10)
     hora = models.TimeField(default="00:00:00")
     asignaciondocente = models.ForeignKey(AsignacionDocente)
     aula = models.ForeignKey(Aula)

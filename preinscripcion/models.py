@@ -21,12 +21,12 @@ def validate_fecha_nac(value):
 
 class Preinscripcion(models.Model):
     ci = models.IntegerField(verbose_name='Cedula de Identidad', help_text='7 u 8 Numeros')
-    nombre = models.CharField(max_length='20', verbose_name='Nombres')
-    paterno = models.CharField(max_length='20', verbose_name='Apellido Paterno')
-    materno = models.CharField(max_length='20', verbose_name='Apellido Materno')
+    nombre = models.CharField(max_length=20, verbose_name='Nombres')
+    paterno = models.CharField(max_length=20, verbose_name='Apellido Paterno')
+    materno = models.CharField(max_length=20, verbose_name='Apellido Materno')
     fecha_nac = models.DateField(verbose_name='Fecha de Nacimiento', validators=[validate_fecha_nac])
-    direccion = models.CharField(max_length='100', verbose_name=u'Dirección')
-    telefono = models.CharField(max_length='10', verbose_name='Telefono/Celular')
+    direccion = models.CharField(max_length=100, verbose_name=u'Dirección')
+    telefono = models.CharField(max_length=10, verbose_name='Telefono/Celular')
     gestion = models.ForeignKey(Gestion, null=True)
     carrera = models.ForeignKey(Carrera)
     avatar = models.ImageField(upload_to='avatar', verbose_name='Seleccione Una Imagen', default='1')

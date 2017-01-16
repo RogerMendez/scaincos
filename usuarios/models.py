@@ -8,28 +8,25 @@ from datetime import datetime
 def validate_fecha_nac(value):
     hoy = datetime.today()
     today = hoy
-    if today.month < value.month or \
-      (today.month == value.month and today.day < value.day):
-        return today.year - value.year - 1
-    else:
-        edad = today.year - value.year
+    year = today.year
+    edad = year - value.year
     if edad <= 15:
-        raise ValidationError(u'Debe tener por lo menos 15 años para preinscribirse %s' %(edad))
+        raise ValidationError(u'Debe tener por lo menos 15 años para preinscribirse')
 
 
 class Persona(models.Model):
-    ci = models.IntegerField(unique=True, verbose_name='Cedula de Identidad', help_text='7 u 8 Numeros')
-    nombre = models.CharField(max_length='20', verbose_name='Nombres')
-    paterno = models.CharField(max_length='20', verbose_name='Apellido Paterno')
-    materno = models.CharField(max_length='20', verbose_name='Apellido Materno')
+    ci = models.CharField(max_length=10, unique=True, verbose_name='Cedula de Identidad')
+    nombre = models.CharField(max_length=20, verbose_name='Nombres')
+    paterno = models.CharField(max_length=20, verbose_name='Apellido Paterno')
+    materno = models.CharField(max_length=20, verbose_name='Apellido Materno')
     fecha_nac = models.DateField(verbose_name='Fecha de Nacimiento', validators=[validate_fecha_nac])
-    direccion = models.CharField(max_length='100', verbose_name='Dirección')
-    telefono = models.CharField(max_length='10', verbose_name='Telefono/Celular')
+    direccion = models.CharField(max_length=100, verbose_name='Dirección')
+    telefono = models.CharField(max_length=10, verbose_name='Telefono/Celular')
     avatar = models.ImageField(upload_to='avatar', verbose_name='Seleccione Una Imagen')
     activo = models.BooleanField(default=True)
-    tipo = models.CharField(max_length='20', default='Estudiante')
+    tipo = models.CharField(max_length=20, default='Estudiante')
     email = models.EmailField(verbose_name='Correo Electronico')
-    usuario = models.ForeignKey(User, unique=True, null=True, blank=True)
+    usuario = models.OneToOneField(User, null=True, blank=True)
     def __unicode__(self):
         return str(self.ci)
     def __str__(self):
@@ -40,8 +37,8 @@ class Persona(models.Model):
 
 class Administrativo(models.Model):
     nro_item = models.IntegerField(verbose_name='Numero de Item')
-    cargo = models.CharField(max_length='50', verbose_name='Cargo Ocupado')
-    persona = models.ForeignKey(Persona, unique=True, null=True, blank=True)
+    cargo = models.CharField(max_length=50, verbose_name='Cargo Ocupado')
+    persona = models.OneToOneField(Persona, null=True, blank=True)
     def __unicode__(self):
         return str(self.persona.ci)
     def __str__(self):
@@ -60,7 +57,7 @@ class Estudiante(models.Model):
     fecha_ingreso = models.DateTimeField(auto_now_add=True)
     fecha_salida = models.DateTimeField(null=True, blank=True)
     terminado = models.BooleanField(default=False)
-    persona = models.ForeignKey(Persona, unique=True, null=True, blank=True)
+    persona = models.OneToOneField(Persona, null=True, blank=True)
     def __unicode__(self):
         return str(self.persona)
     def __str__(self):
@@ -78,7 +75,7 @@ class Docente(models.Model):
     nro_docente = models.IntegerField(unique=True, verbose_name='Item Docente')
     fecha_ingreso = models.DateField(verbose_name='Fecha de Ingreso')
     carga_horario = models.PositiveIntegerField(verbose_name='Carga Horaria Semanal', default=1, help_text='En Horas')
-    persona = models.ForeignKey(Persona, unique=True, null=True, blank=True)
+    persona = models.OneToOneField(Persona, null=True, blank=True)
     def __unicode__(self):
         return str(self.persona)
     def __str__(self):

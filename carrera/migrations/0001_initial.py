@@ -14,8 +14,8 @@ class Migration(migrations.Migration):
             name='Carrera',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('nombre', models.CharField(unique=True, max_length=b'50', verbose_name=b'Nombre de Carrera')),
-                ('tiempo', models.CharField(max_length=b'2', verbose_name=b'Tiempo de Carrera', choices=[(b'1', b'1 A\xc3\xb1o'), (b'2', b'2 A\xc3\xb1os'), (b'3', b'3 A\xc3\xb1os'), (b'4', b'4 A\xc3\xb1os'), (b'5', b'5 A\xc3\xb1os')])),
+                ('nombre', models.CharField(unique=True, max_length=50, verbose_name=b'Nombre de Carrera')),
+                ('tiempo', models.CharField(max_length=2, verbose_name=b'Tiempo de Carrera', choices=[(b'1', b'1 A\xc3\xb1o'), (b'2', b'2 A\xc3\xb1os'), (b'3', b'3 A\xc3\xb1os'), (b'4', b'4 A\xc3\xb1os'), (b'5', b'5 A\xc3\xb1os')])),
                 ('fecha_creacion', models.DateField(verbose_name=b'Creacion de Carrera')),
                 ('resenha', models.TextField(verbose_name=b'Breve Rese\xc3\xb1a')),
             ],
@@ -30,8 +30,8 @@ class Migration(migrations.Migration):
             name='Materia',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('nombre', models.CharField(max_length=b'50', verbose_name=b'Nombre Materia')),
-                ('sigla', models.CharField(unique=True, max_length=b'10', verbose_name=b'Sigla Materia')),
+                ('nombre', models.CharField(max_length=50, verbose_name=b'Nombre Materia')),
+                ('sigla', models.CharField(unique=True, max_length=10, verbose_name=b'Sigla Materia')),
                 ('nivel', models.IntegerField(verbose_name=b'Nivel de Materia')),
                 ('carrera', models.ForeignKey(to='carrera.Carrera')),
             ],
